@@ -1,24 +1,17 @@
 #url=f"https://api.telegram.org/bot{}/getMe"
 
-key="787362316:AAF5414FfY0MOKaxVxkkJ-_wKjDJXlCGbfg"
+key="환경변수"
 
-user_id="635296478"
+user_id="환경변수"
 
-# send message
-#https://api.telegram.org/bot787362316:AAF5414FfY0MOKaxVxkkJ-_wKjDJXlCGbfg/sendMessage?chat_id=635296478&text=message_from_chatbot
 
-# user Info
-#https://api.telegram.org/bot787362316:AAF5414FfY0MOKaxVxkkJ-_wKjDJXlCGbfg/getMe
-
-# status of chat 
-#https://api.telegram.org/bot787362316:AAF5414FfY0MOKaxVxkkJ-_wKjDJXlCGbfg/getUpdates
 
 import requests as rq
 from bs4 import BeautifulSoup as BS
 import time
 msg=("Coin")
 
-send_url=f"https://api.telegram.org/bot787362316:AAF5414FfY0MOKaxVxkkJ-_wKjDJXlCGbfg/sendMessage?chat_id={user_id}&text={msg}"
+send_url=f"https://api.telegram.org/bot{key}/sendMessage?chat_id={user_id}&text={msg}"
 
 rq.get(send_url)
 
@@ -34,5 +27,5 @@ rtv=doc.select("#assetRealBTC")
 s="{}:  {}\n".format("BitCoin",rtv[0].text)
 print(s)
 msg=s
-send_url=f"https://api.telegram.org/bot787362316:AAF5414FfY0MOKaxVxkkJ-_wKjDJXlCGbfg/sendMessage?chat_id={user_id}&text={msg}"
+send_url=f"https://api.telegram.org/bot{key}/sendMessage?chat_id={user_id}&text={msg}"
 rq.get(send_url)
