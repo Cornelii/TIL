@@ -374,6 +374,8 @@ os.rename
 
 os.getcwd
 
+os.mkdir
+
 ~~~python
 import os
 #zzu.li/file
