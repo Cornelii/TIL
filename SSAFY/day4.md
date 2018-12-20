@@ -366,83 +366,11 @@ def fakesearch():
 </html>
 ```
 #### 2.3 vonvon
-##### 2.3.1 python
-```python
-from flask import Flask,render_template, request
-import faker
-import random
-import csv
+1. 기본 페이지 구성
+2. ("/job") 사용자에게 랜덤으로 생성된 직업 추천해주는 웹페이지 구성 (python faker 모듈 사용)
+3. 사용자가 같은 이름을 입력할 시에는 같은 직업을 추천하도록 구성
+4. ("/dic") 저장된 목록을 볼 수 있도록 함
 
-app=Flask(__name__)
-a=faker.Faker()
-
-D={}# name matching
-
-# '/':사용자의 이름을 입력 받습니다.
-@app.route("/")
-def index():
-    return render_template("index_job_rec.html")
-
-# '/job': 사용자에게 랜덤으로 생성된 직업 추천.
-@app.route("/job")
-def job():
-    name=request.args.get("name")
-    name_list=list(D.keys())
-    if name in name_list:
-        pass
-    else:
-        D[name]=a.job()
-    return render_template("job.html",job=D[name])
-
-
-
-@app.route("/dic")
-def dic():
-    dic=D
-    return render_template("dic.html",dic=D)
-
-@app.route("/compati")
-def compati():
-    return render_template("index.html")
-
-@app.route("/match")
-def match():
-    # 1. fake 궁합을 알려주고,
-    babo=request.args.get("babo")
-    victim=request.args.get("victim")
-    # 2. 우리만 알 수 있게 저장한다.
-    # 3. fish 리스트에 append를 통해 저장한다.
-    couple=[babo,victim]
-    
-    # xx님과 yy의 궁합은 88%입니다.
-    if str(couple) in D:
-        num=D[str(couple)]
-    else:
-        num=random.choice(range(10,100))
-        D[str(couple)]=num
-        with open("fish_list.csv","a",encoding="utf-8") as csvfile:
-            writer=csv.writer(csvfile,delimiter=",")
-            writer.writerow(couple)
-            
-    return render_template("match.html",babo=babo,victim=victim,num=num)
-
-@app.route("/admin")
-def admin():
-    # 낚인 사람들의 명단
-    # template에서 반복(for)을 써서, fish에 들어가 있는 데이터를 모두 보여준다.
-    with open("fish_list.csv","r",encoding="utf-8") as csvfile:
-        reader=csv.reader(csvfile,delimiter=",")
-    
-        return render_template("admin.html",fish=reader)
-    
-    
-```
-##### 2.3.2 HTML
-###### 2.3.2.1 index.html
-```HTML
-
-```
-###### 2.3.2.2 job..html
-```HTML
-
-```
+1. ("/compati") 사용자에게 본인의 이름과 상대방의 이름을 입력받는 웹페이지 구성
+2. ("/match") 궁합을 퍼센트로 알려주고, 그 두 이름을 Pair로써 저장하기(외부 파일로)
+3. ("/admin") 저장한 정보를 한번에 확인할 수 있도록 구성
