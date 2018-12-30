@@ -371,10 +371,14 @@ class Calculator{
     public void setOprands(int left,int right){
         this.left=left;
         this.right=right;
-        
+    }
+    public static void sum(int left, int right){  // Class method by static
+            System.out.println(left+right);
+    }
 }
 ```
 
+ **Remarks**
 
-
- 
+1. Instance method can go up to class member.
+2. class method cannot go up to instance member.
