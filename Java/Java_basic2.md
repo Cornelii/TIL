@@ -208,11 +208,145 @@ import java.lang.* // this is kind of default. (It facilitates use of System.out
 
 ## X. Access Modifier
 
-## XI.
+**public, private, protected, default**
 
-## XII. 
+* For the private, That is only callable within the class where the method belongs to
+* protected: allow inheritance-related one to access, even other packages.
+* default: allow inheritance-related one to access within the same package.
 
-## XIII.
+```java
+class A{
+    private int left, right;   // A.left assignment is not allowed! but by method!
+    public String y(){
+        return "Public void y()";
+    }
+    private String z(){  //            Access Modifier=> public, private.
+        return "public void z()"; 
+    }
+    public String x(){
+        return z();
+    }
+}
+
+public class AccessDemo1{
+    public static void main(String[] args){
+        System.out.println(a.y());
+        
+        //System.out.print(a.z()); This induce error
+        System.out.println(a.x());
+    }
+}
+```
+
+**If nothing ahead of data type implies "default" access modifier!**
+
+## XI. abstract
+
+kind of regulation associated with inheritance.
+
+
+
+**abstract class is only available under inheritance!!!!**
+
+```java
+abstract class A{                    // It can be used only through inheritance!
+    public abstract int b(); // abstract method can not possess contents body!!!
+    //                              // only abstract invoke. it means overriding needed!!!!
+    public void d(){
+        System.out.println("world")
+    }
+}
+
+class B extends A{
+    public int b(){
+        return 1;
+    }
+}
+
+public class AbstractDemo{
+    public static void main(String[] args){
+        //A obj =new A();  error code
+        B obj=new B();
+    }
+}
+```
+
+- When and Why is abstract class required?!
+
+This type of code is rare in small-size projects.
+
+**This abstract class force other to inherit them necessarily. => driving to overriding**
+
+Let Common parts belong to Super Class(abstract class)
+
+And, let dynamically changed method be located in Subclass in terms of abstract method!
+
+**It make repeat and maintenance easy.**
+
+
+
+## XII. final
+
+kind of opposite to abstract.
+
+It prohibit inheritance and revision.
+
+```java
+//1.
+class Calculator{
+    static final double PI=3.14; // unchangeable.
+    int left,right;
+    
+    public void setOprands(int left, int right){
+        this.left=left;
+        this.right=right;            
+        //this.PI=6; /error because PI-> final!
+    }
+    public void sum(){
+        System.out.println(this.left+this.right)
+    }
+}
+
+public class CalculatorDemo{
+    public static void main(String[] args){
+        Calculator c= new Calculator();
+        c.setOprands(10,20);
+		
+    }
+}
+//2.
+class A{
+    final void b(){}
+}
+class B extends A{
+    //void b(){}  cannot be overrided!!!
+}
+
+//3.
+final class A{}
+//class B extends A
+// B cannot inherit A because A is defined as final
+```
+
+## XIII. Interface
+
+**interface force class include methods of interface!!!** (forced override!!)
+
+```java
+interface I{
+    public void z();
+}
+
+class A implements I{ // use of implements for interface I
+    public void z(){}
+}
+```
+
+from 2nd lecture clip in life-coding.
+
+#### Utility of Interface
+
+
 
 ## XIV.
 
