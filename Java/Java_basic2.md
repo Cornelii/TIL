@@ -344,11 +344,122 @@ class A implements I{ // use of implements for interface I
 
 from 2nd lecture clip in life-coding.
 
-#### Utility of Interface
+#### Utility of Interface 
+
+It helps communication one another between developers.
+
+Interface makes sure what methods and members are included in a specific class.
+
+```java
+interface I1{
+    public void x();
+}
+
+interface I2{
+    public void z();
+}
+// non-public methods and members are not available in interface!
+class A implements I1,I2{
+    public void x(){}
+    public void z(){}
+}
+
+interface I3{
+    public void x();
+}
+interface I4 extends I3{
+    public void z();
+}
+// interface also can be inherited
+
+class B implements I4{
+    public void x(){} //must be
+    public void z(){} //must be
+}
+```
+
+## XIV. Polymorphism
+
+Polymorphism is about letting a method or a class work in different ways!
+
+```java 
+class O{
+    public void a(int param){
+        System.out.println("number printout");
+        System.out.println(param);
+    }
+    public void a(String param){
+        System.out.println("letter printout");
+        System.out.println(param);
+    }
+}
+public class PolymorphismOverloadingDemo{
+    public static void main(String[] args){
+        O obj= O();
+        O.a(1);
+        O.a("yeah");
+    }
+}
+
+```
+
+Overloading is one of the polymorphism
+
+```java
+class A{
+    public String x(){return "x";}
+}
+class B extends A{
+    public String y(){return "y";}
+}
+public class PolymerphismDemo1{
+    public static void main(String[] args){
+        A obj=new B(); // instance of B, but it acts in A!!!
+        obj.x();
+        //obj.y(); error. Cause, What acts in A means no access to method y in B"
+    }
+}
+```
+
+```java
+class A{
+    public String x(){return "A.x";}
+}
+class B extends A{
+    public String x(){return "B.x";}
+    public String y(){return "y";}
+}
+public class PolymerphismDemo1{
+    public static void main(String[] args){
+        A obj=new B(); // instance of B, but it acts in A!!!
+        System.out.println(obj.x());
+        // B.x  (kind of virtual function in C++)
+    }
+}
+```
+
+```java
+class A{
+    public String x(){return "A.x";}
+}
+class B extends A{
+    public String x(){return "B.x";}
+    public String y(){return "y";}
+}
+class B2 extends A{
+    public String x(){return "B2.x";}
+}
+public class PolymerphismDemo1{
+    public static void main(String[] args){
+        A obj=new B(); // instance of B, but it acts in A!!!
+        A obj2=new B2();
+        System.out.println(obj.x()); //B.x
+        System.out.println(obj2.x()); //B2.x why?! because method x() in A is virtual fcn
+    }
+}
+```
 
 
 
-## XIV.
-
-## XV. 
+## XV. Exception
 
