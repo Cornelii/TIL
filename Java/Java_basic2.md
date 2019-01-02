@@ -463,25 +463,101 @@ public class PolymerphismDemo1{
 
 ## XV. Exception
 
+try{
 
+<code expected to have error>
+
+}catch(<exception class instance>){
+
+<code when error occurs>
+
+}
 
 ```java 
 class Calculator{
-    int left,right;
-    public void setOprands(int left, int right){
-		this.left=left;
-    	this.right=right;
+    int left, right;
+    public void setOprands(int left,int right){
+        this.left=left;
+        this.right=right;
     }
     public void divide(){
-        System.out.println(this.left/this.right);
-    }
-}
-public class CalculatorDemo{
-    public static void main(String[] args){
-        Calculator c1=new Calculator();
-        c1.setOprands(10,0);
-        c1.divide();
+        try{
+        System.out.print(this.left/this.right);
+        } catch(Exception e){ // Exception has method of getMessage()
+            System.out.println("Error occurs"+e.getMessage());
+            //  / by zero
+            System.out.println("e.toString()"+e.toString());
+            //  detailed description
+            System.out.println("e.printStackTrace()");
+            e.printStackTrace();
+            //  more detailed description
+        } 
+        System.out.println("Divide End");
     }
 }
 ```
 
+#### Various Exceptions
+
+```java
+class A{
+    private int[] arr=new int[3];
+    A(){
+        arr[0]=0;
+        arr[1]=10;
+        arr[2]=20;
+    }
+    public void z(int first,int second){
+        System.out.println(arr[first]/arr[second]);
+    }
+}
+
+public class ExceptionDemo1{
+    public static void main(String[] args){
+        A a= new A();
+        a.z(10,1); // ArrayIndexOutOfBoundsException
+        //a.z(1,0); // ArithmeticException
+```
+
+#### How to resolve?!
+
+```java
+class A{
+    private int[] arr=new int[3];
+    A(){
+        arr[0]=0;
+        arr[1]=10;
+        arr[2]=20;
+    }
+    public void z(int first,int second){
+        try{
+        System.out.println(arr[first]/arr[second]);
+        }catch(ArithmeticException e){
+            e.printStackTrace();
+            System.out.println("ArithmeticException")
+        }catch(ArrayIndexOutOfBoundsException e){
+            e.printStackTrace();
+            System.out.println("ArrayIndexOutOfBoundsException")
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            // this line must be excuted regardless of occurance exception
+        }
+        
+    }
+}
+
+public class ExceptionDemo1{
+    public static void main(String[] args){
+        A a= new A();
+        a.z(10,1); // ArrayIndexOutOfBoundsException
+        //a.z(1,0); // ArithmeticException
+    }
+}
+```
+
+#### Throw exception
+
+```java
+
+```
