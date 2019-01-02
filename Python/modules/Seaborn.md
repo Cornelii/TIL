@@ -1,4 +1,4 @@
-# Seaborn & matplotlib
+# Seaborn
 
 ## Visualizing statistical relationship
 
@@ -269,15 +269,289 @@ sns.catplot(x="total_bill",y="day",hue="time",kind="swarm",data=tips)
 
 #### 1. boxplot
 
+```python
+sns.catplot(x="day",y="total_bill",kind="box",data=tips)
+```
+
+![](https://seaborn.pydata.org/_images/categorical_18_0.png)
+
+```python
+sns.catplot(x="day",y="total_bill",hue="smoker",kind="box",data=tips)
+```
+
+**disable dodging** each level of the semantic variable is moved along the categorical axis
+
+```python
+tips["weekend"] = tips["day"].isin(["Sat", "Sun"])
+sns.catplot(x="day", y="total_bill", hue="weekend",
+            kind="box", dodge=False, data=tips)
+```
+
+![](https://seaborn.pydata.org/_images/categorical_22_0.png)
+
+#### 2. Boxen plot
+
+This is more informative and suiter for lager dataset
+
+```python
+diamonds = sns.load_dataset("diamonds")
+sns.catplot(x="color", y="price", kind="boxen",
+            data=diamonds.sort_values("color"))
+```
+
+![](https://seaborn.pydata.org/_images/categorical_24_0.png)
+
+#### 3. Violin plot
+
+kind of box plot with kernel density estimator(KDE)
+
+```python
+sns.catplot(x="total_bill",y="day",hue="time",kind="violin",data=tips)
+```
+
+![](https://seaborn.pydata.org/_images/categorical_26_0.png)
+
+Since violinplot use KDE, there are additional options. (bw=,cut=)
+
+##### split (only possible when parameter has two levels)
+
+```python
+sns.catplot(x="day", y="total_bill", hue="sex",
+            kind="violin", split=True, data=tips)
+```
+
+![](https://seaborn.pydata.org/_images/categorical_30_0.png)
+
+
+
+There are several options to draw on the interior of the violins.
+
+```python
+sns.catplot(x="day",y="total_bill",hue="sex",kind="violin",inner="stick",split=True
+           , palette="pastel",data=tips)
+```
+
+![](https://seaborn.pydata.org/_images/categorical_32_0.png)
+
+**violin+swarm**
+
+```python
+g = sns.catplot(x="day", y="total_bill", kind="violin", inner=None, data=tips)
+sns.swarmplot(x="day", y="total_bill", color="k", size=3, data=tips, ax=g.ax)
+```
+
+![](https://seaborn.pydata.org/_images/categorical_34_0.png)
+
+## III. Statistical estimation within categories
+
+#### 1. barplot
+
+```python
+titanic=sns.load_dataset("titanic")
+sns.catplot(x="sex",y="survived",hue="class",kind="bar",data=titanic)
+```
+
+![](https://seaborn.pydata.org/_images/categorical_36_0.png)
+
+#### 2. countplot
+
+```python
+sns.catplot(x="deck", kind="count", palette="ch:.25", data=titanic)
+```
+
+![](https://seaborn.pydata.org/_images/categorical_38_0.png)
+
+
+
+**For the Bar and count plots can call all the options discussed above**
+
+```python
+sns.catplot(y="deck", hue="class", kind="count",
+            palette="pastel", edgecolor=".6",
+            data=titanic)
+```
+
+
+
+#### 3. pointplot
+
+point estimate and confidence interval
+
+```python
+sns.catplot(x="sex", y="survived", hue="class", kind="point", data=titanic)
+```
+
+![](https://seaborn.pydata.org/_images/categorical_42_0.png)
+
+```python
+sns.catplot(x="class", y="survived", hue="sex",
+            palette={"male": "g", "female": "m"},
+            markers=["^", "o"], linestyles=["-", "--"],
+            kind="point", data=titanic)
+```
+
+![](https://seaborn.pydata.org/_images/categorical_44_0.png)
 
 
 
 
 
+## IV. refer the FacetGrid object!
+
+```python
+g = sns.catplot(x="fare", y="survived", row="class",
+                kind="box", orient="h", height=1.5, aspect=4,
+                data=titanic.query("fare > 0"))
+g.set(xscale="log")
+```
+
+![](https://seaborn.pydata.org/_images/categorical_54_0.png)
+
+## Visualize distribution of a dataset
+
+```python
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+from scipy import stats
+
+sns.set(color_codes=True)
+```
 
 
 
+#### 1. distplot (hist,rug,kde in this ) [Count_based]
+
+histogram+ kernel density estimate(KDE)
+
+```python
+x = np.random.normal(size=100)
+sns.distplot(x,hist=True, rug=True,kde=True)
+```
+
+options
+
+* bins => How many columns you will separate it
+
+* hist=True/False
+
+* rug=True/False (small vertical ticks representing each point)
+* kde=True/False
 
 
 
+#### 2. kdeplot
+
+It offers more options than kde derived from distplot.
+
+* shade
+  * sns.kdeplot(x, shade=True)
+
+* bandwidth parameter (bw)
+  * sns.kdeplot(x,bw=1.5)
+
+#### 3. Fitting parametric distributions
+
+How close it fit to the given distributive fcn.
+
+```python
+x = np.random.gamma(6, size=200)
+sns.distplot(x, kde=False, fit=stats.gamma)
+```
+
+
+
+## Plotting bivariate distribution
+
+```python
+mean,cov=[0,1],[(1,.5),(.5,1)]
+data=np.random.multivariate_normal(mean,cov,200)
+df=pd.DataFrame(data,columns=["x","y"])
+```
+
+
+
+#### 1. jointplot
+
+```python
+sns.jointplot(x="x",y="y",data=df)
+```
+
+![](https://seaborn.pydata.org/_images/distributions_28_0.png)
+
+#### 2. hexbinplot
+
+```python
+sns.jointplot(x="x",y="y",kind="hex",data=df,color="k")
+```
+
+![](https://seaborn.pydata.org/_images/distributions_30_0.png)
+
+#### 3. Kernel density estimation
+
+```PYTHON
+sns.jointplot(x="x",y="y",data=df,kind='kde')
+```
+
+![](https://seaborn.pydata.org/_images/distributions_32_0.png)
+
+#### 4. kdeplot and rugplot
+
+kdeplot() and rugplot() enable you to draw on specific matplotlib axes
+
+```python
+f, ax = plt.subplots(figsize=(6, 6))
+sns.kdeplot(df.x, df.y, ax=ax)
+sns.rugplot(df.x, color="g", ax=ax)
+sns.rugplot(df.y, vertical=True, ax=ax)
+```
+
+![](https://seaborn.pydata.org/_images/distributions_34_0.png)
+
+#### 5. Denser density plot
+
+just increase the number of contour level (n_levels)
+
+```python
+f, ax = plt.subplots(figsize=(6, 6))
+cmap = sns.cubehelix_palette(as_cmap=True, dark=0, light=1, reverse=True)
+sns.kdeplot(df.x, df.y, cmap=cmap, n_levels=60, shade=True)
+```
+
+![](https://seaborn.pydata.org/_images/distributions_36_0.png)
+
+#### 6. JointGrid
+
+jointplot() uses a JointGrid and returns JointGrid object
+
+```python
+g = sns.jointplot(x="x", y="y", data=df, kind="kde", color="m")
+g.plot_joint(plt.scatter, c="w", s=30, linewidth=1, marker="+")
+g.ax_joint.collections[0].set_alpha(0)
+g.set_axis_labels("$X$", "$Y$")
+```
+
+![](https://seaborn.pydata.org/_images/distributions_38_0.png)
+
+## Pairwise relationships in a dataset
+
+#### 1. pairplot
+
+```python
+iris=sns.load_dataset("iris")
+sns.pairplot(iris)
+```
+
+![](https://seaborn.pydata.org/_images/distributions_40_0.png)
+
+pairplot() is based on PairGrid Object
+
+```python
+g = sns.PairGrid(iris)
+g.map_diag(sns.kdeplot)
+g.map_offdiag(sns.kdeplot, n_levels=6)
+```
+
+![](https://seaborn.pydata.org/_images/distributions_42_0.png)
 
