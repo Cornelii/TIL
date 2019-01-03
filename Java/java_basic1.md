@@ -104,6 +104,39 @@ public class VariableDemo{
 |  | double | 8 |~-4.9e-324 ~ ~1.7e308|
 | character | char | 2 |All Unicode letter|
 
+#### Array
+
+```java
+int [] array1=new int[10];
+int len=array1.length //the length of array
+    
+// declaration of array
+int [] array1;
+int array1[];
+Member [] array2;
+Member array2[];
+
+// generation of the array
+array1=new int[50];
+array2=new Member[50];
+
+//value assignments
+array1[0]=5;
+array2[1]=Member();// ?! new Member()?!
+
+// declaration and generation concurrently
+int[] array1=new int[50];
+Member [] array2=new Member[50];
+
+// declaration, generation, and assigning values concurrently
+int[] array1={10,50,30,20};
+int[] array1=new int[]{10,50,30,20};
+Member[] array2={new Member(), new Member()}
+
+```
+
+
+
 ### IV. Type Conversion
 
 **1. Implicit conversion **
@@ -214,6 +247,10 @@ for(int jmi=0;jmi<10;jmi++){
 }
 //Regarding Control break, continue
 break;,continue;
+//3. for~each
+for(int s:su){ //su => array variable
+    System.out.println(s);
+}
 ```
 
 ### VIII. Array
@@ -228,11 +265,19 @@ public class ArrayDemo{
         classMate[0]="Kevin";
         System.out.println(classMate[0]);
         System.out.println(classMate[0].length);//.length len of array
-        
     }
 }
-
 ```
+
+#### Multi-dimension Array
+
+```java
+int [][] array1=new int[5][7];
+int [][] array1=new int[6][];
+Member [][] array2=new Member[5][3];
+```
+
+
 
 #### Array-related java statements: for-each
 
