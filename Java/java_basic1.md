@@ -37,6 +37,19 @@ java HelloWorld
 
 "Hello World"
 
+## Java?!
+
+* Class unit-based language
+* main() must exists for execution
+* Virtual Machine (VM) only covers main()
+  * process to execute : <>.java  -> <>.class -> JVM on any OS
+
+
+
+## Keywords in Java
+
+|abstract|continue|goto|pachage|
+
 
 
 ##  I. Remarks in Character and String
