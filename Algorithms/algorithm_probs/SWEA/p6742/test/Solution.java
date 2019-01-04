@@ -119,8 +119,8 @@ class Ordering{
         double area=solver.Area(p1[0],p1[1],p2[0],p2[1],p3[0],p3[1]);
         // System.out.println("lower bound "+this.A);
         // System.out.println("upper bound "+this.B);
-        if(this.A<area || Math.abs(this.A-area)<=1e-6){
-            if(this.B>area || Math.abs(this.B-area)<=1e-6){
+        if(this.A<area || Math.abs(this.A-area)<=1e-8){
+            if(this.B>area || Math.abs(this.B-area)<=1e-8){
                 this.count+=1;
                 // System.out.println("Action");
             }
