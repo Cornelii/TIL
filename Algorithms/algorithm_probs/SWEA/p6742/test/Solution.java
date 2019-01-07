@@ -72,7 +72,7 @@ class Solver{
 
         p2_x=this.rotate_point(p2x,p2y,angle,'x');
         p3_y=this.rotate_point(p3x,p3y,angle,'y');
-        area=Math.abs((p2_x-p1x)*(p3_y-p1y))/2;
+        area=Math.abs((p2_x-p1x)*(p3_y-p1y));
         // System.out.println(area);
         return area;
     }
@@ -81,55 +81,31 @@ class Solver{
         return 0;
     }*/
 }
-class Ordering{
-    double A,B;
-    Solver solver=new Solver();
-    int count;
-    public Ordering(long A, long B){
-        this.A=(double)A/2;
-        this.B=(double)B/2;
-        this.count=0;
-    }
-    
-    //public boolean isTriangle(){}
+// class Ordering{
+//     long A,B;
+//     Solver solver=new Solver();
+//     int count;
+//     public Ordering(long A, long B){
+//         this.A=A;
+//         this.B=B;
+//         this.count=0;
+//     }
 
-    public int[][] nCombi(int n){
-        
-        int N=this.Combination3(n);
-        //System.out.println(N);
-        int [][] samples=new int[N][3];
-        int iter=0;
-        for(int jmi=0;jmi<n;jmi++){
-            for(int jmii=jmi+1;jmii<n-1;jmii++){
-                for(int jmiii=jmii+1;jmiii<n;jmiii++){
-                    samples[iter][0]=jmi;
-                    samples[iter][1]=jmii;
-                    samples[iter][2]=jmiii;
-                    iter++;
-                }
-            }
-        }
-        return samples;
-    }
-    public int Combination3(int n){
-        return n*(n-1)*(n-2)/6;
-    }
-
-    public void counting(int[] p1,int[] p2,int[] p3){
-        double area=solver.Area(p1[0],p1[1],p2[0],p2[1],p3[0],p3[1]);
-        // System.out.println("lower bound "+this.A);
-        // System.out.println("upper bound "+this.B);
-        if(this.A<area || Math.abs(this.A-area)<=1e-8){
-            if(this.B>area || Math.abs(this.B-area)<=1e-8){
-                this.count+=1;
-                // System.out.println("Action");
-            }
-        }
-    }
-    public void represent(int num_order){
-        System.out.println("#"+num_order+" "+this.count);
-    }
-}
+//     public void counting(int[] p1,int[] p2,int[] p3){
+//         double area=solver.Area(p1[0],p1[1],p2[0],p2[1],p3[0],p3[1]);
+//         // System.out.println("lower bound "+this.A);
+//         // System.out.println("upper bound "+this.B);
+//         if(this.A<area || Math.abs(this.A-area)<=1e-8){
+//             if(this.B>area || Math.abs(this.B-area)<=1e-8){
+//                 this.count+=1;
+//                 // System.out.println("Action");
+//             }
+//         }
+//     }
+//     public void represent(int num_order){
+//         System.out.println("#"+num_order+" "+this.count);
+//     }
+// }
 
 public class Solution
 {
@@ -142,8 +118,7 @@ public class Solution
 		   따라서 테스트를 수행할 때에는 아래 주석을 지우고 이 메소드를 사용하셔도 좋습니다.
 		   단, 채점을 위해 코드를 제출하실 때에는 반드시 이 메소드를 지우거나 주석 처리 하셔야 합니다.
 		 */
-		//System.setIn(new FileInputStream("./input.txt"));
-
+		System.setIn(new FileInputStream("./test_.txt"));
 		/*
 		   표준입력 System.in 으로부터 스캐너를 만들어 데이터를 읽어옵니다.
 		 */
@@ -152,12 +127,13 @@ public class Solution
         long A,B;
         int N;
         T=sc.nextInt();
-        
+        double area;
+        long count;
+        Solver solver=new Solver();
         //System.out.println(T);
 		/*
 		   여러 개의 테스트 케이스가 주어지므로, 각각을 처리합니다.
         */
-
 		for(int test_case = 1; test_case <= T; test_case++)
 		{
             N=sc.nextInt();
@@ -165,21 +141,31 @@ public class Solution
             B=sc.nextLong();
             int [][]points=new int[N][2]; // all the points
             points=ref_count(N,sc);
- 
-            Ordering order=new Ordering(A,B);
-            int M=order.Combination3(N);
+            count=0;
+            //Ordering order=new Ordering(A,B);
 
-            int [][] sample=new int[M][3]; // all the order
-            sample=order.nCombi(N);
-            
-            for(int jmi=0;jmi<M;jmi++){
-                order.counting(points[sample[jmi][0]],points[sample[jmi][1]],points[sample[jmi][2]]);
-                
+            for(int jmi=0;jmi<N-2;jmi++){
+                for(int jmii=jmi+1;jmii<N-1;jmii++){
+                    for(int jmiii=jmii+1;jmiii<N;jmiii++){
+
+                        area=solver.Area(points[jmi][0],points[jmi][1],points[jmii][0],points[jmii][1],points[jmiii][0],points[jmiii][1]);
+                        // System.out.println("lower bound "+this.A);
+                        // System.out.println("upper bound "+this.B);
+                        if(A<area || Math.abs(A-area)<=1e-8){
+                            if(B>area || Math.abs(B-area)<=1e-8){
+                                count+=1;
+                                // System.out.println("Action");
+                            }
+                        }
+
+
+
+                    }
+                }
             }
-            order.represent(test_case);
-            points=null;
-            order=null;
-            sample=null;
+
+            //order.represent(test_case);
+            System.out.println("#"+test_case+" "+count);
             // for(int jmi=0;jmi<N;jmi++){
             //     System.out.print(points[jmi][0]);
             //     System.out.println(points[jmi][1]);
@@ -202,5 +188,5 @@ public class Solution
             points[jmi][1]=y.nextInt();
         }
         return points;
-    }
+    }   
 }
