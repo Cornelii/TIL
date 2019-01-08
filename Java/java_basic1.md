@@ -94,6 +94,24 @@ public class VariableDemo{
 
 ### III. Data type
 
+#### 1. Primitive Type
+
+ - Boolearn Type **(boolean)**
+ - Numeric Type
+    - Integral Type
+       - Integer **(short,int,long)**
+       - Floating Point Type **(float,double)**
+   - Character Type **(char)**
+
+#### 2. Reference Type
+
+- Class Type
+- Interface Type
+- Array Type
+- Enum Type
+- etc.
+
+
 |section| data type | memory size | expressive range |
 | --------- | ----------- | ------------------------------- | --------- |
 | integer      | byte      | 1 byte      |-128 ~ 127|
@@ -104,7 +122,62 @@ public class VariableDemo{
 |  | double | 8 |~-4.9e-324 ~ ~1.7e308|
 | character | char | 2 |All Unicode letter|
 
-#### Array
+**BigInteger**
+
+`method: .multiply(), .add(), .subtract(), .divide()`
+
+**Tip:** If class inherit **java.lang.Object**, it basically become **Reference Type**
+
+
+
+#### String Class
+
+string is immutable. (If value is changed, new object is generated)
+
+ .equals() method for string comparison rather than ==
+
+
+
+#### Wrapper Class
+
+We cannot assing `null` in basic type. but, for wrapper class, that's possible.
+
+| basic type | corresponding wrapper class |
+| ---------- | --------------------------- |
+| byte       | Byte                        |
+| short      | Short                       |
+| int        | Integer                     |
+| long       | Long                        |
+| float      | Float                       |
+| double     | Double                      |
+| char       | Char                        |
+| boolean    | Boolean                     |
+| void       | Void                        |
+
+Wrapper class has members which declared by final inside
+
+
+
+#### Interface Type
+
+```java
+interface MyInterface<T>{
+    void add(T value);
+}
+// T is generic ty
+```
+
+
+
+#### Enum Type
+
+```java
+
+```
+
+
+
+#### Arry
 
 ```java
 int [] array1=new int[10];
@@ -153,9 +226,9 @@ int b=(int)100.0F;  // These do work!
 
 ### V. Operators
 - **+,-,*,/,%(remains)**
-
 - **unary operators are available, ++,--**
 - **==,!=,>,>=,<,<=,**
+- new (generating object)
 - .equals (comparison operator for string)
 
 ```java
