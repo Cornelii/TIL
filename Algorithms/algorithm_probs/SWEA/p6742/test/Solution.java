@@ -45,9 +45,8 @@ public class Solution
                     for(int jmiii=jmii+1;jmiii<N;jmiii++){
                         vec2=vectorize(points[jmi][0],points[jmi][1],points[jmiii][0],points[jmiii][1]);
                         p3_y=cA*vec2[1]-sA*vec2[0];
-
                         area=Math.abs(p2_x*p3_y); // rectangular
-                        if(area>A || Math.abs(A-area)<=1e-10){
+                        if(area>A|| Math.abs(A-area)<=1e-10){
                             if(B>area || Math.abs(B-area)<=1e-10){
                                 count+=1;
                             }
