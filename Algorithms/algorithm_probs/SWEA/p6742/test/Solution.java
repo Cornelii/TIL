@@ -5,12 +5,8 @@ public class Solution
 {
 	public static void main(String args[]) throws Exception
 	{
-<<<<<<< HEAD
 
 		//System.setIn(new FileInputStream("./test_5.txt"));
-=======
-		System.setIn(new FileInputStream("./test_.txt"));
->>>>>>> e092252a9c6721cb7bc93d028a1120023f8287ed
         ////////////////////////////////////////////////////
 		Scanner sc = new Scanner(System.in);
         int T; //T:case number
@@ -43,26 +39,11 @@ public class Solution
                         vec1[0]=points[jmii][0]-points[jmi][0];
                         vec1[1]=points[jmii][1]-points[jmi][1];
                         angle=Math.atan((double)vec1[1]/vec1[0]);
-                        if(!Double.isNaN(angle)){
-                            sA=Math.sin(angle);
-                            cA=Math.cos(angle);
-                            p2_x=cA*vec1[0]+sA*vec1[1];
-                        }else{
-                            p2_x=vec1[1];
+                        sA=Math.sin(angle);
+                        cA=Math.cos(angle);
+                        p2_x=cA*vec1[0]+sA*vec1[1];
+                        
 
-                            for(int jmiii=jmii+1;jmiii<N;jmiii++){
-                                //vec2=vectorize(points[jmi][0],points[jmi][1],points[jmiii][0],points[jmiii][1]);
-                                vec2[0]=points[jmiii][0]-points[jmi][0];    
-                                area=Math.abs(vec1[1]*vec2[0]); // rectangular
-                                if((area>A || Math.abs(A-area)<=1e-10) && (B>area || Math.abs(B-area)<=1e-10)){
-                                    count+=1;
-                                }
-                            }
-
-                            continue;
-                        }
-
-<<<<<<< HEAD
                     for(int jmiii=jmii+1;jmiii<N;jmiii++){
                         //vec2=vectorize(points[jmi][0],points[jmi][1],points[jmiii][0],points[jmiii][1]);
                         vec2[0]=points[jmiii][0]-points[jmi][0];
@@ -72,23 +53,13 @@ public class Solution
                         area=Math.abs(p2_x*p3_y); // rectangular
                         if((area>A || Math.abs(A-area)<=1e-10) && (B>area || Math.abs(B-area)<=1e-10)){
                             count+=1;
-=======
-                        for(int jmiii=jmii+1;jmiii<N;jmiii++){
-                        //vec2=vectorize(points[jmi][0],points[jmi][1],points[jmiii][0],points[jmiii][1]);
-                            vec2[0]=points[jmiii][0]-points[jmi][0];
-                            vec2[1]=points[jmiii][1]-points[jmi][1];
-                            p3_y=cA*vec2[1]-sA*vec2[0];
-
-                            area=Math.abs(p2_x*p3_y); // rectangular
-                            if((area>A || Math.abs(A-area)<=1e-10) && (B>area || Math.abs(B-area)<=1e-10)){
-                                count+=1;
-                            }
->>>>>>> e092252a9c6721cb7bc93d028a1120023f8287ed
                         }
                     }
                 }
+            
+            }
             System.out.println("#"+test_case+" "+count);
-            }    
+        }    
         }
     // N times,
     public static int[][] ref_count(int N,Scanner y){
