@@ -102,6 +102,62 @@ class SetTest2{
 
 ### List
 
+```java
+import java.util.ArrayList;
+import java.util.Collection;
+
+public class istTest2{
+    public static void main(String[] args){
+        Collection <String> list=new ArrayList<String>();
+        list.add("Incheon");
+        list.add("Seoul");
+        
+        for(String ob: list){
+            SYstem.out.println(ob);
+        }
+    }
+}
+```
+### Map
+
+데이터 저장, 관리 시 검색을 쉽게 하기 위한 클래스
+
+* 객체를 key와 value로 구분하여 관리함.
+* key를 통한 검색과 삭제를 하게 함. (python의 dictionary?!)
+
+```java
+public class MapTest2{
+    public static void main(String[] args){
+        Map<String, String> list=new HashMap<String,String>();
+        list.put("city","seoul");
+        list.put("country","Republic of Korea");
+        list.put("wow","ehe");
+        
+        System.out.println(list.get("city"));
+        Iterator<String> i=list.keySet().iterator();
+        
+        while(i.hasNext()){
+            String key=i.next();
+            String value=list.get(key);
+            System.out.println(key+":"+value)
+        }
+    }
+}
+```
+### Calendar
+
+```java
+	Calendar rightNow=Calendar.getInsatnce();
+	int hour=rightNow.get(Calendar.HOUR);
+	int min=rightNow.get(Calendar.MINUTE);
+	int sec=rightNow.get(Calendar.SECOND);
+	int year=rightNow.get(Calendar.YEAR);
+	int month=rightNow.get(Calendar.MONTH);
+	int date=rightNow.get(Calendar.DATE);
+```
+
+
+
 
 
 
