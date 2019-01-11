@@ -33,6 +33,7 @@ public class Solution
             int [][]points=new int[N][2]; // all the points
             points=ref_count(N,sc);
             count=0;
+
             for(int jmi=0;jmi<N-2;jmi++){
                 for(int jmii=jmi+1;jmii<N-1;jmii++){
                         vec1=vectorize(points[jmi][0],points[jmi][1],points[jmii][0],points[jmii][1]);
@@ -41,7 +42,6 @@ public class Solution
                         cA=Math.cos(angle);
                         p2_x=cA*vec1[0]+sA*vec1[1];
                         
-
                     for(int jmiii=jmii+1;jmiii<N;jmiii++){
                         vec2=vectorize(points[jmi][0],points[jmi][1],points[jmiii][0],points[jmiii][1]);
                         p3_y=cA*vec2[1]-sA*vec2[0];
@@ -54,7 +54,6 @@ public class Solution
                         }
                     }
                 }
-            
             }
             System.out.println("#"+test_case+" "+count);
         }    
