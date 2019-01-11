@@ -5,8 +5,8 @@ public class Solution
 {
 	public static void main(String args[]) throws Exception
 	{
-
-		//System.setIn(new FileInputStream("./test_5.txt"));
+        long start=System.nanoTime();
+		System.setIn(new FileInputStream("./test_5.txt"));
         ////////////////////////////////////////////////////
 		Scanner sc = new Scanner(System.in);
         int T; //T:case number
@@ -33,33 +33,37 @@ public class Solution
             int [][]points=new int[N][2]; // all the points
             points=ref_count(N,sc);
             count=0;
+
             for(int jmi=0;jmi<N-2;jmi++){
                 for(int jmii=jmi+1;jmii<N-1;jmii++){
-                        //vec1=vectorize(points[jmi][0],points[jmi][1],points[jmii][0],points[jmii][1]);
-                        vec1[0]=points[jmii][0]-points[jmi][0];
-                        vec1[1]=points[jmii][1]-points[jmi][1];
+                        vec1=vectorize(points[jmi][0],points[jmi][1],points[jmii][0],points[jmii][1]);
+                        // vec1[0]=points[jmii][0]-points[jmi][0];
+                        // vec1[1]=points[jmii][1]-points[jmi][1];
                         angle=Math.atan((double)vec1[1]/vec1[0]);
                         sA=Math.sin(angle);
                         cA=Math.cos(angle);
                         p2_x=cA*vec1[0]+sA*vec1[1];
                         
-
                     for(int jmiii=jmii+1;jmiii<N;jmiii++){
-                        //vec2=vectorize(points[jmi][0],points[jmi][1],points[jmiii][0],points[jmiii][1]);
-                        vec2[0]=points[jmiii][0]-points[jmi][0];
-                        vec2[1]=points[jmiii][1]-points[jmi][1];
+                        vec2=vectorize(points[jmi][0],points[jmi][1],points[jmiii][0],points[jmiii][1]);
+                        // vec2[0]=points[jmiii][0]-points[jmi][0];
+                        // vec2[1]=points[jmiii][1]-points[jmi][1];
                         p3_y=cA*vec2[1]-sA*vec2[0];
 
                         area=Math.abs(p2_x*p3_y); // rectangular
-                        if((area>A || Math.abs(A-area)<=1e-10) && (B>area || Math.abs(B-area)<=1e-10)){
+                        if(area>A || Math.abs(A-area)<=1e-10){
+                            if(B>area || Math.abs(B-area)<=1e-10){
                             count+=1;
+                            }
                         }
                     }
                 }
-            
             }
             System.out.println("#"+test_case+" "+count);
         }    
+        long end=System.nanoTime();
+        System.out.println((end-start)/1e+6);
+        sc.close();
         }
     // N times,
     public static int[][] ref_count(int N,Scanner y){
@@ -70,10 +74,10 @@ public class Solution
         }
         return points;
     }   
-    // public static int[] vectorize(int p1x, int p1y, int p2x, int p2y){
-    //     int [] vec= new int[2];
-    //     vec[0]=p2x-p1x;
-    //     vec[1]=p2y-p1y;
-    //     return vec;
-    // }
+    public static int[] vectorize(int p1x, int p1y, int p2x, int p2y){
+        int [] vec= new int[2];
+        vec[0]=p2x-p1x;
+        vec[1]=p2y-p1y;
+        return vec;
+    }
 }
