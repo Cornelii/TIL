@@ -6,6 +6,21 @@ Ruby and python both have very a similar style in language.
 
 ex) str, list indexing
 
+### - Data Type
+| section | python3 | Ruby |
+| ------- | ------- | ---- |
+|         |         |      |
+|         |         |      |
+|         |         |      |
+|         |         |      |
+|         |         |      |
+|         |         |      |
+|         |         |      |
+|         |         |      |
+
+
+
+
 ### - Differences
 
 |section| python3               | Ruby             |
@@ -14,7 +29,7 @@ ex) str, list indexing
 |  | print(math.ceil(2.2)) |puts(2.2.ceil())|
 |                       | print(math.pi) |puts(Math::PI)|
 | boolean | True |true (all lower case)|
-|                       | False |false (all upper case)|
+|                       | False |false (all lower case)|
 | stdio | a=input("Comments") |a=gets.chomp()|
 | | ||
 | | ||
@@ -58,6 +73,46 @@ end
 
 ### - Repetitive Phrase
 
+### - Input & Output
+
+| section | python3          | ruby          |
+| ------- | ---------------- | ------------- |
+| input   | input(<comment>) | gets.chomp()  |
+| output  | print(<String>)  | pus(<String>) |
+
+### - Logical Arithmetic
+
+same as the python!
+
+* and
+* or
+
+### - Annotation
+
+same as the python!
+
+* #
+* ''' '''
+* """ """
+
+### - Container (list,array, etc):  Py3 List <-> Ruby Array 
+
+```python
+#python
+names=['egoing','leezche','graphittie'] 
+print(type(names)) # list
+print(names[0]) # egoing
+```
+
+```ruby
+#Ruby
+names=['egoing','leezche','graphittie']
+puts(names.class) # Array
+puts(names[0]) # egoing
+```
 
 
-## 2. 
+
+
+
+## 2. Input &
