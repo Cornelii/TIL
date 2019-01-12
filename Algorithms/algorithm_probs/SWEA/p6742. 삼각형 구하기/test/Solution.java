@@ -29,26 +29,21 @@ public class Solution
             A=sc.nextLong();
             B=sc.nextLong();
             int [][]points=new int[N][2]; // all the points
-            int [][]vec23=new int[(N-1)*(int)(N-2)/2][2];
+            long [][]vec23=new long[(N-1)*(int)(N-2)/2][2];
             points=ref_count(N,sc);
             count=0;
 
-            for(int jmii=1;jmii<N-1;jmii++){
-                idx=(N-1)*(jmii-1)-jmii-1-(int)(jmii-1)*(jmii)/2;
-                for(int jmiii=jmii+1 ;jmiii<N;jmiii++){
-                    vec23[idx+jmiii][0]=points[jmiii][0]-points[jmii][0];
-                    vec23[idx+jmiii][1]=points[jmiii][1]-points[jmii][1];
-                }
-            }
-
             for(int jmi=0;jmi<1;jmi++){
                 for(int jmii=jmi+1;jmii<N-1;jmii++){
-
                         idx=(N-1)*(jmii-1)-jmii-1-(int)(jmii-1)*(jmii)/2;
+                        
                         vec12[0]=points[jmii][0]-points[jmi][0];
                         vec12[1]=points[jmii][1]-points[jmi][1];
 
                     for(int jmiii=jmii+1;jmiii<N;jmiii++){
+                        vec23[idx+jmiii][0]=points[jmiii][0]-points[jmii][0];
+                        vec23[idx+jmiii][1]=points[jmiii][1]-points[jmii][1];
+
                         idx2=idx+jmiii;
                         area=Math.abs(vec12[0]*vec23[idx2][1]-vec12[1]*vec23[idx2][0]);
                         if(area>=A){
@@ -60,16 +55,18 @@ public class Solution
                 }
             }
 
-            for(int jmi=0;jmi<N-2;jmi++){
+            for(int jmi=1;jmi<N-2;jmi++){
+                idx_=(N-1)*(jmi-1)-jmi-1-(int)(jmi-1)*(jmi)/2;
                 for(int jmii=jmi+1;jmii<N-1;jmii++){
 
                         idx=(N-1)*(jmii-1)-jmii-1-(int)(jmii-1)*(jmii)/2;
-                        vec12[0]=points[jmii][0]-points[jmi][0];
-                        vec12[1]=points[jmii][1]-points[jmi][1];
+                        // vec12[0]=points[jmii][0]-points[jmi][0];
+                        // vec12[1]=points[jmii][1]-points[jmi][1];
+                        idx1=idx_+jmii;
 
                     for(int jmiii=jmii+1;jmiii<N;jmiii++){
                         idx2=idx+jmiii;
-                        area=Math.abs(vec12[0]*vec23[idx2][1]-vec12[1]*vec23[idx2][0]);
+                        area=Math.abs(vec23[idx1][0]*vec23[idx2][1]-vec23[idx1][1]*vec23[idx2][0]);
                         if(area>=A){
                             if(area<=B){
                                 count+=1;
