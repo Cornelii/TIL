@@ -41,6 +41,25 @@ public class Solution
                 }
             }
 
+            for(int jmi=0;jmi<1;jmi++){
+                for(int jmii=jmi+1;jmii<N-1;jmii++){
+
+                        idx=(N-1)*(jmii-1)-jmii-1-(int)(jmii-1)*(jmii)/2;
+                        vec12[0]=points[jmii][0]-points[jmi][0];
+                        vec12[1]=points[jmii][1]-points[jmi][1];
+
+                    for(int jmiii=jmii+1;jmiii<N;jmiii++){
+                        idx2=idx+jmiii;
+                        area=Math.abs(vec12[0]*vec23[idx2][1]-vec12[1]*vec23[idx2][0]);
+                        if(area>=A){
+                            if(area<=B){
+                                count+=1;
+                            }
+                        }
+                    }
+                }
+            }
+
             for(int jmi=0;jmi<N-2;jmi++){
                 for(int jmii=jmi+1;jmii<N-1;jmii++){
 
