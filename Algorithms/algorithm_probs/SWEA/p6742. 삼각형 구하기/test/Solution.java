@@ -29,7 +29,8 @@ public class Solution
             A=sc.nextLong();
             B=sc.nextLong();
             int [][]points=new int[N][2]; // all the points
-            long [][]vec23=new long[(N-1)*(int)(N-2)/2][2];
+            long []vec23x=new long[(N-1)*(int)(N-2)/2];
+            long []vec23y=new long[(N-1)*(int)(N-2)/2];
             points=ref_count(N,sc);
             count=0;
 
@@ -41,11 +42,11 @@ public class Solution
                         vec12[1]=points[jmii][1]-points[jmi][1];
 
                     for(int jmiii=jmii+1;jmiii<N;jmiii++){
-                        vec23[idx+jmiii][0]=points[jmiii][0]-points[jmii][0];
-                        vec23[idx+jmiii][1]=points[jmiii][1]-points[jmii][1];
+                        vec23x[idx+jmiii]=points[jmiii][0]-points[jmii][0];
+                        vec23y[idx+jmiii]=points[jmiii][1]-points[jmii][1];
 
                         idx2=idx+jmiii;
-                        area=Math.abs(vec12[0]*vec23[idx2][1]-vec12[1]*vec23[idx2][0]);
+                        area=Math.abs(vec12[0]*vec23y[idx2]-vec12[1]*vec23x[idx2]);
                         if(area>=A){
                             if(area<=B){
                                 count+=1;
@@ -66,7 +67,7 @@ public class Solution
 
                     for(int jmiii=jmii+1;jmiii<N;jmiii++){
                         idx2=idx+jmiii;
-                        area=Math.abs(vec23[idx1][0]*vec23[idx2][1]-vec23[idx1][1]*vec23[idx2][0]);
+                        area=Math.abs(vec23x[idx1]*vec23y[idx2]-vec23y[idx1]*vec23x[idx2]);
                         if(area>=A){
                             if(area<=B){
                                 count+=1;
