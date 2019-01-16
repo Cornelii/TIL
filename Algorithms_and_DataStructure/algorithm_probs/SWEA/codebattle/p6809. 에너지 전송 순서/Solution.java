@@ -65,8 +65,11 @@ import java.io.FileInputStream;
 class Solution{
 
     static int zero_idx=0;
-    static boolean flag=true; // true at odd_idx
+    static boolean flag=false; // true at odd_idx
     public static void main(String args[]) throws Exception{
+
+        long start=System.nanoTime();
+        System.setIn(new FileInputStream("./test2.txt"));
 
         Scanner sc=new Scanner(System.in);
         int T;
@@ -89,54 +92,100 @@ class Solution{
             }else{
 
                 C=detect_fill_zero(C,N);
-                set_flag();
+                //set_flag();
+
+                // for(int i=0; i < N; i++){
+                //     System.out.print(C[i]+" ");
+                // }
+                //System.out.println("zero_idx "+Solution.zero_idx);
+                //System.out.println("flag "+Solution.flag);
+
                 y=summation(C,N);
                 System.out.println("#"+test_case+" "+y);
 
                 Solution.zero_idx=0;// Initialization
-                Solution.flag=true;
+                Solution.flag=false;
             }
         }
+        long end_time=System.nanoTime();
+        System.out.println((end_time-start)/1e+6);
         sc.close();
     }
 
     //already checked for the two steps > 1, 
-    public static int[] zero_excution(int[]seq,int idx){
+    public static int[] zero_excution(int[]seq,int idx,int N){
         // idx => index, where zero is
         int sum=0;
-        if(idx%2==0){
-            for(int i = 1; i < idx; i=i+2){
-                sum+=seq[i];
+        if(N%2==0){
+            if(Solution.flag){
+                for(int i = Solution.zero_idx; i < idx; i=i+2){// i=1 // => zero_idx
+                    sum+=seq[i];
+                }
+                if(seq[idx-1]>0){
+                    seq[idx]+=sum;
+                    Solution.zero_idx=idx-1;
+                    set_flag();
+                }
+            }else{
+                for(int i = Solution.zero_idx+1; i < idx; i=i+2){// i=1 // => zero_idx
+                    sum+=seq[i];
+                    //System.out.println("Hey1");
+                }
+                if(idx<N-1 & seq[idx-1]>0){
+                    seq[idx]+=seq[idx-2];
+                    seq[idx-1]-=1;
+                    Solution.zero_idx=idx-2;
+                    set_flag();
+                }
             }
         }else{
-            for(int i=0; i < idx; i=i+2){
-                sum+=seq[i];
+            if(Solution.flag){
+                for(int i=Solution.zero_idx+1; i < idx; i=i+2){ // => zero_idx
+                    sum+=seq[i];
+                    
+                }
+                if(seq[idx-1]>0){
+                    seq[idx]+=sum;
+                    Solution.zero_idx=idx-1;
+                    set_flag();
+                }
+            }else{
+                for(int i=Solution.zero_idx; i < idx; i=i+2){ // => zero_idx
+                    sum+=seq[i];
+
+                }
+                if(idx<N-1 & seq[idx-1]>0){
+                    seq[idx-1]=sum-1;
+                    seq[idx]=seq[idx-2]-1;
+                    Solution.zero_idx=idx-2;
+                    set_flag();
+                }
+
             }
-        }
-
-        seq[idx+1]+=sum-1;
-
-        return seq;
-
     }
+        
+        return seq;
+    }
+
     public static int[] detect_fill_zero(int[]seq,int N){
         // Maximization is needed!!! before zero_filling
         // forwarding detection is needed!
         //
         if(seq[1]==0){
             Solution.zero_idx=1;
+            set_flag();
         }
 
         for(int i = 2; i < N; i++){
             if(seq[i]==0){
                 if(seq[i-2]>1){
-                    seq=zero_excution(seq,i);
-                    Solution.zero_idx=i;
+                    seq=zero_excution(seq,i,N);
 
                 }else{
                     seq[i]+=seq[i-2];
                     seq[i-1]-=1;
-                    Solution.zero_idx=i-2;
+                    Solution.zero_idx=i-1;// i-1?
+                    set_flag();
                 }
             }
         }
@@ -167,9 +216,12 @@ class Solution{
         }        
         return sum;
     }
+    
     public static void set_flag(){
         if(Solution.zero_idx%2==0){
             Solution.flag=false;
+        }else{
+            Solution.flag=true;
         }
     }
 }
