@@ -1,5 +1,8 @@
 # Search Algorithms
 
+1. Sequential Search
+2. Binary Search
+3. Indexing
 
 
 ## Exhaustive Search a.k.a (Brute-Force or Generate-and-Test)
