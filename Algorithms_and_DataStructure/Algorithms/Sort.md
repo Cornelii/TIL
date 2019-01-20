@@ -76,3 +76,14 @@ for num in reversed(L):
 By this rigorous?! index mapping. We can sure tha we sort value keeping its order even in the same number!
 
 
+## 3. Selection Algorithm
+algorithm to find k-th big or smal entry. so does minimum, maximum, or middle
+
+PseudoCode
+```PseudoCode
+FUNCTION select(L:list,key:key value)
+    FOR i 0-> key-1
+        
+
+
+```
