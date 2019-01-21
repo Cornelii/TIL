@@ -35,7 +35,7 @@ Pseudo code
 A=[3,6,7,1,5,4]
 N=len(A)
 
-FOR i 0-> 1<<N -1
+FOR i 0-> (1<<N) -1
     FOR j 0-> N-1
         IF i & (1 << j) THEN
             PRINT(A[j]) KEEPING LINE
