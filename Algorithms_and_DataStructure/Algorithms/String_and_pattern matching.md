@@ -125,5 +125,66 @@ time complexity  O(M+N)
 5. If the number exists in skip table. Skip amount of given
 6. If not, Skip length of string
 
+**PseudoCode**
+```pseudoCode
+FUNCTION boyer_moore(p:string, t:target-string):
+    N = len(p)
+    M = len(t)
+
+    skip_table
+    // key - value matching
+    // from last 0,1,2,3,4 ...
+
+    index = M-1
+
+    WHILE index < N
+        FOR i M-1 -> 0
+            IF t[i] != p[index-i] THEN
+                skip_idx = GET from skip_table
+                IF skip_idx != None THEN
+                    index += skip_idx
+                ELSE 
+                    index += M
+                BREAK
+                ENDIF
+            ELSE
+                IF i == M-1 THEN
+                    RETURN index-M+1
+                ENDIF
+            ENDIF
+        ENDFOR
+    ENDWHILE
+    RETURN -1
+
+```
+
+**Python Code**
+```python
+def boyer_moore(p,t):
+    N = len(p)
+    M = len(t)
+    # skip_table
+    skip_table = {}
+    for i, char in enumerate(reversed(t)):
+        skip_table.update({char: i})
+
+    idx = M-1
+    while idx < N:
+        for i, char in enumerate(reversed(t)):
+            if char != p[idx-i]:
+                skip_idx = skip_table.get(p[idx-i])
+                if skip_idx:
+                    idx += skip_idx
+                else:
+                    idx += M
+                break
+            else:
+                if i == M-1:
+                    return idx-M+1
+    return -1
+```
+
+
+
 
 ## 4. Kalf- Ravin?! algorithm
