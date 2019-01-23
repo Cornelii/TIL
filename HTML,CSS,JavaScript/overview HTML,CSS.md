@@ -41,6 +41,8 @@ Inheritance is specified by DOM-TREE strucure.
 `<link rel="  " href="   .css">`
 
 
+## The most directly applied style is applied to the tag (Cascading)
+
 
 ## Tips
 [caniuse]("https://www.caniuse.com/")S

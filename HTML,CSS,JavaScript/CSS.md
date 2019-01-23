@@ -52,10 +52,80 @@ margin-border-padding-content
 
 retangular world~!
 
+### 4. Cascading order
+#### CSS specificity
+1. !important
+2. inline tag
+3. #id
+4. .class
+5. tag name
+6. global
+                       excluding virtual class, etc.
+#### order in declaration
+Latter style declared.
+
+### 5. frequently used properties and attributes
 
 
+[choosing color_tip]("https://htmlcolorcodes.com/")
 
-### 4. frequently used properties and attributes
+
+#### Regarding size
+1. em
+2. %
+3. rem (based on root)
+4. Viewport unit
+
+#### visibility, display
+
+#### background-image , color, repeat, size, etc
+ex)
+```html
+
+<div style="background-color:{color}"></div>
+<div style="background-image: url({image_url})"></div>
+<div style="background-repeat: no-repeat;"></div>
+```
+
+#### font-size, font-family, text-align
+[Google Font](https://fonts.google.com/)
 
 
-choosing color_tip : []("https://htmlcolorcodes.com/")
+#### positioning
+```html
+h {
+    position: relative;
+
+}
+
+```
+
+##### 1. static
+Default
+
+* margin merging has only meaning in marin-top, bottom.
+
+##### 2. relative
+move based on parent class
+```html
+h {
+    position: relative;
+    top: 100px;
+    left: 100px;
+}
+
+```
+
+* However, it still takes tag order(original position)
+
+##### 3. absolute
+* It escape from origin tag position. Of course, Other following tag negelect its abolute-positioned tag in position.
+* It is based on non-static tag
+* Using absolute, the order of tag could be kind of neglected
+
+##### 4. fixed
+It is fixed regardless of scroll!
+* It also escape from original position. It works like absolute in this manner.
+
+**View-port based positioning!**
+
