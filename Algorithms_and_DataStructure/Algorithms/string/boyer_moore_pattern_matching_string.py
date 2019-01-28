@@ -3,8 +3,9 @@ def boyer_moore(p,t):
     M = len(t)
     # skip_table
     skip_table = {}
-    for i, char in enumerate(reversed(t)):
-        skip_table.update({char: i})
+    for i, char in enumerate(t[:-1]):
+        skip_table.update({char: M-1-i})
+    # for the repetitive key problem
 
     idx = M-1
     while idx < N:
@@ -12,7 +13,7 @@ def boyer_moore(p,t):
             if char != p[idx-i]:
                 skip_idx = skip_table.get(p[idx-i])
                 if skip_idx:
-                    idx += skip_idx
+                    idx += skip_idx-i
                 else:
                     idx += M
                 break
