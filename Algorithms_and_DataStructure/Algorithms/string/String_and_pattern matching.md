@@ -111,7 +111,12 @@ FUNCTION bruteforce(String p, String t)
 time complexity: O(MN)
 
 ## 2. KMP algorithm (Knuth-Morris-Pratt algorithm)
-Remeber where to go. not one step forward
+Remeber where to go. not one step forward => This concept is widely applied in pattern matching algorithm.
+
+**Key: Constructing positioning table!!**
+For the repetitive word, save index of prior in target sentence. and the very next word to the next of prior.
+It seems like repetitive char force index of next word to match with the prior next that is following prior repetitive character.
+
 
 
 

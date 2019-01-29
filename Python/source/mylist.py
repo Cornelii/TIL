@@ -166,6 +166,7 @@ class List(Node):
                 tmp = self.forward(tmp, self.c-1)
             return tmp.val
         else:
+            self.c = 0
             raise StopIteration
 
     def __add__(self,B):
@@ -219,7 +220,17 @@ class List(Node):
         self = self.__add__(A)
 
     def search(self,target):
-        pass
+        tmp = self.head
+        if tmp.val == target:
+            return 0
+        idx = 0
+        while tmp is not self.end:
+            tmp = self.forward(tmp,1)
+            idx +=1 
+
+            if tmp.val == target:
+                return idx
+        return -1
 
 #### control from outside
 def forwarding(node,i):
@@ -248,3 +259,4 @@ def min(myList):
 
 def sorted(myList):
     pass
+
