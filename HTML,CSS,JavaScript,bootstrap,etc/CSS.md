@@ -35,6 +35,12 @@
     <link href="style.css" rel="stylesheet"/>
 </head>
 
+<!-- or -->
+<style>
+    @import "style.css"
+
+</style>
+
 
 ```
 #### Remarks! each property should be separated by semicolon ; not comma ,
@@ -77,6 +83,7 @@ Latter style declared.
 4. Viewport unit
 
 #### visibility, display
+
 
 #### background-image , color, repeat, size, etc
 ex)
@@ -129,3 +136,41 @@ It is fixed regardless of scroll!
 
 **View-port based positioning!**
 
+### transition
+It makes property transition soft.
+
+example HTML
+```html
+<head>
+<!-- bla bla bla -->
+<style>
+    a {
+        font-size: 3rem;
+        display: inline-block;
+        transition-property: font-size transform;
+        transition-duration: 0.5s;
+    }
+    a {
+        transition: font-size 1s, transform 0.5s;
+    }
+    a {
+        transition-timing-function: cubic-bezier();
+    }
+
+
+    a:active {
+        transform:translate(20px, 20px);
+        font-size:2rem;
+    }
+</style>
+</head>
+<body>
+    <a href="#">Click</a>
+</body>
+
+
+```
+
+### code minification
+ex)
+[code](http://adam.id.au/clean-css-online/)
