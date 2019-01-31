@@ -1,14 +1,21 @@
 # Jinja
 
 
+## Recieve variables from render_template in app.py
+{{var_name in render_template}}
 
 
+## jinja loop
+```html
+<!-- var_name comes from render_template -->
+{% for val in var_name%} 
 
+    {{val}}_blablabla
 
+{% endfor %}
+```
 
-
-
-
+## jinja contiional statement
 
 
 

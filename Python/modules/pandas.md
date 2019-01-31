@@ -307,7 +307,11 @@ df3['a'].value_counts()
 df.loc[df.index[5:6],'b']
 ```
 
-## 3. Official Documents
+## 4. Separated reading like pagination when handling big data
+
+
+
+## . Official Documents
 
 [Pandas](http://pandas.pydata.org/pandas-docs/stable/tutorials.html)
 

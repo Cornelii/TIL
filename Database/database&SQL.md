@@ -230,7 +230,38 @@ HAVING COUNT({col3}) > 10;
 -- HAVING is very similar to WHERE but, HAVING is for data after group-aggregation and WHERE is for pristin rows
 -- Remarks: HAVING Ccomes after GROUP BY, but must be before ORDER BY and LIMIT
 
+
 ```
+
+#### SQL Joining table operations
+
+```sql
+
+-- Combining Table
+-- JOIN
+SELECT * FROM {table1} JOIN {table2} ON {table1}.{col} = {table2}.{col}
+-- Remarks: The simple JOIN neglect not corresponding data
+
+
+
+-- LEFT JOIN
+SELECT * FROM {table1} LEFT JOIN {table2} ON {table1}.{col} = {table2}.{col};
+-- If records in col1 does not coincide, delete other property on {table2} joining to {table1}
+
+
+-- PRIMARY KEY and FOREIGN KEY
+-- If A table contains column, which is a primary key in other table, it is called FOREIGN KEY. FOREIGN KEY have an important role in joining
+
+
+-- CROSS JOIN
+
+
+```
+**Remarks**
+Rule of Primary key
+    1. None of the values can be `NULL`
+    2. Each value must be unique
+    3. A table can not have more than one primary key column.
 
 
 
