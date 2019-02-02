@@ -254,6 +254,31 @@ SELECT * FROM {table1} LEFT JOIN {table2} ON {table1}.{col} = {table2}.{col};
 
 
 -- CROSS JOIN
+-- This is like Cartesion Product.
+SELECT {col1} FROM {table1}
+CROSS JOIN {table2}
+
+
+-- Union
+-- For stack!
+SELECT *
+FROM {table1}
+UNION
+SELECT *
+FROM {table2}
+-- It has strict rules. 
+-- 1. Tables mush have the same number of columns
+-- 2. The columns must have the same data types in the same order as the first table.
+
+-- WITH
+-- WITH Clause facilitate SELECT ed-data act like table.
+WITH {new_name} AS (
+    SELECT {col_1},{col_2} AS {new col name_with_out_quot}
+    FROM {table_name}
+)
+SELECT ~~~ FROM {new_name}
+-- NOW {new_name} works like a table.
+
 
 
 ```

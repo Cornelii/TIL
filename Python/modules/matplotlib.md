@@ -260,3 +260,59 @@ plt.show()
 ```
 
 ### 5. Fill Between
+`plt.fill_between(x, ylb, yub, alpha)`
+
+example
+```python
+
+y_lower = [i*0.9 for i in y]
+y_upper = [i*1.1 for i in y]
+plt.fill_between(x,y_lower,y_upper,alpha=0.2)
+```
+
+### 5. Pie Chart
+`plt.pie`
+
+example
+```python
+plt.pie(data)
+plt.axis('equal')
+```
+#### Pie chart labeling
+
+1. Using legend.
+`plt.legend(legends)`
+
+2. put labels on the chart itself.
+`plt.pie(data,labels=legends)`
+
+
+**Arguments**:
+        1. labels
+        2. autopct : '%0.2f' , '%0.2f%%', '%d%%'
+
+example
+```python
+
+plt.pie(data,labels=label_names,autopct='%0.1f%%')
+
+```
+
+### 6. Histogram
+`plt.hist`
+
+**Arguments**:
+    1. bins: how many bins would you divide in given range
+    2. range: lower_x, upper_x in the form of tuple
+    3. alpha
+    4. histtype:  'step' (only outline)
+    5. normed = True (normalized)
+#### Multiple Histograms
+
+```python
+plt.hist(data1, bins=20, alpha=0.4,normed=True)
+#plot your other histogram here
+plt.hist(data2, bins=20, alpha=0.4,normed=True)
+plt.show()
+```
+
