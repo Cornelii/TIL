@@ -555,3 +555,6 @@ g.map_offdiag(sns.kdeplot, n_levels=6)
 
 ![](https://seaborn.pydata.org/_images/distributions_42_0.png)
 
+
+# Seaborn in more systemetic point of view.
+
