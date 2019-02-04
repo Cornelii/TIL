@@ -317,13 +317,81 @@ df.loc[df.index[5:6],'b']
 
 
 
+# Pandas Academy
+
+## 1. Create a DataFrame
+### By Dict
+Dataframe can be initialized with dictionary
+each key is corresponding to column, and all the values should have the same length as records that fill each rows.
+
+example
+```python
+df = pd.DataFrame({
+       'col1':[1,2,3]
+       'name1':['a','b','c']
+})
+```
+### By list of Lists
+```python
+df = pd.DataFrame([[row1],[row2],[row3],[row4]],columns=[head1,head2,head3...])
+
+```
+
+### From CSV file (Comma Separated Variables)
+```python
+# csv -> df
+df = pd.read_csv({filename.csv})
+
+# df -> csv
+df.to_csv({savingname.csv})
+```
+
+### Inspect a Dataframe
+`df.head()`
+`df.info()`
 
 
+## 2. Select
+### Select Columns
+df.[{col_name}]
 
+Only if col_name is suit to rule of variable naming.
 
+df.col_name without quot mark is available as well.
 
+### Selecting Multiple Columns
+`f[[col1,col2,col3]]`
 
+`[[]]` double list is needed!!
 
+### Select Rows
+> df.iloc[{# of row}]
+> df.iloc[{# of row},{# of col}]
+slicing is also available!
 
+### Select Row with Logic
+`df[df.{col_name} with logic]`
 
+**Remarks**: combination of logic. Parenthesis is neccesary
+       1. `|`: or
+       2. '&": and
 
+`df[df.{col_name}.isin([record_name1,record_name2...)]`
+
+### Setting incides!
+When we make subsets from a dataframe, its indicies are conserved. In the other word, non-consecutive indicies make us to use .iloc() difficult
+
+`df.reset_index()` is very useful in this situation.
+**Remarks**: When we do .reset_index(), old indices comas as a column called "index". If you don't need it.
+`drop = True.  ex) df.reset_index(drop=True)`
+
+**Remarks**: By `inplace=True`, we can modify existing dataframe.
+
+example
+```python
+
+sub_df.reset_index(drop=True,inplace=True)
+
+```
+
+## 3. Modifying Dataframes

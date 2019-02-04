@@ -556,5 +556,152 @@ g.map_offdiag(sns.kdeplot, n_levels=6)
 ![](https://seaborn.pydata.org/_images/distributions_42_0.png)
 
 
-# Seaborn in more systemetic point of view.
+# Seaborn in acdemy.
+
+## 1. Bar plot by seaborn
+
+seaborn is optimized to used pandas dataframe
+
+example
+```python
+
+df = pd.read_csv("data.csv")
+
+sns.barplot(
+    data=df,
+    x="column_namex_df",
+    y="column_namey_df"
+)
+
+plt.show()  ## Remarks in use of plt.show() with sns
+```
+
+**Arguments**
+    1. data (pandas dataframe)
+    2. x (column name)
+    3. y (column name)
+    4. ci (error bar)  ex)  "sd": standard deviation
+    5. estimator (any function that works on list) ex) len, np.median, etc.
+    6. hue (adding nested categorical variable.)
+
+**Tips**: Setting the sns plot style by
+`sns.set_style() ex) "darkgrid"`
+`sns.set_palette() ex) "pastel"`
+
+## 2. KDE Plots (Kernel Density Estimator)
+
+`sns.kdeplot()`
+
+**Arguments**
+    1.data [pd.Dataframe,list,numpy array..] 
+        **take one variable!**
+    2.shade [boolean]
+
+
+## 3. Box Plots
+1st and 3rd quartiles, median, and outliers.
+`sns.boxplot()`
+
+**Arguments**
+This is similar to the one of bar plot
+    1. data [pd.Dataframe,pd.Series..]
+    2. x [column name]
+    3. y [column name]
+
+## 4. Violin Plots
+Box plot + KDE plot
+white point in the center : median
+Thick black bar : interquartile range
+Thin black bar : confidence interval
+Other shaded area : KDE.
+`sns.violinplot()`
+
+**Arguments**
+    1. data [pd.Dataframe]
+    2. x [column name]
+    3. y [column name]
+
+
+## Seaborn Styling
+### 1. Built-in Themes: Background color & Grids
+`sns.set_style()`
+Five built-in themes:
+    1. darkgrid
+    2. whitegrid
+    3. dark
+    4. white
+    5. ticks
+
+### 2. Despine
+`sns.despine()`
+changing boarder.
+
+**Arguments**
+    1. left [boolean, False default]
+    2. bottom [boolean, False default]
+    3. right [boolean, True default]
+    4. top [boolean, True default]
+
+### 3. Scaling
+`sns.set_context()`
+scale, fontsize, rc
+
+#### 3.1 Scaling Plots
+    1.  paper
+    2.  notebook
+    3.  talk
+    4.  poster
+
+example
+```python
+sns.set_context("paper")
+```
+#### 3.2 Scaling Fonts and Line Widths
+
+example
+```python
+sns.set_context("poster",font_scale = 1,rc={"grid.linewidth":5})
+```
+
+#### rc (run command)
+`sns.plotting_context()`
+This command print out features of the sns plot!
+Modify this in dict. and give this dict as rc.
+
+
+### 4. Color
+You can build up your own palette using RGB, tuples, hex, etc.
+```python
+palette = sns.color_palette("bright")
+
+sns.palplot(palette) # show palette
+```
+`sns.set_palette({pallete})`
+* six variations of seaborn default color palette
+    1. deep
+    2. muted
+    3. pastel
+    4. bright
+    5. dark
+    6. colorblind
+
+#### Use of Brewer Palettes.
+example
+```python
+custom_palette = sns.color_palette("Paired",7)
+sns.palplot(custom_palette)
+```
+[colorbrewer](http://colorbrewer2.org)
+
+Palettes can be classified on its purpose.
+1. qualitative palettes (categorical data)
+2. Sequential palettes (for ordered categories)
+3. Divering palettes (temperature)
+
+
+applying palettes in each plot with argument : palette
+
+
+
+
 
