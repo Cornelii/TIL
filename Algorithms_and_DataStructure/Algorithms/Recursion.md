@@ -26,3 +26,42 @@ Recursion has costs that iteration does not.
 
 #### Beauty of recursion is how it can reduce complex problems to elegant soltion of only a few lines of code.
 
+#### flatten example
+
+```python
+def flatten(arr):
+    result = []
+    for val in arr:
+        if isinstance(val,list):
+            result += flatten(val)
+        else:
+			result.append(val)
+    return result
+
+```
+#### Binary Search Tree
+Data Structure also can be recursive itself.
+
+```python
+def build_bst(my_list):
+  if len(my_list) == 0:
+    return "No Child"
+
+  middle_index = len(my_list) // 2
+  middle_value = my_list[middle_index]
+  
+  print("Middle index: {0}".format(middle_index))
+  print("Middle value: {0}".format(middle_value))
+  
+  tree_node = {"data": middle_value}
+  tree_node["left_child"] = build_bst(my_list[ : middle_index])
+  tree_node["right_child"] = build_bst(my_list[middle_index + 1 : ])
+
+  return tree_node
+
+sorted_list = [12, 13, 14, 15, 16]
+binary_search_tree = build_bst(sorted_list)
+print(binary_search_tree)
+```
+
+#### Rules of the Throwdown
