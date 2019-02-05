@@ -19,6 +19,3 @@ list: possible to change size
 
 2. Head
     * Reference for first node of list.
-  
-
-

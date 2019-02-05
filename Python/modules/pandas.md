@@ -319,7 +319,7 @@ df.loc[df.index[5:6],'b']
 
 # Pandas Academy
 
-## 1. Create a DataFrame
+## I. Create a DataFrame
 ### By Dict
 Dataframe can be initialized with dictionary
 each key is corresponding to column, and all the values should have the same length as records that fill each rows.
@@ -351,7 +351,7 @@ df.to_csv({savingname.csv})
 `df.info()`
 
 
-## 2. Select
+## II. Select
 ### Select Columns
 df.[{col_name}]
 
@@ -374,7 +374,7 @@ slicing is also available!
 
 **Remarks**: combination of logic. Parenthesis is neccesary
        1. `|`: or
-       2. '&": and
+       2. '&': and
 
 `df[df.{col_name}.isin([record_name1,record_name2...)]`
 
@@ -394,4 +394,212 @@ sub_df.reset_index(drop=True,inplace=True)
 
 ```
 
-## 3. Modifying Dataframes
+## III. Modifying Dataframes
+
+### Adding a column
+
+#### 1. simply define like dict with same length
+example
+```python
+df["new column"]=[5,1,6,2,7,3,8...]
+
+```
+
+#### 2. Adding a column with a single value
+example
+```python
+df["new column"]="a Value"
+
+```
+
+#### 3. Adding a column by manipulation of other columns
+example
+```python
+df["new column"]= df.other1 - df["other2"]
+```
+The manipulation is performed row by row.
+
+#### 4. Column Operation.
+`.apply()`
+example
+```python
+
+df["new column"] = df.existingColumn.apply(func)
+
+```
+The argument function is dealt with as first-class fuction in python. And, it is applied to row by row in given column
+
+#### 5. Applying lambda function to a Column
+This is nothing but using `.apply()`
+example
+
+```python
+lambda_func = lambda x: x*2 if x > 3 else 5
+
+df.newcolumn = df['target'].apply(lambda_func)
+```
+
+#### 6. Applying lambda function to a Row
+When `.apply()` is applied directly to dataframe.
+It hand over entire row by row or entire column by column.
+
+and argument `axis=1` make us apply function within a row.
+
+example
+```python
+lambda_fn = lambda row : row["col1"] -row["col2"] if row["col3"] < 3 else 1 # row : dataframe_name
+
+
+df["new column"] = df.apply(lambda_fn) # .apply() applied to dataframe
+```
+
+### Renaming Columns
+1. We can modify columns name by adjusting list of df.columns!
+
+example
+
+```python
+df.columns = ["ID","COL1","NEW_NAME1",...]
+```
+
+2. Use of `.rename()`
+
+`.rename()` require usually two arguments.
+       1. columns  (columns in dict type) 
+**Remarks** keyword expression is necessary! column = {}
+```python
+       {
+              "old_column_name1" : "new_name1",
+              "old_column_name2" : "new_name2",
+              "old_column_name3" : "new_name3",
+       }
+```
+       1. inplace (boolean)
+**Tips** `.rename` is preferable to `.columns` for these following reasons.
+1. You can only rename column you want.
+2. You can specify which column will by changed.
+
+
+## IV. AGGREGATES IN PANDAS
+
+#### 1. There are column-wise commands
+       * mean
+       * std
+       * median
+       * max
+       * min
+       * count
+       * nunique
+       * unique
+
+example
+``` python
+df.columnsName.mean()
+
+```
+#### 2. .groupby
+groupby enable us to do groupwise aggregate in specific column!
+
+example
+```python
+df.groupby("col1")["col2"].min()
+
+```
+**Remarks** Above code returns pd.Series.
+If you want to it as dataframe with index.
+just put `.reset_index()` behind code.
+
+example
+```python
+df.groupby("col1")["col2"].min().reset_index()
+```
+
+##### .groupby() with ,apply()
+example
+
+```python
+df.groupby('col1').col2.apply(lambda x: np.percentile(x,25)).reset_index()
+```
+##### .groupby multiple columns
+Just use list including names of  multiple columns.
+
+example
+```python
+
+df_multigroup = df.groupby(['col1','col2','col3']).col4.count().reset_index()
+```
+#### 3. pivoting
+Pivoting means reorganization of data table.
+
+**Arguments**
+       1. columns = "column name that will be column in pivot"
+       2. index = "column name that will be index"
+       3. values = "column name to fill values"
+
+```python
+df_multigroup = df.groupby(['col1','col2','col3']).col4.count().reset_index()
+
+df_pivot = df_multigroup.pivot(columns="col1", index="col2", values= "col4")
+```
+
+## V. Multiple DataFrames
+
+#### 1. Inner Merge
+`.merge`
+Merge method looks for common column first. Then, merge the dataframe with respect to the column.
+
+example
+
+```python
+merged_df = pd.merge(df1,df2)
+```
+
+merge has merging order!
+
+example
+```python
+merged_df 1 =  pd.merge(df1,df2) # merge df1 to df2
+merged_df2 = df1.merge(df2) # This is the same as the above one.
+
+other_example = df1.merge(df2).merge(df3)
+```
+
+##### Merge on Specific Columns1
+changing name by `.rename()`
+
+example
+```python
+merge_df = df.merge(df2.rename(columns={"id":"foreign_id"}))
+```
+##### Merge on Specific Columns2
+Use of arguments left_on & right_on
+
+If there exist the same name of column except selected columns, pd.merge() automatically divide it like id_x, id_y.
+In this case, suffixes arguments is useful
+
+example
+```python
+merge_df = pd.merge(df1,df2,
+    left_on='df_id',
+    right_on='id',
+    suffixes=['_df1', '_df2']
+)
+
+```
+**Remarks** Inner merge does not conserve record of missing data.
+
+#### 2. Outer Merges
+conserve missing data not deleting the row
+Missing record are filled with nan
+
+using argument `how`
+`pd.merge(df1,df2,how="outer")`
+
+#### 3. Left and Right Merges
+1. Left merge conserves first comming dataframe.
+2. Right merge conserves second dataframe.
+
+#### 3. Concatenate Dataframes
+pd.concat([df1,df2,df3..])
+
+This method is only available when all the dataframe have same number and names of columns.

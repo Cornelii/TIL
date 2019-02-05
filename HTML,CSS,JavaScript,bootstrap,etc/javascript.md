@@ -1,132 +1,111 @@
-# JAVASCRIPT and HTML
-HTML: Skeleton
-CSS: Appearance
-Javascript: Dynamic, Move, Interactive
+#JAVASCRIPT
+The javascript is one of cores of web development.
 
-javascipt is encapsulated in HTML with tag `<script>`
+## I. Introduction
 
-#### 1. Bring Script From Other File!
-use of `src` attribute
+#### 1. console
+`console.log()` is like `print()` in python
 
-`<script src="script.js"></script>`
+#### 2. Comments
+`//` and `/* */` are for comment
 
-**Remarks** The way HTML parser work with javascript
-1. HTML parser does not proceed until it executes `<script>` when meet this.
-2. sciprts are loaded sequentially
+#### 3.  Data Types
+Seven fundamental data types in javascript
 
-#### 2. defer Attribute
-The defer attribute in script tag `<script>`
+Primitive data types
+    1. Number (Integer, float, any number)
+    2. String (`" "` ,`' '` )
+    3. Boolean (true, false)
+    4. Null (null)
+    5. Undefined (undefined)
+    6. Symbol
 
-example
-```html
-<script src="test.js" defer></script>
-```
-defer tag specifies what javascript should be executed and postpones execution of the javascript untial paser has done its work over the HTML document.
+Non-primitive data types
+    7. Object
 
+#### 4. Arithmetic operators
++, -, *, /, %
 
-#### 3. async Attribute
-**async** attribute of `<script>` is similar the **defer**.
-When HTML parser meet async in script, it goes on.
-And, regardless of the progress of HTML parser. javascript is loaded as soon as it is downloaded.
-
-#### 4. keyword document
-
-`document` is like class html itself.
-If you want to access to `<head>`
-document.head is allowed to point the `<head>`
-
-> document keyword is like this or self in programming languages as it assumes document is instance of html class.
-
-#### 5. .innerHTML 
-example
-```javascript
-document.body.innerHTML = "Context"
-
-```
-It replaces text between the assigned tag (body in this case)  with context ("Context" in this case.) that could be considered as html text.
-
-#### 6. Select and Modify Elements
-CSS selector is also available to access the element we want in javascript!
-
-* `.querySelector({tag})` This returns first element that matches the selector.
+#### 5. String Concatenation & Interpolation
+##### Concatenation
+Strings are easily concatenated by `+` like python.
 
 example
 ```javascript
-document.querySelector('p');
+console.log("Hello "+"World")
 ```
-
-* `.getElementById()` reference by id
+##### Interpolation
+back tick ` and ${ }
 
 example
 ```javascript
-document.getElementById('id1').innterHTML = "other description";
-
+let hi = 'Hellow World!';
+console.log(`Yes ${hi }`);
 ```
 
-#### 7. Style an element
 
-`.style` property make us be able to access inline property in DOM.
+**String concatenation with variable is also available**
+
+#### 6. Properties
+Instances has properties. And, they can be refered by dot operator `.` (a period) with name of property.
 
 example
 ```javascript
-let A = document.querySelector('.red');
-
-A.style.backgroundColor = 'yellow';
+console.log('Hellow World'.length);
 ```
-**Remarks**: Javascript use camel case notation.
 
-#### 8. Create and Insert Elements
+#### 7. Methods
+Methods are also available. And, it is just the same as the OOP.
+ex) string methods
+`.toUpperCase()`
+`.trim()` 
 
-`.createElement({tagName})` This creates a new element based on tag name.
+#### 8. Built-in Objects
+There are several built-in objects in javascript
+ex) Math, console, Number
 
-`.appendChild({generated_element})` is necessary to make it shown.
+A few methods of Math & Etc:
+    1. Math.random()
+    2. Math.floor()
+    3. Math.round()
+    4. Math.ceil()
 
+Number.isInteger()
+
+## II. Variables
+
+#### 1. Create a Variable by var
+keyword `var` to create variable
 example
 ```javascript
-let add1 = document.createElement("div");
-add1.innerHTML = "Yes, it is.";
-add1.id = "add1_hahaha";
-document.getElementBy("somewhere_id").appendChild(add1);
-```
+var NewVar = "new one";
+console.log(NewVar);
+``` 
 
-#### 9. Remove an Element
-`.removeChild()`
-
+#### 2. let
+keyword `let` means variable can be reassigned!!
 example
 ```javascript
-remove_target = document.getElementById('target_id');
-parent_target = document.getElementById('parent_id');
-parent_target.removeChild(remove_target)
+let A = 'abc';
+A = 'wow';
+console.log(A)
+let B;  // Automaticall initialzied with undefined.
 ```
-`.hidden = true (false);`
-is also available. However, this is not for removal and does not have somthing to do with CSS visibility property.
 
-#### 10. Interactivity wieh onclick
+#### 3. const
+keyword `const` create variable that can not be reassigned.
 
-Assigning a function based on an **event**
+#### 4. Mathematical Assignment Operators & Increment and Decrement Operators
++= , -= ,*=, /=,   ++, --
 
-`.onclick`
 
-example
+#### 5. typeof operator
+An operator to check datatype
+`typeof`
+
 ```javascript
-let element = document.getElementById('target');
-element.onclick = function(){
-    element.style.backgroundColor = 'yellow'
-};
-
-let element = document.querySelector("button");
-
-function turnButtonRed (){
-	element.style.backgroundColor = "red";
-  element.style.color = "white";
-  element.innerHTML = "Red Button"; 
-}
-
-element.onclick = turnButtonRed;
-
+const var1 = 'world';
+console.log(typeof var1);
 ```
 
-#### 11. Traversing the DOM
-properties
-`.firstChild ` => first child.
-`.parentNode` => parent node.
+## III. 
