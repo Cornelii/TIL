@@ -108,4 +108,100 @@ const var1 = 'world';
 console.log(typeof var1);
 ```
 
-## III. 
+## III. Conditional Statements
+
+#### 1. Basic if statement
+```javascript
+if (boolean) {
+    statements;
+}
+```
+
+#### 2. if else
+```javascript
+if (boolean) {
+    statement1;
+} else {
+    statement2;
+}
+// They are similar to the one of JAVA
+```
+
+#### 3. Comparison and Logical Operators
+##### Coomparison Ops
+<, >, <=, >=, ===, !==   
+**Remarks** for the equal, three `=` and Not equal `!== `
+
+##### Logical Ops
+`&&`, `||`, `!`
+
+#### 4. Truthy and Falsy
+
+list of falsy value
+    1. 0
+    2. `" "` or `' '`
+    3. null
+    4. undefined
+    5. NaN
+
+##### Truthy and Falsy Assignment
+using `||`
+example
+```javascript
+let var1 = "";
+let var2 = var1 || "hello world";
+```
+In the second line, `||` check `var1` first, and if `var1` is Falsy. assign right one("hello world") to `var2`
+
+#### 5. Ternary Operator
+`condition ? statement1: statement2;`
+
+```javascript
+if (condition) {
+    statement1;
+} else {
+    statemetn2;
+}
+// above code can be contracted to the following
+
+condition ? statement1 : statement2;
+```
+
+#### 6. else if
+```javascript
+if (condition1) {
+    statement1;
+} else if (condition2){
+    statement2;
+} else if (condition3){
+    statement3;
+} else {
+    statement4;
+}
+```
+
+#### 6. The switch keyword
+switch.
+**Remakrs** `break` is necessary for each case.
+```javascript
+let var1 = "c9";
+
+switch (var1) {
+    case "c1":
+        statement1;
+        break;
+    case "c2":
+        statement2;
+        break;
+    case "c9":
+        statement3;
+        break;
+    default:
+        statement4;
+        break;
+}
+```
+
+## IV. Functions
+
+
