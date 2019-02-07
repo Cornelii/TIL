@@ -203,5 +203,122 @@ switch (var1) {
 ```
 
 ## IV. Functions
+There are many ways to declare function in javascript
 
+Basic form
+```javascript
+
+function {func_name}({parma1},{parma2},..) {
+    statement1;
+    statement2;
+    return result;
+}
+
+```
+
+#### 1.Default Parameter
+Default parameter is also available in javascript ES6.
+For example.
+```javascript
+function {func_name} (parma1 = 'yes. default'){
+
+}
+```
+
+#### 2.Helper function
+This is nothing but function used in the other function.
+
+#### 3.Function expression
+function without name is called anonymous function.
+
+When using function expression, people usually declare `const` identifier. and assign anonymous function to this.
+
+example
+
+```javascript
+
+const my_func1 = function({param1},{parma2}..){
+    statement1;
+    return something;
+}
+```
+
+#### 4. Arrow Function
+The shorter way to declare function using fat arrow `()=>`
+
+You do not need to type in `function` keyword.
+
+example
+
+```javascript
+const my_func1 = ({param1},{parma2}) => {
+    statement1;
+    return something;
+}
+
+```
+
+##### Concise Body of arrow function
+1. When arrow function get single parameter, parenthesis can be omitted.
+2. If body of function is singleline, brace also can be ommited. Furthermore,
+3. This assume the one-line statement following `=>` is `return` value.
+Therefore, `return` keyword also can be put out.
+
+example
+
+```javascript
+const my_func1 = ({param1}) => {
+  return {param1} === 'desired' ? true : false;
+};
+
+const my_func1 = {param1} => {param1} === "desired" ? true : false;
+```
+
+## V. Scope
+
+#### 1. Blocks and Global Scope
+Blocks : { }
+
+Global Scope: Outside of all the blocks. Global variables, which is declared in the global scope, are accessible from anywhere.
+
+#### 2. Block Scope
+When variables are declared in { }, these are accessible in the { }.
+
+#### 3.
+
+
+
+## VI.
+
+#### 1. 
+
+
+## VII.
+
+#### 1. 
+
+
+## VIII.
+
+#### 1. 
+
+
+## IX.
+
+#### 1. 
+
+
+## X.
+
+#### 1. 
+
+
+## XI.
+
+#### 1. 
+
+
+## XII.
+
+#### 1. 
 

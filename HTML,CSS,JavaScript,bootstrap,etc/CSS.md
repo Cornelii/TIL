@@ -174,3 +174,7 @@ example HTML
 ### code minification
 ex)
 [code](http://adam.id.au/clean-css-online/)
+
+
+### A shortcut to remove cache in chrome
+ctrl + sheet + R

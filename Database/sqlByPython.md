@@ -16,6 +16,4 @@ conn.commit() #commit is needed when database is revised.
 
 #when bring data.
 data = cur.fetchall() # fetchall() or fetchone()
-
-
 ```

@@ -45,4 +45,9 @@
 
 
 {% include "footer.html" %}
-**This is just including!! at C or C++**
+**This is just including!! like at C or C++**
+
+
+
+## At c9, file access.
+`href="{{ url_for('static', filename='style.css') }}"`

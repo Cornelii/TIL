@@ -38,11 +38,11 @@ Inheritance is specified by DOM-TREE strucure.
 
 ## -CSS by external .css file
 
-`<link rel="  " href="   .css">`
+`<link rel="stylesheet" href="   .css">`
 
 
 ## The most directly applied style is applied to the tag (Cascading)
 
 
 ## Tips
-[caniuse]("https://www.caniuse.com/")S
+[caniuse]("https://www.caniuse.com/")
