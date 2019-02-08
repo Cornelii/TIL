@@ -51,7 +51,92 @@ Tag can be used. but, Further, Grouping is also available to apply styles.
 * class  .
 * 
 
+**selector example**
 
+```css
+* {
+    margin: 0;
+    padding: 0;
+}
+
+section, ul {
+    margin: 10px 0px;
+}
+
+section > ul > li {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
+a + ul {
+    background-color:yellowgreen;
+}
+
+a ~ ul {
+    border: 1px solid darkgray;
+}
+/* +,~ are not about relationship between parent and child */
+
+a[target="_self"] {
+    border: 1px solid darkgray;
+    border-radius: 5px;
+    background-color: white;
+    padding: 5px;
+}
+/* [] => properties Remarks use of "="  */
+
+.me {
+    background-color:black;
+    color:white;
+    font-size:50px
+}
+
+img[alt=""] {
+    box-shadow: -1px -1px 5px goldenrod;
+}
+
+img[alt|="TYPE"] {
+    box-shadow: -1px -1px 5px cyan;
+    opacity:0.7;
+}
+/*   |=  means all the things following "word" and the "word plus - something"  */
+
+a[target^="_b"] {
+    background-color:blueviolet;
+    padding:10px;
+    margin: 20px;
+    color:whitesmoke;
+    display:inline-block;
+}
+/*   ^=  means all the things start with following word  */
+
+a[href$="istj"] {
+    background-color:rosybrown;
+
+}
+/*  $= means element property that end with following word*/
+
+ul[class*="type"] {
+    text-align: center;
+    padding: 35px 0;
+}
+/* *= means element all the things including following word */
+
+
+ul[class~="type"] {
+    border: 1px dashed purple;
+}
+/* ~= means element all the things including following word but independently without link like -,_, other word etc */
+
+a:not([href]):not([tabindex]) {
+
+}
+/* not property of href and tabindex */
+
+
+
+```
 
 ### 3. Box model
 margin-border-padding-content
@@ -178,3 +263,4 @@ ex)
 
 ### A shortcut to remove cache in chrome
 ctrl + sheet + R
+

@@ -284,13 +284,54 @@ Global Scope: Outside of all the blocks. Global variables, which is declared in 
 #### 2. Block Scope
 When variables are declared in { }, these are accessible in the { }.
 
-#### 3.
+## VI. Arrays
+The way to make `List` is very similar to the one in python.
 
+And, The elements in list is also accessible and updated by index in the same way python.
 
+```javascript
+let myarray =['yeah', 'hoo', 'ha'];
+```
+#### 1. Arrays with let and const
 
-## VI.
+**const array**
+The array itself can not be reassigned. However, element in the array is still mutable!
 
-#### 1. 
+**let array**
+Can be reassigned
+
+#### 2. .length property
+To check the number of elements in some Array.
+
+#### 3. .push() method
+.push() is like append() and extends() in python.
+It can get more than one argument with out array syntax `[]`
+
+example
+```javascript
+myarray = ['a', 'b', 'c'];
+myarray.push('d','e','f');
+```
+
+#### 4. .pop() method
+It return last element of the array altering pristine array.
+
+#### 5. other array methods
+
+1. .join()
+2. .slice()  :slicing
+3. .splice()
+4. .shift()   : It's like .pop(0) in python
+5. .unshift()  : adding new element in the beginning of array returning new length.
+6. .concat()
+7. .indexOf()   : finding index by value.
+
+#### 6. Arrays and Functions
+Pass-by-reference!
+When arrays is changed in some functions, that change will be conserved after function finish.
+
+#### 7. Nested Array
+Nothing but array in array.
 
 
 ## VII.
