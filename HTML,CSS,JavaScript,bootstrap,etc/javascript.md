@@ -274,6 +274,19 @@ const my_func1 = ({param1}) => {
 const my_func1 = {param1} => {param1} === "desired" ? true : false;
 ```
 
+#### 5. First-class function.
+
+In Javascript, functions are handled as an object!
+function name itself without parenthesis can be assigned to other variables. And, the variables has property or methods like other data type!
+ex) 
+```javascript
+const qwerasdf = function (){}
+var a = qwerasdf;
+console.log(a.name)
+```
+##### Function also can be parameter
+
+
 ## V. Scope
 
 #### 1. Blocks and Global Scope
@@ -334,19 +347,166 @@ When arrays is changed in some functions, that change will be conserved after fu
 Nothing but array in array.
 
 
-## VII.
+## VII. Loops
+Basic format: this is like one of JAVA or C
 
-#### 1. 
+```javascript
+for (let i = 0; i < 10; i++) {
+    statement;
+}
+```
+#### 1. Looping in reverse order
+example
+```javascript
+for (let i=10; i>=0;i--) {
+    statement;
+}
+```
+#### 2. Looping through Arrays
+Using length property
+
+example
+```javascript
+for (let i=0; i<arr.length; i++) {
+    statement;
+}
+```
+
+#### 3. While
+example
+```javascript
+let i = 0;
+while (i < 10) {
+    statement;
+    i++;
+}
+```
+#### 4. Do While
+example
+```javascript
+do {
+
+}while (condition) {
+    statement;
+    making step toward break_out;
+}
+```
+
+#### 5. Break
+get out of close looping
 
 
-## VIII.
+## VIII. Iterators
+Iterators are methods called on arrays to manipulate elements and return values.
+(Make for loop easier!)
 
-#### 1. 
+#### 1. .forEach() 
+execute same code for each element
+
+example
+```javascript
+const arr = ['a', 'b', 'c', 'd'];
+arr.forEach(func_1st_class);
+
+arr.forEach(element => console.log(element));
+```
+
+#### 2. .map()
+Basically, it works in the same way as .forEach()
+But, this return new arr! Hence, it take func with return syntax.
+
+```javascript
+const arr2 = arr.map( element => element[0] );
+```
+
+#### 3. .filter()
+Filter filtered element in arrray as its name.
+**Callback function should return true or false (boolean)**
+true:pass, false: block.
+
+example
+```javascript
+const arr2 = arr.filter( element => element.length > 10 );
+
+```
+
+#### 4. findIndex()
+This is like filter. but it return only index of first element that return true through callback function.
+
+example
+```javascript
+const elem_index = arr.findIndex( element => element === 'why' );
+```
+
+#### 5. .reduce()
+Accumulative manipulation
+
+example
+```javascript
+const accu_var = arr.reduce( (accumul, current) => accumul + current);
+```
+accumul starts with first element of arr.
+current starts with second element of arr.
+`.reduce()` also can receive second parameter as an initial value of accumul.
+`arr.reduce(funr(acc,curr), init_val)`
+
+#### 6. Iterator Documentation
+[javascrip Iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#Iteration_methods)
+
+## IX. Objects
+Javascript loves Object!
+
+#### 1. Create Object literals
+This looks like dictionary in python
+
+```javascript
+let obj_literal = {};
+let obj_literal2 = {
+    'key1' : 'value1',
+    'key2' :'value2'  
+    color: 'yellow'
+};
+```
+#### 2. Accessing Properties
+Two ways to access properties of objects.
+1. dot notation `.`  for variable-like property without quotation marks.
+2. Bracketk Notation `[]` for string-like property with quotation marks.
+
+#### 3. Properties are mutable even for ones of const Objects.
+
+Changing and Adding properties can be easily done by `=` assignment.
+
+**deleting properties by keyword `delete`**
+example
+```javascript
+
+delete obj1.prop1;
+delete obj2['prop2'];
+```
+
+#### 3. Methods in objects
+Functions in object literal are called methods
+
+Two syntax to define method in object
+```javascript
+let obj1 = {
+    method1 = function () {
+        statement;
+    }
+}
+```
+Second way
+```javascript
+let obj2 = {
+    method2 () {
+        statement;
+    }
+}
+```
+
+#### 4. Nested Objects
 
 
-## IX.
-
-#### 1. 
 
 
 ## X.
