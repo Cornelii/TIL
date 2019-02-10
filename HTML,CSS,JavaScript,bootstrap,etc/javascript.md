@@ -470,8 +470,8 @@ let obj_literal2 = {
 #### 2. Accessing Properties
 Two ways to access properties of objects.
 1. dot notation `.`  for variable-like property without quotation marks.
-2. Bracketk Notation `[]` for string-like property with quotation marks.
-
+2. Bracketk Notation `[]` for string-like property with quotation marks. 
+3. 
 #### 3. Properties are mutable even for ones of const Objects.
 
 Changing and Adding properties can be easily done by `=` assignment.
@@ -490,7 +490,7 @@ Functions in object literal are called methods
 Two syntax to define method in object
 ```javascript
 let obj1 = {
-    method1 = function () {
+    method1 : function () {
         statement;
     }
 }
@@ -505,13 +505,51 @@ let obj2 = {
 ```
 
 #### 4. Nested Objects
+Objects in an Object.
+
+#### 5. Object go into function as pass-by-reference! direct memory access!
+
+**Remarks** Variable in Object is not transfered. Only objects go as pass-by-reference! It means that inside of function, **variable is accessible only by the transfered object**. If we make an attempt to reassign object! like this `obj = {property1:'prop1'}`. It did not work for object in outside! But, this works `obj.prop1 ="prop1"`.
+
+(Changing address of obj in functions is not allowed?!)
 
 
+#### 6. Looping through Objects
+`for .. in ..  ` syntax!!
+
+```javascript
+for (let member in obj) {
+    member-statement;
+}
+```
+**assign name of properties to member one by one.**
+Name!
 
 
-## X.
+## X. Advanced Object
 
-#### 1. 
+#### 1. `this` keyword
+**access to object's property in the object!!!**
+Definition of object and its properties does not mean existence of the object and properties yet!.
+
+<span style="color:red">For the arrow function, this does not work like description above!</span>
+
+* Arrow function does not have its own `this`
+* `this` is in enclosing lexical scope.
+
+example
+```javascript
+const obj1 {
+    prop1:6,
+    method1 : function () {
+        console.log(this.prop1);
+    }
+}
+
+```
+
+#### 2. Privacy
+
 
 
 ## XI.
