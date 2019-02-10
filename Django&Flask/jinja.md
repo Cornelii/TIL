@@ -44,7 +44,7 @@
 ```
 
 
-{% include "footer.html" %}
+`{% include "footer.html" %}`
 **This is just including!! like at C or C++**
 
 
