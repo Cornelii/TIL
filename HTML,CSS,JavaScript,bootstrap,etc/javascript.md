@@ -549,7 +549,99 @@ const obj1 {
 ```
 
 #### 2. Privacy
+There is no built-in accessing control syntax in javascript. But, only done by convention such as `_` underscore before variable name.
 
+#### 3. Getters
+Getters are methods to **get** and **return** the internal properties of an object and do some more.
+
+keyword `get`
+
+example
+```javascript
+const obj = {
+    prop1 : "prop1",
+    _prop2 : "private prop2",
+    
+    get prop2 () {
+        console.log(_prop2+"Yeah");
+        return _prop2;
+    }
+}
+
+let a = obj.prop2;
+
+```
+#### 4. Setters
+Setters is to reassign existing properties and do more.
+
+#### 5. Factory Functions
+When we want to create many instances of an object quickly, use factory functions.(syntax)
+
+a factory function = just a function returning object!
+
+example
+```javascript
+const factoryfcn = (name,age) => {
+    return {
+        name: name,
+        age: age,
+        method1 () {
+            console.log("Wow");
+        }
+    }
+}
+```
+#### 6. Property Value Shorthand
+Destructuring Technique (property value shorthand)
+
+When constructing factory function.
+we usually repeat variable name like example above!
+At the situation, we can reduce these expression as follows.
+
+```javascript
+function factoryfcn (name,age) {
+    name,
+    age,
+    func1 () {
+        statement;
+    }
+}
+```
+
+#### 7. Destructured Assignment
+When we want to extract property from obj with the same name of variable.
+
+```javascript
+const prop1 = obj.prop1;
+```
+can be reduced to
+```javascript
+const {prop1} = obj;
+```
+
+#### 8. Built-in Object Methods
+There are useful method in `Object`
+like 
+    1. Object.keys(obj_name)
+    2. Object.entries(obj_name)
+    3. Object.assign(added_obj,obj)
+    4. etc
+[Object methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object#Methods)
+
+example
+```javascript
+obj = {
+    prop1:"prop1",
+    prop2:"prop2",
+    prop3:"prop3",
+    prop4:"prop4"
+}
+
+const keys = Object.keys(obj);
+const entries = Object.entries(obj);
+const new_instance = Object.assign({newprop1:'newprop1',newprop2:'newprop2'},obj);
+
+```
 
 
 ## XI.
