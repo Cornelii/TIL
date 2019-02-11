@@ -23,6 +23,8 @@
 
 
 
+
+
 ## template inheritance (extension?!)
 
 **This is like string interpolation**
@@ -33,7 +35,6 @@
 <!-- This position -->
 {% endblock %}
 ```
-
 
 ```html
 <!-- target.html (sub template)-->
