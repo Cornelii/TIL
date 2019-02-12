@@ -18,31 +18,80 @@ This procedure is good in stack
 
 ## DFS python sample code
 ```python
-#### DFS
-def DFS(S, G, graph_table, visit_table):
-    if visit_table[G-1] > 0:
-        return 1
+## These works in Tree. not graph (known root, no cycle)!!!!!!!
+### simplified DFS ## using adjacency table!!!
 
-    visit_table[S-1] += 1
-    v = S
-    # stop conditions
-    idxes = find_next_node(graph_table[v - 1])  # island node
-    if idxes:
-        for x in idxes:
-            if x + 1 == G:
-                return 1
-        stack.push(v)  ### original node number in stack idx+1
+### iterative way with stack
+def dfs_iter(s):
+    stack = Stack()
+    i = s - 1
 
-        for w in idxes:
-            if visit_table[w] == 0:
-                w += 1
-                return DFS(w, G, graph_table, visit_table)
-    else:
+    stack.push(i)
+    ################
+    ## 1st action ##
+    ################
+    visit_table[i] = True
+    print("visit {}th Node".format(s))
+
+    while not all(visit_table):
+
+        for vertex in range(len(graph_table)):
+            if graph_table[i][vertex] and not visit_table[vertex]:
+
+                stack.push(vertex)
+                ################
+                #### action ####
+                ################
+                visit_table[vertex] = True
+                print("visit {}th Node".format(vertex+1))
+
         if stack.isEmpty():
-            return 0
+            break
         else:
-            vb = stack.pop()
-            return DFS(vb, G, graph_table, visit_table)
+            i = stack.pop()
+
+def dfs(s):
+    if all(visit_table):
+        return
+
+    visit_table[s-1] = True
+    print("visit {}th Node".format(s))
+
+    for vertex in range(len(graph_table)):
+        if graph_table[s-1][vertex] and not visit_table[vertex]:
+            dfs(vertex+1)
+
+
+def DFS(S):
+    if all(visit_table):
+        return
+    visit_table[S - 1] = True
+    print("visit {}th Node".format(S))
+
+    for w in range(len(graph_table)):
+        if graph_table[S - 1][w] and not visit_table[w]:
+            w += 1  ## index-node calibration
+            stack.push(S)  ### original node number in stack idx+1
+            return DFS(w)
+
+    if stack.isEmpty():
+        return
+    else:
+        vb = stack.pop()
+        return DFS(vb)
+
+if __name__ == '__main__':
+    graph_table = [[0,1,1,0,0],[0,0,0,1,0],[0,0,0,0,1],[0,0,0,0,0],[0,0,0,0,0]]
+    visit_table = [0]*5
+    stack = Stack()
+
+    #DFS(1)
+    #dfs(1)
+    dfs_iter(1)
+    print(visit_table)
+
+### Stack is needed!
+### Recursion itself system stack.
 
 ### Stack
 class Node:
@@ -79,25 +128,5 @@ class Stack(Node):
 
     def clear(self):
         self.top = None
-
-
-T = int(input())
-
-for case in range(1, T + 1):
-
-    V, E = list(map(int, input().split()))
-    graph_table = [[0] * V for _ in range(V)]
-
-    for _ in range(E):
-        N, M = list(map(int, input().split()))
-        graph_table[N-1][M-1] = 1
-
-    S, G = list(map(int, input().split()))
-
-    visit_table = [0] * V
-    stack = Stack()
-    result = DFS(S, G, graph_table, visit_table)
-
-    print("#{} {}".format(case, result))
 
 ```

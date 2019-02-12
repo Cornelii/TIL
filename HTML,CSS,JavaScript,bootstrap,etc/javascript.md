@@ -643,13 +643,80 @@ const new_instance = Object.assign({newprop1:'newprop1',newprop2:'newprop2'},obj
 
 ```
 
+ 
+## XI. Classes
 
-## XI.
 
-#### 1. 
+
+#### 1. Basic Form
+Classes have very similar form with that of Object literals except comma is not used between methods!!!!.
+
+
+example
+```javascript
+
+class <class_name> {
+    constructor(<params>) {
+        this.prop1 = prop1;
+        this._prop2 = prop2;
+    }
+
+    get prop2 () {
+        return this._prop2;
+    }
+
+    method1 (<param1>) {
+        statement;
+    }
+
+}
+
+```
+
+#### 2. new keyword
+When creating instance from class, `new` keyword is used.
+`new` calls constructor defined in class.
+
+example
+```javascript
+
+const inst1 = new Class1(<params for constructor>);
+
+let inst2 = new Class1();
+
+```
+#### 3. Inheritence
+`extends` and `super()`
+
+
+`extends` make defined class inherit super class.
+`super()` calls 
+
+**Remarks**: `super()` must be before `other assignment.`
+
+example
+```javascript
+class Myclass {
+    constructor(param1) {
+        this.param1 = param1;
+    }
+
+}
+
+class Mysubclass extends Myclass {
+    constructor(param1,param2) {
+        super(param1);
+        this.param2 = param2;
+    }
+}
+```
+
+#### 4. 
+
 
 
 ## XII.
 
 #### 1. 
+
 
