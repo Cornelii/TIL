@@ -711,12 +711,103 @@ class Mysubclass extends Myclass {
 }
 ```
 
-#### 4. 
+#### 4. Static Methods
+`static` keyword.
+When you want to call method directly from class, not by individual instances.
+!! But they not accessible in instances!!
+
+example
+```javascript
+
+class Myclass {
+    constructor(val1, val2){}
+
+    static myfunc() {}
+}
+
+```
+
+## XII. Browser compatibility and transplation
+
+[caniuse](https://www.caniuse.com/) for browser compatibility with HTML, CSS, javascript features.
+
+Programmer developed `babel` to do transpilation from javasciprt on ES6 to that on ES5.
+
+## XIII. Modules
+Modules are particularly useful for a number of reasons. By separating code with similar logic into files called modules.
+
+#### 1. module.exports & require()
+
+example
+```javascript
+// in the prac.js
+
+let A = {};
+A.prop1 = "prop1";
+
+module.exports = A;
+```
+`module.exports` exposes assigned object.
+
+To get the exposed object
+`require()`
+
+example
+```javascript
+const a = require('./prac.js')
+
+```
+
+#### 2. export default
+`export default` is similar to `module.exports` allowing us to export one module per file.
+
+example
+```javascript
+let A = {}
+export default A // object, functions, primitive data types are also available here.
+```
+
+#### 3. import
+`import` is also available to bring module in other javascript files
+
+example
+```javascript
+import A from './prac';
+
+```
+**Remarks**: extension `.js` is ommited!
 
 
+#### 4. Named exports
+`export` keyword
+to export multiple things.
 
-## XII.
+example
+```javascript
+export {myfunc1, obj1, var1}
 
-#### 1. 
+```
 
 
+#### 5. Named imports
+to import multiple things
+
+example
+```javascript
+import {myfunc1, obj1, var1} from './prac';
+
+```
+
+#### 6. Export Named Exports
+`export` keyword before declaration expose it as soon as defined.
+
+example
+```javascript
+export let var1 = "";
+
+export function myfunc(){};
+
+export let obj1 = {};
+```
+
+#### 7. Export as
