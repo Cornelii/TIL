@@ -976,7 +976,7 @@ Promise.all([promis_return_func1, promis_return_func2, promis_return_func3])
 Since ES8 javascript, it provides `async...await` syntax
 
 
-#### `async` keyword
+#### 1. `async` keyword
 declare function, in which has asynchronous logic, by `async`
 
 example
@@ -990,6 +990,43 @@ myFunc();
 myFunc2();
 ```
 **Remarks**: async function always returns Promise
+
+async function returns Promise in three ways.
+
+1. If nothing to return, undefined as resolved value
+2. If non-promise value retunred in function, promised with the value as resolved one
+3. If promise is returned, it just returns the promise.
+
+example
+```javascript
+async function withAsync(number){
+  if (number === 0){
+    return "zero";  //return promise with resolved value "zero"
+   } else {
+     return "not zero"; // return promise with resolved value "not zero"
+   }
+}
+```
+
+#### 2.  `await` operator
+await only can be used in `async` function.
+
+example
+```javascript
+async function func1(){
+    let a = awiat promise1();
+
+    statement_with_a;
+}
+// the statement_with_a is surely executed after get 'a'.
+```
+
+example
+```javascript
+promise1.then((resolved)=>{statement_with_a;})
+```
+
+#### 3. 
 
 
 ## XVI. 
