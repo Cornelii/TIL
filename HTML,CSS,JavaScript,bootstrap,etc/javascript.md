@@ -644,9 +644,21 @@ const new_instance = Object.assign({newprop1:'newprop1',newprop2:'newprop2'},obj
 ```
 
 
-## XI.
+## XI. Classes
+Javascript is an object-oriented programming (OOP) language.
 
-#### 1. 
+#### 1. Basic Structure of Class
+example
+```javascript
+
+class <class_name> {
+
+
+}
+
+```
+
+#### 2. `constructor() {}`
 
 
 ## XII.
