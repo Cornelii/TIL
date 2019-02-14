@@ -25,7 +25,7 @@ Kinds of framework
 5. Java Spring
 
 ## II. Why do we use Django?!
-[](hotframeworks.com)
+[](https://www.hotframeworks.com)
 
 
 ## III. Architecture of Django
@@ -73,7 +73,7 @@ add 'address' to ALLOWED_HOSTS
 
 **Tip** When use `source .bashrc` in the py virtualenv, `source deactivate`
 
-> python manage.py runserver $IP:$PORT
+`python manage.py runserver $IP:$PORT`
 
 **Tip** Sementic Versioning.
 * v3.6.7 
@@ -95,7 +95,7 @@ add the `<app_name>`. (trailing comma.)
 ##### views.py in application directory
 ```python
 from django.shortcuts import render
-
+# function-based
 def index(request):
     context = {"msg":"hello","name":"JM"}
     return render(request, 'index.html', context)
@@ -146,8 +146,120 @@ urlpatterns = [
 def func(request):
     data = request.GET.get("name")
     return render(request,'target.html',{'data':data})
-
 ```
+
+## VI. models
+
+#### 1. Django ORM
+
+example
+```python
+from django.db import models
+
+# Create your models here.
+1.
+class Article(models.Model):
+    title = models.TextField()
+    content = models.TextField()
+```
+2. `python manage.py makemigrations`
+
+3. `python manage.py migrate`
+
+
+##### runtime CRUD
+`python manage.py shell`
+
+
+example
+> from articles.models import Article
+> a = Article(title="FAST PIE", content="FAST TF S")
+> a.save()
+
+> Article.objects.create(title="FAST PIE2", content="yeah")
+
+* SELECT ALL (in terms of list)
+> Article.objects.all()
+
+* SELECT the thing
+> Article.objects.filter(title = "FAST PIE").all()
+> Article.objects.filter(title = "FAST PIE").first()
+> Article.objects.filter(title = "FAST PIE").count()
+> Article.objects.get(id=2)
+> Article.objects.get(pk=2)
+> 
+
+* UPDATE
+> a = Article.objects.get(id=3)
+> a.content = "anything"
+> a.save()
+
+
+* DELETE
+> a = Article.objects.get(id=3)
+> a.delete()
+> 
+
+
+* order by
+> Article.object.order_by('id')      #  ascending order
+> Article.object.order_by('-id')      #  descending order
+
+
+**Tip** representation conversion at the shell
+Define method of __repr__ at class, models.py
+
+#### 2. Fields
+
+1. AutoField
+2. BooleanField
+3. CharField
+4. TextField
+5. DateField
+6. FileField
+7. FloatField
+8. ImageField
+9. IntegerField
+......
+
+
+[field_and_its_option](https://docs.djangoproject.com/en/2.1/ref/models/fields/)
+
+
+#### 3.
+
+
+
+## VII. admin
+at admin.py
+
+example
+```python
+from django.contrib import admin
+from .models import Student
+
+# Register your models here.
+
+admin.site.register(Student)
+```
+#### 1. display setting in admin page
+example
+
+```python
+from django.contrib import admin
+from .models import Student
+
+# Register your models here.
+
+class StudentAdmin(admin.ModelAdmin):
+    list_display = ('name', 'age')
+
+
+admin.site.register(Student, StudentAdmin)
+```
+
+
+## VIII.
 
 
 ## X. Commands
@@ -160,5 +272,13 @@ generate needed directory and files.
 (view.py, models.py, admin.py, etc)
 
 
+3. `python manage.py makemigrations`
 
+4. `python manage.py migrate`
+
+5. `python manage.py shell`
+
+6. `python manage.py sqlmigrate articles 0001`
+
+7. `python manage.py createsuperuser`
 

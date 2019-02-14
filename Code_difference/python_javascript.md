@@ -24,3 +24,28 @@ class Myclass {
     static myfunc1 (val) {}
 }
 ```
+
+## . Import 
+Import statment is different between them.
+Even export statements exists in javascript.
+
+python example
+```python
+import os, sys
+
+import numpy as np
+from flask import Flask as Fk
+
+from A import *
+
+```
+
+javascript example
+```javascript
+import A
+
+import {a,b,c,d,e}
+
+import * as Alias from "./filename" 
+// "import filename as Alias"   in python
+```

@@ -180,7 +180,7 @@ if (condition1) {
 }
 ```
 
-#### 6. The switch keyword
+#### 7. The switch keyword
 switch.
 **Remakrs** `break` is necessary for each case.
 ```javascript
@@ -811,3 +811,184 @@ export let obj1 = {};
 ```
 
 #### 7. Export as
+
+`as` keyword with export
+
+example
+
+```javascript
+
+export { obj1 as my_obj1, obj2 as my_obj2, obj3 as my_obj3};
+
+```
+
+#### 8. Import as
+We have to use aliased variable name!
+
+Below statement is also possible.
+```javascript
+import * as MyModule from './filename';
+
+MyModule.obj1;
+MyModule.fcn1;
+MyModule.var1;
+
+```
+
+## XIV. Asynchronous control by `Promise`
+Promises are objects that represents eventual outcome.
+
+They can be in one of three states.
+
+1. Pending: initial state, operation not completed yet
+2. Fulfilled: operation completed successfully
+3. Rejected: failed operation
+
+
+#### 1. Constructing a Promise Object
+example to create Promise object
+```javascript
+const func1 = (resolve, reject) => () {};
+
+const myPromise = new Promise(func1);
+```
+The func1, which go into Promise(), have to get two parameters `resolve` and `reject`
+
+
+example
+```javascript
+var a = 7;
+
+const myExec = (resolve, reject) => {
+	if (a > 0) {
+    resolve("Resolved.");
+  }  else {
+    reject("Rejected.");
+  }
+}
+
+const constructPromise = () => {
+  const A = new Promise(myExec);
+  return A
+}
+
+var orderPromise = constructPromise();
+
+console.log(orderPromise)
+```
+
+#### 2. setTimeout() function
+The point is it, How to consume or use promise that return to you as the result of an asynchronous operation.
+
+example
+```javascript
+
+var myfunc1 = ()=>{statement1};
+
+setTimeout(myfunc1,2500) // ms
+```
+
+**Remarks** time parameter in unit ms means **at least** operation. It could be more according to operations in code.
+
+
+#### 3. Consuming Promises
+`.then()`
+
+`.then()` is a higher-order function usually taking two callbackfunctions.
+Each callbackfunction is used as a handler at success and failure each.
+
+`.then()` returns promise
+
+##### onFulfilled & onRejected
+example
+```javascript
+const handleSuccess = (resolvedValue) => {statement1};
+const handleFailure = (rejectedValue) => {statement2};
+
+promise_obj.then(handleSuccess,handleFailure)
+```
+
+#### 4. Using catch() with promises
+`catch()`
+when applying `.then()` successively, `catch()` is used for the reject part.
+
+example
+```javascript
+
+promise_obj.then(successhandler.then(null,failurehandler)
+
+// is the same as the below
+
+promise_obj.then(successhandler.catch(failurehandler)
+```
+#### 5. promise chain (promise composition)
+example
+```javascript
+
+promise_obj.then(successhandler.then(null,failurehandler)
+
+// is the same as the below
+
+promise_obj.then(successhandler).then(successhandler2).catch(failurehandler)
+
+// successhandler have to return promise obj!!
+```
+
+#### 6. Promise.all()
+To maximize efficiency, we shoud use concurrency.
+multiple asynchronous operations happening together.
+That is what `Promise.all()` does.
+
+`Promise.all()` accepts an array of promise! and returns a single promise.
+
+
+
+#### 7. Why we use promise!!
+
+Promise and Promise composition is a good way to handle situations where asynchrounous operations depend on each other or execution order matters.
+
+1. When every promise in the array resolves, it returns array containing corresponding resolved valued.
+2. When any promise is rejected, it immediately returns the single reason of the promise.
+(failing fast)
+
+example
+```javascript
+
+Promise.all([promis_return_func1, promis_return_func2, promis_return_func3])
+```
+
+
+## XV. async ... await
+Since ES8 javascript, it provides `async...await` syntax
+
+
+#### `async` keyword
+declare function, in which has asynchronous logic, by `async`
+
+example
+```javascript
+asnyc function myFunc(){};
+
+// or
+const myFunc2= async () => {};
+
+myFunc();
+myFunc2();
+```
+**Remarks**: async function always returns Promise
+
+
+## XVI. 
+
+
+## XVII. 
+
+
+## XVIII.
+
+
+## XIX.
+
+
+
+## XX.
