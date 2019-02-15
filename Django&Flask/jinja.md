@@ -15,14 +15,7 @@
 {% endfor %}
 ```
 
-## jinja contiional statement
-
-
-
-
-
-
-
+## jinja conditional statement
 
 
 ## template inheritance (extension?!)
@@ -44,11 +37,14 @@
 {% endblock %}
 ```
 
-
-`{% include "footer.html" %}`
+```html
+{% include "footer.html" %}
+```
 **This is just including!! like at C or C++**
 
 
 
 ## At c9, file access.
-`href="{{ url_for('static', filename='style.css') }}"`
+```html
+href="{{ url_for('static', filename='style.css') }}"
+```
