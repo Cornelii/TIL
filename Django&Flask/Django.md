@@ -259,7 +259,21 @@ admin.site.register(Student, StudentAdmin)
 ```
 
 
-## VIII.
+## VIII. files, which are like css, js, and, img, importing in c9
+According to Django template Grammer!
+
+1. make `static` directory on the app directory (static: default)
+You can check this in settings.py
+2. {% load static %} on the top of the html.
+3. {% static "filepath" %} in href, etc.
+
+example
+```html
+{% load static %}
+
+
+<link rel="stylesheet" href="{% static css/style.css %}">
+```
 
 
 ## X. Commands
