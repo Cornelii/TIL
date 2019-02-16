@@ -271,7 +271,7 @@ According to Django template Grammer!
 
 example
 ```html
-{% load static %}
+<!-- {% load static %} -->
 
 
 <link rel="stylesheet" href="{% static css/style.css %}">

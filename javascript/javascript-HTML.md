@@ -55,7 +55,7 @@ example
 document.querySelector('p');
 ```
 
-* `.getElementById()` reference by id
+* `.getElementById()` reference by id 
 
 example
 ```javascript

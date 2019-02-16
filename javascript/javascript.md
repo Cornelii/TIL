@@ -1,6 +1,8 @@
 #JAVASCRIPT
 The javascript is one of cores of web development.
 
+non-blocking properties: asynchronous language
+
 ## I. Introduction
 
 #### 1. console
@@ -1011,6 +1013,8 @@ async function withAsync(number){
 #### 2.  `await` operator
 await only can be used in `async` function.
 
+`await` keyword halts the execution of an `async` function until a promise is no longer pending.
+
 example
 ```javascript
 async function func1(){
@@ -1026,13 +1030,540 @@ example
 promise1.then((resolved)=>{statement_with_a;})
 ```
 
-#### 3. 
+example to show role of await clearly
+```javascript
+let myPromise = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('Yay, I resolved!')
+    }, 1000);
+  });
+}
+
+async function noAwait() {
+ let value = myPromise();
+ console.log(value);
+}
+
+async function yesAwait() {
+ let value = await myPromise();
+ console.log(value);
+}
+
+noAwait(); // Prints: Promise { <pending> }
+yesAwait(); // Prints: Yay, I resolved!
+```
+
+#### 3. Multiple await (chain operation)
+At use of promise
+```javascript
+function myPromise() {
+    Promise1()
+    .then((firstValue) => {
+        console.log(firstValue);
+        return Promise2(firstValue);
+    })
+   .then((secondValue) => {
+        console.log(secondValue);
+    });
+}
+
+// Above code is equivalent to below one
+
+async function myPromise() {
+ let firstValue = await Promise1();
+ console.log(firstValue);
+ let secondValue = await Promise2(firstValue);
+ console.log(secondValue);
+}
+
+```
+
+#### 4. Handling Error
+To know where a fail occur! To handle error
+`try catch`is used.
+
+example
+```javascript
+async function myfunc() {
+ try {
+   let resolved = await asyncFunc();
+   let secondValue = await asyncFunc2(resolved);
+ } catch (error) {
+   // Catches any errors in the try block
+   console.log(error);
+ }
+}
+
+myfunc();
+```
+
+Since `async` function returns promise. `.catch` also can be used to check error as well.
+
+#### 5. Handling independent promises
+If each promise is independent one another.
+
+await keyword can be called latter to take advantage of  concurrency that javascript has.
+
+example
+```javascript
+async function concurrecy() {
+ const firstPromise = firstAsync();
+ const secondPromise = secondAsync();
+console.log(await firstPromise, await secondPromise);
+}
+```
+#### 6. Await Promise.all()
+`await Promise.all()` allows us to do things simultaneously. Of course, independent promises!!
+
+example
+```javascript
+async function asyncPromAll() {
+  const resultArray = await Promise.all([asyncTask1(), asyncTask2(), asyncTask3(), asyncTask4()]);
+  for (let i = 0; i<resultArray.length; i++){
+    console.log(resultArray[i]); 
+  }
+}
+```
+
+## XVI. Requests
+(http request methods)[https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods]
+
+#### 1. HTTP Requests
+Since javascript is asynchronous language, for better user experience, a site is generally  written so that users do not have to wait for all those contents to be read
+
+(regarding event loop)[https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop]
+
+#### 2. XHR GET Requests
+
+**Ajax**: Asynchronous javascript and XML
+
+XMLHttpRequest(XHR)  API
+
+make get request
+example
+```javascript
+const xhr = new XMLHttpRequest();
+
+const url = 'https://api-to-call.com/endpoint';
+
+xhr.responseType = 'json';
+
+xhr.onreadystatechange = ()=>{
+	if (xhr.readyState === XMLHttpRequest.DONE){
+    return xhr.response;
+  } 
+}
+// the if statement check if the request has finished
+xhr.open('GET',url);
+//open create new request, argument: type, url
+xhr.send();
+```
+
+#### 3. XHR GET Requests 2 (Datamuse API)
+
+(datamuse api)[https://www.datamuse.com/api/]
+example
+```javascript
+// Information to reach API
+const url = "https://api.datamuse.com/words?";
+const queryParams = 'rel_rhy=';
+
+// Selecting page elements
+const inputField = document.querySelector('#input');
+const submit = document.querySelector('#submit');
+const responseField = document.querySelector('#responseField');
+
+// AJAX function
+const getSuggestions = () => {
+	const wordQuery = inputField.value;
+  const endpoint = url + queryParams + wordQuery;
+  const xhr = new XMLHttpRequest();
+  xhr.responseType = 'json';
+  
+  xhr.onreadystatechange = ()=> {
+    if (xhr.readyState === XMLHttpRequest.DONE ) {
+      renderResponse(xhr.response);
+      renderRawResponse(xhr.response);
+
+    }
+  }
+	xhr.open('GET',endpoint);
+  xhr.send();
+}
 
 
-## XVI. 
+// Clear previous results and display results to webpage
+const displaySuggestions = (event) => {
+  event.preventDefault();
+  while(responseField.firstChild){
+    responseField.removeChild(responseField.firstChild);
+  };
+  getSuggestions();
+}
+
+submit.addEventListener('click', displaySuggestions);
+```
+
+**Attributes and Methods of XMLHttpRequest**
+    1. .readyState
+    2. .DONE   !(Class variable)
+    3. .response
+    4. .open(`method`,`url`)
+    5. .send()
+
+#### 4. XHR GET Request 3
+(wikipedia regarding query string)[https://en.wikipedia.org/wiki/Query_string]
+
+Generally query parameters are setted in url as follows.
+?`query_name1`=`query_param1`&`query_name2`=`query_param2`&..
 
 
-## XVII. 
+#### 5. XHR POST Request
+
+"POST" method needs additional information than "GET".
+
+example
+```javascript
+const xhr = new XMLHttpRequest();
+
+const url ='https://api-to-call.com/endpoint';
+
+const data = JSON.stringify({id:'200'});
+// Additional part!
+xhr.responseType = 'json';
+
+xhr.onreadystatechange = ()=> {
+  if (xhr.readyState === XMLHttpRequest.DONE) {
+   return xhr.response; 
+  }
+}
+
+xhr.open("POST",url); // POST way
+xhr.send(data)\
+```
+#### 6. XHR POST Requset 2 Rebrandly API
+Carefully take look at the way to add header.
+
+example
+```javascript
+// Information to reach API
+const apiKey = 'api_key';
+const url = 'https://api.rebrandly.com/v1/links';
+
+// Some page elements
+const inputField = document.querySelector('#input');
+const shortenButton = document.querySelector('#shorten');
+const responseField = document.querySelector('#responseField');
+
+// AJAX functions
+const shortenUrl = () => {
+  const urlToShorten = inputField.value;
+  const data = JSON.stringify({destination: urlToShorten});
+  const xhr = new XMLHttpRequest();
+  xhr.responseType ='json';
+  
+  xhr.onreadystatechange = ()=>{
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      renderResponse(xhr.response);
+    }
+  }
+  
+  xhr.open("POST",url);
+  // Header is needed to access Rebrandly API
+  xhr.setRequestHeader('Content-type','application/json');
+  xhr.setRequestHeader('apikey',apiKey);
+  
+  xhr.send(data);
+  
+}
+
+
+// Clear page and call AJAX functions
+const displayShortUrl = (event) => {
+  event.preventDefault();
+  while(responseField.firstChild){
+    responseField.removeChild(responseField.firstChild);
+  }
+  shortenUrl();
+}
+
+shortenButton.addEventListener('click', displayShortUrl);
+```
+
+## XVII.  Requests with ES6
+
+#### 1. fetch() GET Request
+[fetch API MDN](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
+
+example with datamuse api
+```javascript
+// Information to reach API
+const url = 'https://api.datamuse.com/words';
+const queryParams = '?sl=';
+
+// Selects page elements
+const inputField = document.querySelector('#input');
+const submit = document.querySelector('#submit');
+const responseField = document.querySelector('#responseField');
+
+// AJAX function
+const getSuggestions = () => {
+  const wordQuery = inputField.value;
+  const endpoint = `${url}${queryParams}${wordQuery}`;
+  
+  fetch(endpoint).then(response => {
+    if (response.ok) {
+      return response.json();
+    }
+    throw new Error('Request failed!');
+  }, networkError => {
+    console.log(networkError.message)
+  }).then((jsonResponse)=>{
+    renderResponse(jsonResponse);
+  })
+}
+
+// Clears previous results and display results to webpage
+const displaySuggestions = (event) => {
+  event.preventDefault();
+  while(responseField.firstChild){
+    responseField.removeChild(responseField.firstChild);
+  }
+  getSuggestions();
+};
+
+submit.addEventListener('click', displaySuggestions);
+```
+**Remarks** fetch(`url`) returns objects in terms of **Promise**, which is `response` in this case.
+
+#### 2. fetch() POST Requests
+When we do POST, we pass second parameter into `fetch()`
+
+example
+```javascript
+// Information to reach API
+const apiKey = 'api_key';
+const url = 'https://api.rebrandly.com/v1/links';
+
+// Some page elements
+const inputField = document.querySelector('#input');
+const shortenButton = document.querySelector('#shorten');
+const responseField = document.querySelector('#responseField');
+
+// AJAX functions
+const shortenUrl = () => {
+  const urlToShorten = inputField.value;
+  const data = JSON.stringify({destination: urlToShorten});
+  
+  fetch(url,{method:"POST",headers:{'Content-type':'application/json','apikey':apiKey}, body:data}).then(
+  response => {
+    if (response.ok){
+      return response.json();
+    }throw new Error("Request failed!")
+  }, networkError => {
+    console.log(networkError.message);
+  }
+  ).then(jsonResponse=>{renderResponse(jsonResponse);})
+  
+}
+
+
+// Clear page and call AJAX functions
+const displayShortUrl = (event) => {
+  event.preventDefault();
+  while(responseField.firstChild){
+    responseField.removeChild(responseField.firstChild)
+  }
+  shortenUrl();
+}
+
+shortenButton.addEventListener('click', displayShortUrl);
+
+```
+
+#### 3. async GET Requests 
+example
+
+```javascript
+const getData = async () =>{
+  try {
+    const response = await fetch('https://api-to-call.com/endpoint');
+    if (response.ok) {
+      const jsonResponse = await response.json();
+      return jsonResponse;
+    } throw new Error("Request failed!")
+  } catch(error) {
+    console.log(error);
+  }
+};
+```
+
+**async GET with datamuse API**
+example
+
+```javascript
+// Information to reach API
+const url = 'https://api.datamuse.com/words?';
+const queryParams = 'rel_jja=';
+
+// Selecting page elements
+const inputField = document.querySelector('#input');
+const submit = document.querySelector('#submit');
+const responseField = document.querySelector('#responseField');
+
+// AJAX function
+// Code goes here
+const getSuggestions = async () =>{
+  const wordQuery = inputField.value;
+  const endpoint = `${url}${queryParams}${wordQuery}`;
+  
+  try{
+    const response = await fetch(endpoint);
+    if (response.ok){
+      const jsonResponse = await response.json();
+      renderResponse(jsonResponse);
+    }throw new Error("")
+  }catch(error){console.log(error)};
+}
+
+
+// Clear previous results and display results to webpage
+const displaySuggestions = (event) => {
+  event.preventDefault();
+  while(responseField.firstChild){
+    responseField.removeChild(responseField.firstChild)
+  }
+  getSuggestions();
+}
+
+submit.addEventListener('click', displaySuggestions);
+```
+
+#### 4. async POST Requests 
+example
+```javascript
+const getData = async ()=>{
+  try{
+    const response = await fetch('https://api-to-call.com/endpoint',{
+      method:'POST',
+      body:JSON.stringify({id:200})
+    });
+    if (response.ok) {
+      const jsonResponse = await response.json();
+      return jsonResponse;
+    } throw new Error("Request failed!");
+    
+  }catch(error){console.log(error);}
+}
+```
+
+**async POST Request with Rebrandly API**
+example
+```javascript
+// information to reach API
+const apiKey = 'api_key';
+const url = 'https://api.rebrandly.com/v1/links';
+
+// Some page elements
+const inputField = document.querySelector('#input');
+const shortenButton = document.querySelector('#shorten');
+const responseField = document.querySelector('#responseField');
+
+// AJAX functions
+// Code goes here
+const shortenUrl = async ()=>{
+  const urlToShorten = inputField.value;
+  const data = JSON.stringify({destination:urlToShorten});
+  try{
+    const response = await fetch(url,{
+      method:'POST',
+      body:data,
+      headers:{
+        'Content-type':'application/json',
+        'apikey':apiKey
+      }
+    });
+    if (response.ok){
+      const jsonResponse = await response.json();
+      renderResponse(jsonResponse);
+    } throw new Error();
+  }catch(error){console.log(error);}
+  
+}
+
+// Clear page and call AJAX functions
+const displayShortUrl = (event) => {
+  event.preventDefault();
+  while(responseField.firstChild){
+    responseField.removeChild(responseField.firstChild);
+  }
+  shortenUrl();
+}
+
+shortenButton.addEventListener('click', displayShortUrl);
+
+
+
+```
+
+
+
+
+
+#### .5 functions used above
+
+helperFunctions.js
+```javascript
+// Formats response to look presentable on webpage
+const renderResponse = (res) => {
+  // Handles if res is falsey
+  if(!res){
+    console.log(res.status);
+  }
+  // In case res comes back as a blank array
+  if(!res.length){
+    responseField.innerHTML = "<p>Try again!</p><p>There were no suggestions found!</p>";
+    return;
+  }
+
+  // Creates an empty array to contain the HTML strings
+  let wordList = [];
+  // Loops through the response and caps off at 10
+  for(let i = 0; i < Math.min(res.length, 10); i++){
+    // creating a list of words
+    wordList.push(`<li>${res[i].word}</li>`);
+  }
+  // Joins the array of HTML strings into one string
+  wordList = wordList.join("");
+
+  // Manipulates responseField to render the modified response
+  responseField.innerHTML = `<p>You might be interested in:</p><ol>${wordList}</ol>`;
+  return
+}
+
+// Renders response before it is modified
+const renderRawResponse = (res) => {
+  // Takes the first 10 words from res
+  let trimmedResponse = res.slice(0, 10);
+  // Manipulates responseField to render the unformatted response
+  responseField.innerHTML = `<text>${JSON.stringify(trimmedResponse)}</text>`;
+}
+
+// Renders the JSON that was returned when the Promise from fetch resolves.
+const renderJsonResponse = (res) => {
+  // Creates an empty object to store the JSON in key-value pairs
+  let rawJson = {};
+  for(let key in res){
+    rawJson[key] = res[key];
+  }
+  // Converts JSON into a string and adding line breaks to make it easier to read
+  rawJson = JSON.stringify(rawJson).replace(/,/g, ", \n");
+  // Manipulates responseField to show the returned JSON.
+  responseField.innerHTML = `<pre>${rawJson}</pre>`;
+}
+```
+
 
 
 ## XVIII.
