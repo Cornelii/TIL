@@ -5,6 +5,8 @@ Javascript: Dynamic, Move, Interactive
 
 javascipt is encapsulated in HTML with tag `<script>`
 
+## I. Javascript Interactive Website
+
 #### 1. Bring Script From Other File!
 use of `src` attribute
 
@@ -130,3 +132,20 @@ element.onclick = turnButtonRed;
 properties
 `.firstChild ` => first child.
 `.parentNode` => parent node.
+
+
+#### 12. Proj#1
+
+##### 1. style.css cursor property as pointer;
+This make tag object that can be clikced.
+
+```css
+#id1 {
+  cursor:pointer;
+}
+```
+
+
+## II. DOM Events with javascript
+
+#### 1. Firing Events
