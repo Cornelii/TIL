@@ -146,6 +146,78 @@ This make tag object that can be clikced.
 ```
 
 
-## II. DOM Events with javascript
+## II. DOM Events with javascript / Firing Events
+Event Handler Functions modify and update DOM elements after an event fires.
 
-#### 1. Firing Events
+Do not use arrow function here?!
+#### 1. Event Handler Registration.
+
+`on + <eventtype>`
+To access property by `.style.property `
+
+example
+```javascript
+let A = document.getElementById("a");
+let B = document.getElementById("b");
+
+A.onclicke = function() {
+  B.style.color = 'red';
+}
+```
+
+#### 2. .addEventListener()
+
+`.addEventListener(<event type>,<eventHandlerFunction>)`
+
+To add eventHandler function to DOM element. And,
+this is also useful to add one more than two handler function to a element.
+
+example
+```javascript
+let a = document.getElementById('a')
+
+let funcx = function() {
+  a.style.color = 'yellow';
+}
+
+let funcy = function() {
+  a.style.fontSize = 20;
+}
+a.onclick = funcx;
+a.addEventListener('click',funcy)
+```
+
+#### 3. .removeEventListener()
+Remove eventhandler from a specific element.
+
+example
+```javascript
+element1.addEventListener('click',function(){
+  target1.removeEventListener('click',eventhandlerfunction);
+})
+
+```
+
+#### 3. Event Object Properties
+
+1. `.target` : property to access the element that triggered teh event.
+2.  `.type` : property to access the name of the event.
+3.  `.timeStamp` : property to access the number of milliseconds since the event is triggered.
+
+example
+```javascript
+
+let sharePhoto = function(event) {
+  event.target.style.display ='none';
+  text.innerHTML = event.timeStamp;
+}
+
+share.onclick = sharePhoto
+```
+    
+
+
+
+
+
+
