@@ -1,7 +1,7 @@
 # SubSet
 $2^n$ subsets exist including empty set.
 
-## 1. Basic Methods
+## I. Basic Methods
 Pseudo code
 ``` pseudo code
 mask=[0,0,0,0] //n=4
@@ -23,7 +23,7 @@ ENDFOR
 considering all the case whether the element exists or not by mask.
 Inefficient!
 
-## 2. Subset by BIT operator
+## II. Subset by BIT operator
 &,|,<<, >>
 1. the number of case of all the subsets : $1 << n :  2^n$
 2. returning at i th case, Is j bit 1 or not : i & (1<< j ): 1
@@ -57,3 +57,37 @@ for i in range(1<<N):
 ```
 > At i, We can think number is in the form of binary number. => exist elements are represented 1, others as 0
 > And, 1<< j, as j increase one by one, They are located at the same position that mean  the very point of existing!
+
+
+## III. Powerset by Backtrack
+
+```python
+cnt = 0
+A=[0,1,4,8,64,5,3,2,8,31,10]
+a=[0]*11
+def backtrack(a, k, num_input):
+    global cnt
+    global A
+    c = [0] * 11
+    
+    if k == num_input:
+        for i in range(k+1):
+            if a[i]:
+                print(f"{A[i]} ", end="")
+        print()
+        cnt += 1
+    else:
+        k += 1
+        ncandidates = construct_candidates(a, k, num_input, c)
+        for i in range(ncandidates):
+            a[k] = c[i]
+            backtrack(a,k,num_input)
+            
+def construct_candidates(a, k, num_input, c):
+    c[0] = True
+    c[1] = False
+    return 2 
+
+backtrack(a,0,10)
+```
+

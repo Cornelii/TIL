@@ -152,3 +152,44 @@ example)
     >>>   return 321 !!!!!!!!!!!!!!!!!
 
 
+## III. Back tracking
+
+example
+```python
+def backtrack(a,k,input_num):
+    #### next candidate initializer
+    c=[0]*(input_num+1)
+    
+    #### base
+    if k == input_num:
+        for i in range(1,k+1):
+            print(f"{a[i]} ",end="")
+        print()
+    else:  #### next-state which towards base, and, recursion.
+        k += 1
+        C = new_candidate(a,k,input_num,c)
+        for i in range(C):
+            a[k] = c[i]
+            backtrack(a,k,input_num)
+            
+
+def new_candidate(a, k, input_num, c):
+    ####  
+    in_perm = [False]*(input_num+5)
+    
+    for i in range(1,k):
+        in_perm[a[i]] = True
+        
+    ncandidates = 0
+    for i in range(1, input_num+1):
+        if in_perm[i] == False:
+            c[ncandidates] = i
+            ncandidates += 1
+    
+    return ncandidates    
+
+def nPn(n):
+    backtrack2(list(range(n+1)),0,n)    
+
+# Generating 1-n permuation.
+```
