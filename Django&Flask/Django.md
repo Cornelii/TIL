@@ -277,7 +277,8 @@ example
 
 
 `<link rel="stylesheet" href=" ">`
-{% static css/style.css %} in href
+
+`static css/style.css` in curly-brace with percent in href
 
 
 

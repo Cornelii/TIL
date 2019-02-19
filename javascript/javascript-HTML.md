@@ -273,6 +273,40 @@ document.onkeyup = down;
 
 ## III. Handlebars (External Library)
 
+basic structure
+
+example
+```html
+<script id="greet" type="text/x-handlebars-template">{{greeting}}</script>
+
+<div id="hello"></div>
+
+<script src="public/main.js" type="text/javascript">
+```
+
+main.js
+```javascript
+const source = document.getElementById('greet').innerHTML;
+// take template
+const template = Handlebars.compile(source);
+// compile the template
+const context = {
+  greeting:'Hello World!'
+};
+// data to be binded in template
+const compiledHtml = template(context);
+// HTML generation binding the data on the template
+const fill = document.getElementById('hello');
+
+fill.innerHTML = compiledHtml;
+
+```
+
+
+#### 1. "if" block helper
+`#if argument` in `double-curly brace`
+// code to include if the provided argument is truthy
+`/if` in `double-curly brace`
 
 
 
