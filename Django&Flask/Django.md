@@ -266,17 +266,18 @@ According to Django template Grammer!
 1. make `static` directory on the app directory (static: default)
 You can check this in settings.py
 
-2. `load static` within django template grammer like jinja `{%  %}` on the top of the html.
+2. `load static` within django template grammer like jinja {%  %} on the top of the html.
 
-3. `static "filepath"` within `{%   %}` in href, etc.
+3. `static "filepath"` within {%  %} in href, etc.
 
 
 example
 
-` load static ` within `{%  %}`
+` load static ` within {%  %}
 
 
-`<link rel="stylesheet" href="{% static css/style.css %}">`
+`<link rel="stylesheet" href=" ">`
+{% static css/style.css %} in href
 
 
 

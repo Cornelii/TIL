@@ -77,3 +77,52 @@ im3 = pyautogui.screenshot('my_region.png', region=(0, 0, 300, 300))
 ```
 `pyautogui.screenshot({file_name},region=(p1x, p1y, p2x p2y))`
 
+
+## III. Sort of things
+
+
+**Tip** Position to mouse by image
+1. To find image area
+
+```python
+import pyautogui as pag
+
+btn = pag.locateOnScreen('imgname.PNG')
+print(btn)
+
+```
+
+2. get position of center of img
+`pyautogui.center()`
+example
+```python
+import pyautogui as pag
+
+btn = pag.locateOnScreen('imgName.PNG',confidence = 0.8)
+center = pag.center(btn)
+print(center)
+
+```
+or 
+`locateCenterOnScreen()`
+
+## Fail-Safe and others
+#### 1. Fail Safe
+If emergency comes, program will be exited when moving mouse cursor to (0,0) by safe mode
+
+If you do not want to use this mode, do this as follows
+```python
+import pyautogui
+
+pyautogui.FAILSAFE = False
+```
+
+#### 2. PAUSE
+pause
+```python
+import pyautogui
+
+pyautogui.PAUSE = 2.5 # (sec) default = 0.1sec
+# commands
+```
+

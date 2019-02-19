@@ -189,7 +189,7 @@ def new_candidate(a, k, input_num, c):
     return ncandidates    
 
 def nPn(n):
-    backtrack2(list(range(n+1)),0,n)    
+    backtrack(list(range(n+1)),0,n)    
 
 # Generating 1-n permuation.
 ```

@@ -68,8 +68,8 @@ condition
 1. Read token
 2. If  Operand, printout
 3. If Operator (includeing paranthesis)
-        * High priority: stack push, lower
-        * Lower priority: Pop from stack until lower-priority operator come out, after that push
+        * Higher priority than one in stack: stack push, lower
+        * Lower priority than one in stack: Pop from stack until meet lower-priority operator come out, after that push
         * If no operator on top: Push
 4. If token is right paranthesis ")"
     * stack pop until, "(" be on top
@@ -80,7 +80,7 @@ condition
 6. After that, all pop operators on stack
 **Remarks** There are priority table called ISP ICP.
 They are different inside and outside of stack, 
-!! left paranthesis ( lowset inside stack, highest outside stack)
+!! left paranthesis ( lowest inside stack, highest outside stack)
 
 |token|ISP|ICP|
 |---|---|---|

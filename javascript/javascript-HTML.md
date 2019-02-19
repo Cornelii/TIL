@@ -215,6 +215,8 @@ let sharePhoto = function(event) {
 share.onclick = sharePhoto
 ```
     
+#### 4. Event Types
+
 
 
 
