@@ -266,14 +266,14 @@ According to Django template Grammer!
 1. make `static` directory on the app directory (static: default)
 You can check this in settings.py
 
-2. `load static` within django template grammer like jinja {%  %} on the top of the html.
+2. `load static` within django template grammer like jinja `curly-brace with percent` on the top of the html.
 
-3. `static "filepath"` within {%  %} in href, etc.
+3. `static "filepath"` within `curly-brace with percent` in href, etc.
 
 
 example
 
-` load static ` within {%  %}
+` load static ` within `curly-brace with percent`
 
 
 `<link rel="stylesheet" href=" ">`

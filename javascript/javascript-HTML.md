@@ -149,7 +149,7 @@ This make tag object that can be clikced.
 ## II. DOM Events with javascript / Firing Events
 Event Handler Functions modify and update DOM elements after an event fires.
 
-Do not use arrow function here?!
+
 #### 1. Event Handler Registration.
 
 `on + <eventtype>`
@@ -198,7 +198,7 @@ element1.addEventListener('click',function(){
 
 ```
 
-#### 3. Event Object Properties
+#### 4. Event Object Properties
 
 1. `.target` : property to access the element that triggered teh event.
 2.  `.type` : property to access the name of the event.
@@ -215,10 +215,63 @@ let sharePhoto = function(event) {
 share.onclick = sharePhoto
 ```
     
-#### 4. Event Types
+#### 5. Event Types
 
+[events](https://developer.mozilla.org/en-US/docs/Web/Events)
 
+##### ex) load
+load event fires when website files completely load in the browser.
 
+##### 1. Mouse events
+
+* click
+
+* mousedown
+
+* mouseup
+
+* mouseover
+
+* mouseout
+
+```javascript
+
+let itemOne = document.getElementById('list-item-one');
+itemOne.onmouseover = function(){
+  itemOne.style.width = '430px';
+};
+```
+##### 2. Keyboard Events
+
+* keydown
+
+* keyup
+
+* keypress
+
+* Keyboard events have unique properties assigned to their event objects like `.key`!!
+
+example
+```javascript
+
+let ball = document.getElementById('float-circle');
+
+// Write your code below
+let up = function(){
+  ball.style.bottom = "250px";
+}
+
+let down = function(){
+  ball.style.bottom = "50px";
+}
+
+document.onkeydown = up;
+
+document.onkeyup = down;
+
+```
+
+## III. Handlebars (External Library)
 
 
 
