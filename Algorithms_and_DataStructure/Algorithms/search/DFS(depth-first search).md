@@ -26,35 +26,36 @@ This procedure is good in stack
 ### simplified DFS ## using adjacency table!!!
 
 ### iterative way with stack
-def dfs_iter(s):
-    stack = Stack()
-    i = s - 1
-
-    stack.push(i)
-    ################
-    ## 1st action ##
-    ################
-    visit_table[i] = True
+def DFS_iter(s):
+    S = Stack()
+    
+    visit_table[s-1] = True
     print("visit {}th Node".format(s))
-
+    
     while not all(visit_table):
-
+        flag = 0
         for vertex in range(len(graph_table)):
-            if graph_table[i][vertex] and not visit_table[vertex]:
-
-                stack.push(vertex)
-                ################
-                #### action ####
-                ################
+            if graph_table[s-1][vertex] and not visit_table[vertex]:
+                
                 visit_table[vertex] = True
                 print("visit {}th Node".format(vertex+1))
-
-        if stack.isEmpty():
-            break
+                S.push(s)
+                s = vertex+1
+                flag = 1
+                break
+                
+        if flag:
+            pass
         else:
-            i = stack.pop()
+            if S.is_empty():
+                return 0
+            else:
+                s = S.pop()
 
-def dfs(s):
+    return 1
+
+## Basic DFS using graph_table (not return value)
+def DFS(s): 
     if all(visit_table):
         return
 
@@ -65,37 +66,13 @@ def dfs(s):
         if graph_table[s-1][vertex] and not visit_table[vertex]:
             dfs(vertex+1)
 
-
-def DFS(S):
-    if all(visit_table):
-        return
-    visit_table[S - 1] = True
-    print("visit {}th Node".format(S))
-
-    for w in range(len(graph_table)):
-        if graph_table[S - 1][w] and not visit_table[w]:
-            w += 1  ## index-node calibration
-            stack.push(S)  ### original node number in stack idx+1
-            return DFS(w)
-
-    if stack.isEmpty():
-        return
-    else:
-        vb = stack.pop()
-        return DFS(vb)
+    # if all(visit_table):
+    #     return 1
 
 if __name__ == '__main__':
     graph_table = [[0,1,1,0,0],[0,0,0,1,0],[0,0,0,0,1],[0,0,0,0,0],[0,0,0,0,0]]
     visit_table = [0]*5
     stack = Stack()
-
-    #DFS(1)
-    #dfs(1)
-    dfs_iter(1)
-    print(visit_table)
-
-### Stack is needed!
-### Recursion itself system stack.
 
 ### Stack
 class Node:
