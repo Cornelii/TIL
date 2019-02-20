@@ -13,6 +13,10 @@ This procedure is good in stack
 2. Among adjacent nodes to v. if there exists w, which is not yet visited, push v to the stack and go to w.
 3. let w v, go back to pop, and repeat until stack become empty state.
 
+**DFS recursive form for Tree**
+![dfs_recursive](../../img/DFS_recursive_basic_form.png)
+
+
 ![DFS](../../img/DFS_outline.png)
 
 

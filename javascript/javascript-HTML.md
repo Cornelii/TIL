@@ -275,8 +275,15 @@ document.onkeyup = down;
 
 basic structure
 
+1. Handlebars is an external library used to create templates which are a mix of HTML, text, and expressions.
+2. Handlebars uses expressions which are wrapped inside double braces like: {{someVariable}}
+3. A script tag with a type of "text/x-handlebars-template" is used to deliver a template to the browser.
+4. Handlebar.compile() returns a templating function from a template script script intended for Handlebars.
+5. A template created from .compile() will take an object as an argument and use it as context to generate a string containing HTML.
+
 example
 ```html
+<script src="handlebars.min.js"></script>
 <script id="greet" type="text/x-handlebars-template">{{greeting}}</script>
 
 <div id="hello"></div>
@@ -304,9 +311,73 @@ fill.innerHTML = compiledHtml;
 
 
 #### 1. "if" block helper
-`#if argument` in `double-curly brace`
+{{#if}}
 // code to include if the provided argument is truthy
-`/if` in `double-curly brace`
+{{/if}}
+
+example
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>GIF!</title>
+    <script src="handlebars.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="public/style.css">
+    <!-- Add an {{if}} helper block in the script element below-->
+    
+	  <script id="ifHelper" type="text/x-handlebars-template">
+    {{#if opinion}}
+    <p>"The correct way to say 'GIF' is GIF!"</p>
+ 		
+    {{/if}}
+    </script>
+    
+  </head>
+  <body>
+    <div class="bg">
+      <img class="bg-convo" src="https://s3.amazonaws.com/codecademy-content/courses/learn-handlebars/handlebars+if.svg">
+    </div>
+    <div id="debate">
+    </div>
+  </body>
+  <script src="public/main.js" type="text/javascript"></script>
+</html>
+
+```
+
+```javascript
+const source = document.getElementById('ifHelper').innerHTML;
+const template = Handlebars.compile(source);
+const context = {
+  opinion: true
+};
+
+const compiledHtml = template(context);
+
+const debateElement = document.getElementById('debate');
+
+debateElement.innerHTML = compiledHtml
+```
+
+
+#### 2. "Else"
+{{#if argument}}
+  // code to include if it is truthy
+{{else}}
+  // Code to include if it is not truthy
+{{/if}}
+
+#### 3. "Each" & "This"
+
+This is like `for` statement
+
+```html
+{{#each someArray}}
+  <p>{{this}} is the current element!</p>
+{{/each}}
+```
+this is like that in python
 
 
 

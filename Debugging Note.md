@@ -20,6 +20,11 @@ git commit -m "Apply .gitignore"
 
 **Tips for .gitignore**
 
+### Page build failure
+`The page build failed for the 'master' branch with the following error`
+
+Add empty file named `.nojekyll` into the repository.
+
 
 
 ## 2. Python

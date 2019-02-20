@@ -148,6 +148,132 @@ def func(request):
     return render(request,'target.html',{'data':data})
 ```
 
+#### 4. POST
+```python
+def create(request):
+    title = request.POST.get("title") ## POST type.
+    content = request.POST.get('content')
+    
+    article = Article(title = title, content = content)
+    article.save()
+    
+    return redirect('/articles')
+```
+
+```html
+<h2>게시글 작성</h2>
+<form action="/articles/create/" method="POST">
+    제목: <input type="text" name="title"/>
+    내용: <input type="text" name="content"/>
+    <input type="submit" value="Submit"/>
+    {% csrf_token %} 
+    <!-- Token Django makes -->
+</form>
+```
+
+#### 5. url generation by aliasing and naming in urls.py
+**Refer the X sub-gatekeeper below**
+<a href="#X">go to X</a>
+
+example
+`urls.py` at application directory in this below case.
+```python
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.index, name="index"),
+    path('new/',views.new, name="new"),
+    path('create/',views.create, name="create"),
+    path('<int:article_id>/',views.detail, name="detail"),
+    path('<int:article_id>/edit/',views.edit, name="edit"),
+    path('<int:article_id>/update/',views.update, name="update"),
+    path('<int:article_id>/delete/',views.delete, name="delete"),
+]
+```
+
+index.html
+```html
+<h2>게시판 입니다.</h2>
+<a href="{% url 'new' %}">새글쓰기</a>
+<!--  this url aliasing according to Django template syntax-->
+
+<table>
+    <tr>
+        <th>Index</th>
+        <th>Title</th>
+    </tr>
+    {% for d in data %}
+    <tr>
+        <td>{{ d.id }}</td>
+        <td><a href="/articles/{{d.id}}/">{{ d.title }}</a></td>
+    </tr>
+    {% endfor %}
+</table>
+```
+* This url aliasing is also available in views.py python script for redirect(). 
+* For these case, use just name.
+* If it requires variable routing, just add the variable with comma.
+
+example
+
+```python
+def create(request):
+    title = request.POST.get("title")
+    content = request.POST.get('content')
+    
+    article = Article(title = title, content = content)
+    article.save()
+    
+    return redirect('detail', article.id)   
+```
+
+
+#### 6. url aliasing with variable routing
+example
+
+urls.py at application directory in this below case.
+```python
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.index, name="index"),
+    path('new/',views.new, name="new"),
+    path('create/',views.create, name="create"),
+    path('<int:article_id>/',views.detail, name="detail"),
+    path('<int:article_id>/edit/',views.edit, name="edit"),
+    path('<int:article_id>/update/',views.update, name="update"),
+    path('<int:article_id>/delete/',views.delete, name="delete"),
+]
+```
+
+index.html
+
+```html
+<h2>게시판 입니다.</h2>
+<a href="{% url 'new' %}">새글쓰기</a>
+
+
+<table>
+    <tr>
+        <th>Index</th>
+        <th>Title</th>
+    </tr>
+    {% for d in data %}
+    <tr>
+        <td>{{ d.id }}</td>
+        <td><a href="{% url 'detail' d.id %}">{{ d.title }}</a></td>
+        <!-- this format just add the variable in order with a space -->
+    </tr>
+    {% endfor %}
+</table>
+
+```
+
+
+
+
 ## VI. models
 
 #### 1. Django ORM
@@ -162,9 +288,9 @@ class Article(models.Model):
     title = models.TextField()
     content = models.TextField()
 ```
-2. `python manage.py makemigrations`
+1. `python manage.py makemigrations`
 
-3. `python manage.py migrate`
+2. `python manage.py migrate`
 
 
 ##### runtime CRUD
@@ -198,7 +324,6 @@ example
 * DELETE
 > a = Article.objects.get(id=3)
 > a.delete()
-> 
 
 
 * order by
@@ -281,8 +406,72 @@ example
 `static css/style.css` in curly-brace with percent in href
 
 
+## IX. with ipython & django_extensions
 
-## X. Commands
+After generating project and app, add `django_extensions` to the INSTALLED_APPS
+at settings.py
+
+## X. sub gate-keeper
+<a id="X"></a>
+1. generate urls.py in app. This is not the one in project directory
+
+exmaple
+urls.py in project
+```python
+from django.contrib import admin
+from django.urls import path, include
+from articles import views
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('articles/', include('articles.urls')),
+    path('', views.index),
+]
+```
+urls.py in app
+```python
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.index),
+    path('new/',views.new),
+    path('create/',views.create)
+    
+]
+```
+
+## Super neutral templates
+
+just make directory of templates just under project directory where settings.py is (This is a common convention!)
+this has first priority.
+
+Then,
+Add the information into the `'DIRS'` of `TEMPLATES` in `settings.py`
+
+```python
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'board','templates'),], 
+        ### Add the line into the DIRS
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+```
+
+
+
+## XX. Commands
 
 1. `python manage.py runserver $IP`
 * At C9: `python manage.py runserver $IP:$PORT`
@@ -302,3 +491,26 @@ generate needed directory and files.
 
 7. `python manage.py createsuperuser`
 
+8. `python manage.py dbshell`
+
+9. `python manage.py shell_plus`
+
+
+
+##### TIP Standard CRUD
+
+**R**
+/app_name/            list page
+/app_name/1           `detail`
+**C**
+/app_name/new         `new`
+/app_name/create      `create`
+**U**
+/app_name/1/edit      `edit`
+/app_name/1/update    `update`
+**D**
+/app_name/1/delete    `delete`
+
+This is not actually fit to RESTful definitely
+
+* refer `RESTful API`
