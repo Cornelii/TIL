@@ -23,3 +23,47 @@ It is like DFS. but difference as follows in table.
 
 
 **self-realization**: When conducting backtracking, it is important to find pruning condition in the specific problem.
+
+
+## example code this is for permutation of searching-space tree
+
+```python
+def backtrack(a,k=-1,input_num=3):
+    #### next candidate initializer
+    c=[0]*(input_num)
+    
+    #### base
+    if k == input_num-1:
+        for i in range(k+1):
+            print(f"{a[i]} ",end="")
+        print()
+    else:  #### next-state which towards base, and, recursion.
+        k += 1
+        C = new_candidate(a,k,input_num,c)
+        for i in range(C):
+            a[k] = c[i]
+            backtrack(a,k,input_num)
+            
+
+def new_candidate(a, k, input_num, c):
+    ####  
+    in_perm = [False]*(input_num)
+    
+    for i in range(k):
+        in_perm[a[i]] = True
+        
+    ncandidates = 0
+    for i in range(input_num):
+        if in_perm[i] == False:
+            c[ncandidates] = i
+            ncandidates += 1
+    
+    return ncandidates    
+
+def nPn(n):
+    backtrack([0]*10,-1,n)    
+
+
+nPn(5)
+
+```

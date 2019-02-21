@@ -155,14 +155,16 @@ example)
 ## III. Back tracking
 
 example
+#### 1. nPn permutation
+
 ```python
-def backtrack(a,k,input_num):
+def backtrack(a,k=-1,input_num=3):
     #### next candidate initializer
-    c=[0]*(input_num+1)
+    c=[0]*(input_num)
     
     #### base
-    if k == input_num:
-        for i in range(1,k+1):
+    if k == input_num-1:
+        for i in range(k+1):
             print(f"{a[i]} ",end="")
         print()
     else:  #### next-state which towards base, and, recursion.
@@ -175,13 +177,13 @@ def backtrack(a,k,input_num):
 
 def new_candidate(a, k, input_num, c):
     ####  
-    in_perm = [False]*(input_num+5)
+    in_perm = [False]*(input_num)
     
-    for i in range(1,k):
+    for i in range(k):
         in_perm[a[i]] = True
         
     ncandidates = 0
-    for i in range(1, input_num+1):
+    for i in range(input_num):
         if in_perm[i] == False:
             c[ncandidates] = i
             ncandidates += 1
@@ -189,7 +191,160 @@ def new_candidate(a, k, input_num, c):
     return ncandidates    
 
 def nPn(n):
-    backtrack(list(range(n+1)),0,n)    
+    backtrack([0]*10,-1,n)    
 
-# Generating 1-n permuation.
+nPn(5)
+```
+#### 2. nPr permutation
+```python
+def backtrack(a,k=-1,input_num=3, depth=2):
+    #### next candidate initializer
+    c=[0]*(input_num)
+    
+    #### base
+    if k == depth-1:
+        for i in range(k+1):
+            print(f"{a[i]} ",end="")
+        print()
+    else:  #### next-state which towards base, and, recursion.
+        k += 1
+        C = new_candidate(a,k,input_num,c)
+        for i in range(C):
+            a[k] = c[i]
+            backtrack(a,k,input_num,depth)
+            
+
+def new_candidate(a, k, input_num, c):
+    ####  
+    in_perm = [False]*(input_num)
+    
+    for i in range(k):
+        in_perm[a[i]] = True
+        
+    ncandidates = 0
+    for i in range(input_num):
+        if in_perm[i] == False:
+            c[ncandidates] = i
+            ncandidates += 1
+    
+    return ncandidates    
+
+def nPr(n, r):
+    backtrack([0]*10,-1,n,r)    
+
+nPr(5,3)
+```
+
+#### 3. Repetitive nPr permutation
+```python
+def backtrack(a,k=-1,input_num=3, depth=2):
+    #### next candidate initializer
+    c=list(range(input_num))
+    
+    #### base
+    if k == depth-1:
+        for i in range(k+1):
+            print(f"{a[i]} ",end="")
+        print()
+    else:  #### next-state which towards base, and, recursion.
+        k += 1
+        for i in range(input_num):
+            a[k] = c[i]
+            backtrack(a,k,input_num,depth)
+            
+def RnPr(n, r):
+    backtrack([0]*10,-1,n,r)    
+
+RnPr(5,3)
+```
+#### 4. PowerSet
+```python
+def backtrack(a,k=-1,input_num=3):
+    #### next candidate initializer
+    c=[0]*input_num
+    
+    #### base
+    if k == input_num-1:
+        for i in range(k+1):
+            print(f"{a[i]} ",end="")
+        print()
+    
+    else:  #### next-state which towards base, and, recursion.
+        k += 1
+        C = construct_candidates(a, k, input_num, c)
+        for i in range(C):
+            a[k] = c[i]
+            backtrack(a,k,input_num)
+            
+            
+def construct_candidates(a, k, input_num, c):
+    c[0] = True
+    c[1] = False
+    return 2
+
+a=[0]*10
+backtrack(a,-1,3)
+```
+
+#### 5. nCr combination
+```python
+def backtrack(a,k=-1,input_num=3, depth=2):
+    global cnt
+    
+    c = [0]*10
+    #### base
+    if k == depth-1:
+        for i in range(k+1):
+            print(f"{a[i]} ",end="")
+        print()
+        cnt += 1
+    else:  #### next-state which towards base, and, recursion.
+        k += 1
+        C = new_candidate(a,k,input_num,c)
+        for i in range(C):
+            a[k] = c[i]
+            backtrack(a,k,input_num,depth)
+            
+
+def new_candidate(a, k, input_num, c):
+    ####  
+    global in_perm
+    
+    for i in range(k):
+        in_perm[a[i]] = True
+        
+    ncandidates = 0
+    for i in range(input_num):
+        if in_perm[i] == False:
+            c[ncandidates] = i
+            ncandidates += 1
+    
+    return ncandidates    
+
+a = [0]*10
+in_perm = [False]*(10)
+
+def nCr(n, r):
+    backtrack(a,-1,n,r)    
+
+```
+
+#### 6. Repetitive nHr permutation
+
+```python
+def backtrack(a, k, depth, start, num_input): # start
+    
+    if k == depth-1: ## base
+        for i in range(depth):
+            print(a[i], end=" ")
+        print()
+    else:
+        k += 1
+        for i in range(start,num_input): # start
+            a[k] = i
+            backtrack(a,k,depth,i,num_input)
+
+def nHr(n,r):
+    a =[0]*10
+    backtrack(a,-1,r,0,n)
 ```

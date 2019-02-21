@@ -441,7 +441,7 @@ urlpatterns = [
 ]
 ```
 
-## Super neutral templates
+## XI. Super neutral templates
 
 just make directory of templates just under project directory where settings.py is (This is a common convention!)
 this has first priority.
@@ -468,6 +468,54 @@ TEMPLATES = [
 ]
 
 ```
+
+
+## XII. Database relationship & Foreign Key
+
+* 1:1
+* 1:N
+* M:N
+![DR](./img/database_relationship.png)
+
+Foreign Key: Primary Key in another table!
+
+models.py
+```python
+from django.db import models
+
+# Create your models here.
+class Article(models.Model):
+    title = models.TextField()
+    content = models.TextField()
+    
+    def __repr__(self):
+        return f"<{self.id}: {self.title}-{self.content}>"
+        
+    def __str__(self):
+        return self.__repr__()
+        
+    
+        
+
+class Comment(models.Model):
+    content = models.TextField()
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name="comments")
+    # DO_NOTHING, etc...
+    # related_name is for 1 to N getting objects.
+```
+
+Query in shell_plus in this case.
+# N -> 1
+> a = Article.objects.get(pk=2)
+> Comment.objects.filter(article=a)
+
+# 1 -> N
+> Comment.objects.filter(article_id = {id in Article}).all()
+or
+> Article.objects.get(pk={id in Article}).comments.all() 
+
+**Remarks**: If you want to use .comments.all() in the html document by django template syntax,
+you must ommit () parenthesis
 
 
 
