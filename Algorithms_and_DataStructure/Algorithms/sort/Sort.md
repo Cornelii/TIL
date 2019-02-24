@@ -272,3 +272,7 @@ a=radix_sort(unsorted_list)
 print(a)
 
 ```
+
+## VII. Insert Sort
+
+This is like enqueue procedure in priority Queue.

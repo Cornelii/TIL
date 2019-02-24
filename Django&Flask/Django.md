@@ -115,7 +115,7 @@ from <app_name> import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", views.index), # root url
-    path('url','function in view'),
+    path('url/','function in view'),
 ]
 
 ```
