@@ -15,7 +15,7 @@ These only takes the width of content in them.
 It can not set width,height, margin-top, maring-bottom.
 However, margin-top and marin-bottom are available.
 
-* a
+* a, span, strong, img, br, input, select, textarea, button
 
 We cand change the block propensity to inline by
 **style tag => display: inline; **
