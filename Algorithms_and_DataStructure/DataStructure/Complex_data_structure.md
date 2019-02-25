@@ -51,7 +51,7 @@ Just refer this for deep understanding.
 
 
 example. **not strictly hashtable!**
-```
+```python
 class HashMap:
   def __init__(self, array_size):
     self.array_size = array_size
