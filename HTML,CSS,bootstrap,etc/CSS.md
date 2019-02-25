@@ -2,18 +2,15 @@
 
 
 ## I. Basic use of CSS
-       (property)
-   `h1 {color:blue; font-size:15px;}`
-  (selector)   (value)
+`h1 {color:blue; font-size:15px;}`
+(selector) { (property): (value);}
 
-### 1. Linkage between HTML and CSS
+#### 1. Linkage between HTML and CSS
 * inline   
 * internal
 * external
 
-
 ```html
-
 <h2 style="color:red;">inline</h2> 
 
 <head>
@@ -40,16 +37,14 @@
     @import "style.css"
 
 </style>
-
-
 ```
-#### Remarks! each property should be separated by semicolon ; not comma ,
+**Remarks**: each property should be separated by semicolon ; not comma ,
 
-### 2. Selector
+## II. Selector
 Tag can be used. but, Further, Grouping is also available to apply styles. 
 * id     #
 * class  .
-* 
+* tag name, etc
 
 **selector example**
 
@@ -72,10 +67,11 @@ section > ul > li {
 a + ul {
     background-color:yellowgreen;
 }
-
+/* ul next a in same level */
 a ~ ul {
     border: 1px solid darkgray;
 }
+/* all <ul>s next a in same level */
 /* +,~ are not about relationship between parent and child */
 
 a[target="_self"] {
@@ -138,36 +134,62 @@ a:not([href]):not([tabindex]) {
 
 ```
 
-### 3. Box model
+## III. Box model
 margin-border-padding-content
 
 retangular world~!
 
-### 4. Cascading order
-#### CSS specificity
+**width, and height include padding!!**
+
+
+## IV. Cascading order
+#### 1. CSS specificity
 1. !important
 2. inline tag
 3. #id
+Pseudo-classes
+Attributes selector [href], [target], etc
 4. .class
 5. tag name
-6. global
+6. global  (`*`, `body *`)
                        excluding virtual class, etc.
 #### order in declaration
 Latter style declared.
 
-### 5. frequently used properties and attributes
+## V. frequently used properties and attributes
 
 
 [choosing color_tip]("https://htmlcolorcodes.com/")
 
 
-#### Regarding size
+#### 1. Regarding size
 1. em
 2. %
 3. rem (based on root)
 4. Viewport unit
 
-#### visibility, display
+#### 2.visibility
+visible
+hidden
+collapse (only for table )
+inherit
+
+#### 3.display
+block
+inline
+inline-block
+none
+
+```html
+a {
+    display: block;
+}
+```
+##### 1. block elements
+div, h, p, ol, ul, hr, table, form
+
+##### 2. inline elements
+span, a, strong, img, br, input, select, textarea, button
 
 
 #### background-image , color, repeat, size, etc
@@ -189,8 +211,8 @@ h {
     position: relative;
 
 }
-
 ```
+position are controlled by properties of `top, bottom, left, and right`
 
 ##### 1. static
 Default
@@ -212,7 +234,7 @@ h {
 
 ##### 3. absolute
 * It escape from origin tag position. Of course, Other following tag negelect its abolute-positioned tag in position.
-* It is based on non-static tag
+* It is based on non-static tag (relative, absolute, and fixed)
 * Using absolute, the order of tag could be kind of neglected
 
 ##### 4. fixed

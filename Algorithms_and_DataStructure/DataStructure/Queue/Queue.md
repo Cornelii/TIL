@@ -95,6 +95,43 @@ link front and end
       * full : (rear+1)%n = front
 
 
+```python
+class CircularQueue:
+    def __init__(self, size = 10):
+        self.size = size
+        self.front = 0
+        self.rear = 0
+        self.array = [None]*(size+1)
+        self.count = 0
+        
+    def enqueue(self, *args):
+        for val in args:
+            if self.is_full():
+                raise "Queue is full"
+            else:
+                self.rear = (self.rear+1)%(self.size+1)
+                self.array[self.rear] = val
+                self.count += 1
+    
+    def dequeue(self):
+        if self.is_empty():
+            raise "Queue is empty"
+        else:
+            self.front = (self.front+1)%(self.size+1)
+            self.count -= 1
+            
+            return self.array[self.front]
+    
+    def is_empty(self):
+        return self.front == self.rear
+    
+    def is_full(self):
+        return self.count >= self.size
+
+```
+
+
+
 ### 3. Linked Queue
     jsut use of linked-list
 
@@ -127,33 +164,45 @@ front,rear = None
 example of python code
 ```python
 class Node:
-    def __init__(self, item, n=None):
-        self.item = item
-        self.next = n
+    def __init__(self, val = None):
+        self.val = val
+        self.next = None
 
-def enQueue(item):
-    global front, rear
-    newNode = Node(item)
-    if front == None:
-        front = newNode
-    else:
-        rear.next = newNode
-    rear = newNode
-
-def isEmpty():
-    return front == None
-
-def deQueue():
-    global front, rear
-    if isEmpty():
-        print("queue_empty")
-        return None
+class Queue(Node):
+    def __init__(self, size = 1000):
+        self.size = size
+        self.front = Node()
+        self.rear = self.front
+        self.count = 0
+        
+    def enqueue(self, *args):
+        
+        for val in args:
+            if self.is_full():
+                raise "Queue is full!"
+            else:
+                self.rear.next = Node(val)
+                self.rear = self.rear.next
+                self.count += 1
+        
+    def dequeue(self):
+        if self.is_empty():
+            raise "Queue is empty"
+        else:
+            tmp_val = self.front.next.val
+            if self.front.next == self.rear:
+                self.front = self.rear
+            else:
+                self.front.next = self.front.next.next
+            self.count -= 1
+            return tmp_val
+        
+        
+    def is_empty(self):
+        return self.front == self.rear
     
-    item = front.item
-    front = front.next
-    if front == None:
-        rear = None
-    return item
+    def is_full(self):
+        return self.count >= self.size
 
 ```
 

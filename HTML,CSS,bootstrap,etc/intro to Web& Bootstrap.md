@@ -18,7 +18,7 @@ Client <=> Server
 
 * Static Web. Unidirectional?! limited to client.
 
-### IP, Domain, and URL
+#### 1. IP, Domain, and URL
 * IP (Internet Protocol)
 ex) 172.217.27.78 
 * Domain
@@ -34,15 +34,18 @@ https://www.google.co.kr/esarch?q=구글
 
 
 
+
 ## III. BootStrap
-pt bootstrap CDN code HTML'head
+put bootstrap CDN code HTML'head
+
+**Tip**: contents delivery network, or contents distribution network (CDN)
 
 many styles are predefined at the source css file.
 you can easily use the classes.
 
 You'd better work opening up the bootstrap website.
 
-### colors in bootstrap
+#### 1. colors in bootstrap
     1. primary
     2. secondary
     3. success
@@ -53,15 +56,85 @@ You'd better work opening up the bootstrap website.
     8. success
 These name is used with specific prefix like btn-primary as class type in HTML doc
 
-### m-0, mb-0,mt-0,mr-0,ml-0,mx-0,my-0
-    control margin size.
+#### 2. Text in bootstrap
+* .text-justify
+* .text-left 
+* .text-center
+* .text-right
+* .text-lowercase
+* .text-uppercase
+* .text-capitalize
+* .d-inline-block .text-truncate
 
-### p ~~~
-    control padding size
+* .font-weight-bold
+* .font-weight-light
+* .font-weight-nomral
+* .font-italic
+
+#### 3. Spacing in bootstrap
+##### 1. main space type
+m: margin
+p: padding
+
+##### 2. specific position of the space
+t: top
+b: bottom
+l: left
+r: right
+x: l & r
+y: t & b
+
+##### 3. amount
+0, 1, 2, 3, 4, 5, auto
+n0, n1, n2, n3, n4, n5
+
+example
+
+`mt-0 mb-n1 px-5`
 
 **Tip** Look around bootstrap css source file
 
-### Grid System
+#### 4. flex in bootstrap
+with `.d-flex`
+* .flex-row
+* .flex-row-reverse
+* .flex-column
+* .flex-column-reverse
+
+* .justify-content-start
+* .justify-content-end
+* .justify-content-center
+* .justify-content-between
+* .justify-content-around
+
+* .align-items-start
+* .align-items-end
+* .align-items-center
+* .align-items-baseline
+* .align-items-stretch
+
+* .flex-nowrap
+* .flex-wrap
+* .flex-wrap-reverse
+
+* .order-{n}  {n}: integer
+
+
+with `.flex-wrap`
+* .align-content-start
+* .align-content-end
+* .align-content-center
+* .align-content-baseline
+* .align-content-stretch
+
+#### 5. Grid System
+
+`.container` manifest 12 columns-divided grid system.
+(`.container-fluid` for 100% width w.r.t viewport )
+
+children of `.container` automatically `d-flex` is applied?!!!
+
+
 ![CSS grid]("https://designshack.net/wp-content/uploads/mdn-grid.jpg")
 
 ```html
@@ -92,6 +165,45 @@ These name is used with specific prefix like btn-primary as class type in HTML d
 </html>
 ```
 
+#### 6. other class-based methods
+* .float-left
+* .float-right
+* .float-none
+
+* .position-static
+* .position-relative
+* .position-fixed
+* .position-absolute
+* .position-sticky (available in a few webbrowsers)
+
+* .w-{n}
+* .h-{n}
+* .mh-{n}
+* .mw-{n}
+
+
+#### 7. display
+* .d-flex
+* .d-block
+* .d-none
+* .d-inline
+* .d-inline-block
+
+#### 8. vertical alginments within an element
+* .align-baseline
+* .align-top
+* .align-middle
+* .align-bottom
+* .align-text-top
+* .align-text-bottom
+
+
+#### 9. reactive web
+|size|Extra small|Small|medium|Large|Extra Large|
+|---|---|---|---|---|---|
+||<576px|>=576px|>=768px|>=992px|>=1200px|
+||`.col-`|`.col-sm-`|`.col-md-`|`.col-lg-`|`.col-xl-`|
+|Maximum container size|None|540px|720px|960px|1140px|
 
 ## ETC
 * Web Developer Chrome Extension
@@ -99,9 +211,4 @@ These name is used with specific prefix like btn-primary as class type in HTML d
 * AWS certificate Manager
 * Rset api
 * use of Sass with CSS
-
-
-
-
-
 

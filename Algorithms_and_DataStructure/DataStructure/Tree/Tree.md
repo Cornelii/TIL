@@ -184,16 +184,6 @@ class Tree:
 ```
 
 
-
-
-
-
-
-
-
-
-
-
 ### My own Binary Tree (on going)
 
 ```python
@@ -359,4 +349,78 @@ a = BinaryTree()
 a.init_data(*[5,1,6,7,8,15,63,61,15,14,17,38,100])
 a.BFS()
 a.DFS()
+```
+
+Binary Tree for Problem Solving?!
+
+```python
+class Node:
+    def __init__(self, val=None):
+        self.val = val
+        self.next = None
+        
+class Queue:
+    def __init__(self):
+        self.front = Node()
+        self.rear = self.front
+        self.count = 0
+        
+    def enqueue(self, val):
+        self.rear.next = Node(val)
+        self.rear = self.rear.next
+        self.count += 1
+    
+    def dequeue(self):
+        if self.is_empty():
+            raise "Queue is empty!"
+        else:
+            tmp = self.front.next.val
+            self.front = self.front.next
+        self.count -= 1
+        return tmp
+        
+    def is_empty(self):
+        return self.front == self.rear
+    
+    
+class TreeNode:
+    def __init__(self, val = None):
+        self.val = val
+        self.left = None
+        self.right = None
+
+    
+class BinaryTree:
+    def __init__(self):
+        self.root = TreeNode()
+        self.pointer = self.root
+        
+    def construct_tree(self, *arr):
+        q = Queue()
+        q.enqueue(self.pointer)
+        
+        for val in arr:
+            current_node = q.dequeue()
+            current_node.val = val
+            current_node.left = TreeNode()
+            current_node.right = TreeNode()
+            
+            q.enqueue(current_node.left)
+            q.enqueue(current_node.right)
+                
+        
+    def bfs(self):
+        q = Queue()
+        q.enqueue(self.root)
+        
+        while not q.is_empty():
+            current_node = q.dequeue()
+            print(current_node.val, end=" ")
+            
+            if current_node.left:
+                if current_node.left.val:
+                    q.enqueue(current_node.left)
+            if current_node.right:
+                if current_node.right.val:
+                    q.enqueue(current_node.right)
 ```

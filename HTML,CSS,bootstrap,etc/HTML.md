@@ -1,6 +1,40 @@
 # HTML tags
 
-## I. tag
+Hypertext mark-up language
+
+## I. Basic Structure
+
+```HTML
+<!DOCTYPE HTML>
+<html>
+    <head>
+        
+    </head>
+    
+    <body>
+        
+    </body>
+</html>
+```
+
+## II. Tag and DOM TREE. (Document Object Model) DOM Tree make search easier.
+HTML is composed of Tag and Contents.
+### Tag
+1. open-closing element ex) <h1></h1>
+2. self-closing element  ex) <img src=""/>
+3. Attributes ex) <a href="{attribute}">
+4. Semantic tags
+   * header
+   * nav
+   * aside
+   * section
+   * article
+   * footer
+Semantic tag help user feel comfortable.
+
+Inheritance is specified by DOM-TREE strucure.
+
+## III. Fundamental classification of tags
 #### 1. Block level tags
 This takes an entire row (horizontal place) on given page!
 
@@ -12,7 +46,7 @@ They can inlcude inline level tags in them.
 Inline tags fill a line one by one successively.
 These only takes the width of content in them.
 
-It can not set width,height, margin-top, maring-bottom.
+It `can not` set `width, height, margin-top, and marin-bottom.`
 However, margin-top and marin-bottom are available.
 
 * a, span, strong, img, br, input, select, textarea, button
@@ -47,5 +81,15 @@ make a tag with id! And, another a tag with href of #the_id.
 </body>
 ```
 
+## III. CSS & HTML
+
+#### -CSS by external .css file
+
+`<link rel="stylesheet" href="   .css">`
 
 
+#### The most directly applied style is applied to the tag (Cascading)
+
+
+#### Tips
+[caniuse]("https://www.caniuse.com/")
