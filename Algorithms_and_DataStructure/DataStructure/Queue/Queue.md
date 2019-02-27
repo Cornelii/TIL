@@ -231,6 +231,83 @@ while not q.empty():
     print(q.get())
 ```
 
+### 4. Priority Queue
+```python
+class Node:
+    def __init__(self, val = None):
+        self.__val = val
+        self.__next = None
+        
+    def get_val(self):
+        return self.__val
+    
+    def set_val(self, val):
+        self.__val = val
+        
+    def get_next(self):
+        return self.__next
+    
+    def set_next(self, node):
+        self.__next = node
+        
+class PriorityQueue(Node):
+    def __init__(self):
+        self.front = Node()
+        self.rear = self.front
+        
+    def enqueue(self, *args):
+        tmp = self.front
+        for val in args:
+            while tmp.get_next():
+                tmp2= tmp.get_next()
+                if tmp2.get_val() >= val:
+                    tmp.set_next(Node(val))
+                    tmp.get_next().set_next(tmp2)
+                    break
+                else:
+                    tmp = tmp2
+            if not tmp.get_next():
+                self.rear.set_next(Node(val))
+                self.rear = self.rear.get_next()
+                    
+    def dequeue(self):
+        if self.is_empty():
+            raise "Empty Queue"
+        else:
+            tmp = self.front.get_next().get_val()
+            self.front.set_next(self.front.get_next().get_next())
+            return tmp
+                
+    def is_empty(self):
+        return self.front == self.rear
+    
+    def peek(self):
+        if self.is_empty():
+            raise "Empty Queue"
+        else:
+            return self.front.get_next().get_val()
+        
+    def __repr__(self):
+        if self.is_empty():
+            return "[]"
+        else:
+            tmp = self.front
+            output = []
+            while tmp.get_next():
+                val = tmp.get_next().get_val()
+                output.append(val)
+                tmp = tmp.get_next()
+                
+            return ' '.join(map(str,output))
+        
+    def __str__(self):
+        return self.__repr__()
+
+```
+
+
+
+
 ## Application of Queue
 1. Priority queue
 not FIFO. according to priority
@@ -240,3 +317,4 @@ It can be applied in simulation, netword traffic control, buffer, and task sched
 
 
 2. Buffer
+

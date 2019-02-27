@@ -398,12 +398,13 @@ You can check this in settings.py
 
 example
 
-` load static ` within `curly-brace with percent`
+```html
+{% load static %}
 
+<link rel=stylesheet href="{% static 'css/style.css' %}">
 
-`<link rel="stylesheet" href=" ">`
-
-`static css/style.css` in curly-brace with percent in href
+<!-- laod static cannot be included by inheritance?! -->
+```
 
 
 ## IX. with ipython & django_extensions

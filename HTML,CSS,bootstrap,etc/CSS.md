@@ -180,7 +180,7 @@ inline
 inline-block
 none
 
-```html
+```css
 a {
     display: block;
 }
@@ -206,7 +206,7 @@ ex)
 
 
 #### positioning
-```html
+```css
 h {
     position: relative;
 
