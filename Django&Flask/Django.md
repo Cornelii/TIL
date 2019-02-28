@@ -1,7 +1,7 @@
 # Django
 
 ## I. Framework
-Framework is like Opening chain store to concentrate to offer service.
+Framework is like Opening chain store to concentrate only offering service.
 
 If you do not use framework, do following yourself...
 URL parsing

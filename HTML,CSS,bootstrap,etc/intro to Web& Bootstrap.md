@@ -10,13 +10,13 @@ Client <=> Server
 
 * http: hyper text transfer protocol
 
-* Making a web service is almost same as the making a server computer where program is working to deal with request and response.
+* Making a web service is almost the same as making a server computer where program is working to deal with request and response.
 
 * kind of Request
     1. Get
     2. Post
-
-* Static Web. Unidirectional?! limited to client.
+    3. etc
+* Static Web. Unidirectional?! limited from point of view of client.
 
 #### 1. IP, Domain, and URL
 * IP (Internet Protocol)
@@ -31,19 +31,19 @@ https://www.google.co.kr/esarch?q=구글
 * HTML+CSS+JavaScript(ES6 - ecmascript)
 
 ## II. REST API (Representational State Transfer)
-
+This is kind of convention?!
 
 
 
 ## III. BootStrap
 put bootstrap CDN code HTML'head
 
-**Tip**: contents delivery network, or contents distribution network (CDN)
+**Tip**: **contents delivery network, or contents distribution network (CDN)**
 
-many styles are predefined at the source css file.
-you can easily use the classes.
+Many styles are predefined at the source css file.
+you can easily use the styles by assigning corresponding classes.
 
-You'd better work opening up the bootstrap website.
+You'd better work with opening up the bootstrap website.
 
 #### 1. colors in bootstrap
     1. primary
@@ -54,11 +54,11 @@ You'd better work opening up the bootstrap website.
     6. dark
     7. warning
     8. success
-These name is used with specific prefix like btn-primary as class type in HTML doc
+These names are used with specific prefix like btn-primary as class type in HTML doc
 
 #### 2. Text in bootstrap
 * .text-justify
-* .text-left 
+* .text-left
 * .text-center
 * .text-right
 * .text-lowercase
@@ -132,10 +132,8 @@ with `.flex-wrap`
 `.container` manifest 12 columns-divided grid system.
 (`.container-fluid` for 100% width w.r.t viewport )
 
-children of `.container` automatically `d-flex` is applied?!!!
+class of `.row` has initially `d-flex` property?!!!
 
-
-![CSS grid]("https://designshack.net/wp-content/uploads/mdn-grid.jpg")
 
 ```html
 <!DOCTYPE html>

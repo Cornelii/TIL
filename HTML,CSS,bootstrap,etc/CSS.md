@@ -159,7 +159,7 @@ Latter style declared.
 ## V. frequently used properties and attributes
 
 
-[choosing color_tip]("https://htmlcolorcodes.com/")
+[choosing color_tip](https://htmlcolorcodes.com/)
 
 
 #### 1. Regarding size
@@ -230,12 +230,12 @@ h {
 
 ```
 
-* However, it still takes tag order(original position)
+* **However, it still takes tag order(original position)**
 
 ##### 3. absolute
 * It escape from origin tag position. Of course, Other following tag negelect its abolute-positioned tag in position.
 * It is based on non-static tag (relative, absolute, and fixed)
-* Using absolute, the order of tag could be kind of neglected
+* **Using absolute, the order of tag could be kind of neglected**
 
 ##### 4. fixed
 It is fixed regardless of scroll!

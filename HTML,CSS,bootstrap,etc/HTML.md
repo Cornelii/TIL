@@ -20,9 +20,9 @@ Hypertext mark-up language
 ## II. Tag and DOM TREE. (Document Object Model) DOM Tree make search easier.
 HTML is composed of Tag and Contents.
 ### Tag
-1. open-closing element ex) <h1></h1>
-2. self-closing element  ex) <img src=""/>
-3. Attributes ex) <a href="{attribute}">
+1. open-closing element ex) `<h1></h1>`
+2. self-closing element  ex) `<img src=""/>`
+3. Attributes ex) `<a href="{attribute_value}">`
 4. Semantic tags
    * header
    * nav
@@ -47,14 +47,14 @@ Inline tags fill a line one by one successively.
 These only takes the width of content in them.
 
 It `can not` set `width, height, margin-top, and marin-bottom.`
-However, margin-top and marin-bottom are available.
+However, margin-left and marin-right are available.
 
 * a, span, strong, img, br, input, select, textarea, button
 
-We cand change the block propensity to inline by
-**style tag => display: inline; **
+We can change the block propensity to inline by
+**style tag => display: inline;**
 vice versa
-**style tag => display: block; **
+**style tag => display: block;**
 
 #### 3. Inline-blcok level tags
 inline but, it can be set all the properties like margin-top.
@@ -63,7 +63,7 @@ inline but, it can be set all the properties like margin-top.
 Nothing.
 This is frequently used with Javascript
 
-**block, inline, inline-block, none are in property of display **
+**block, inline, inline-block, none are in attribute of display**
 
 #### After flex
 When flex is applied, the tags's display become inline!
@@ -88,8 +88,7 @@ make a tag with id! And, another a tag with href of #the_id.
 `<link rel="stylesheet" href="   .css">`
 
 
-#### The most directly applied style is applied to the tag (Cascading)
 
 
 #### Tips
-[caniuse]("https://www.caniuse.com/")
+[caniuse](https://www.caniuse.com/)
