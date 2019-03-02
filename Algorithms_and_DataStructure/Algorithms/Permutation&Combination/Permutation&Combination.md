@@ -348,3 +348,21 @@ def nHr(n,r):
     a =[0]*10
     backtrack(a,-1,r,0,n)
 ```
+
+#### 7. Combination by recursive
+
+Using $nCr = n-1Cr-1 + n-1Cr  $ 
+```python
+arr = [1,2,3,4,5]
+tmp = []
+
+def comb(n, r):
+    if r == 0:
+        print(tmp)
+    elif n < r:
+        return
+    else:
+        tmp[r - 1] = an[n - 1]
+        comb(n-1, r-1)
+        comb(n-1, r)
+```
