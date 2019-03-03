@@ -46,12 +46,6 @@ java HelloWorld
 
 
 
-## Keywords in Java
-
-|abstract|continue|goto|pachage|
-
-
-
 ##  I. Remarks in Character and String
 
 `System.out.println('c');`
