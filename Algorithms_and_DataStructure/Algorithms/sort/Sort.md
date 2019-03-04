@@ -212,6 +212,11 @@ procedure of above code.
 5. then iteratively increasing start checking the element at the pointer is smaller than pivot. if so, swapping to the one at lesser_than_pointer. And, increment of lesser_than_pointer.
 6. After all search from start to end-1 (pivot in end), swapping the pivot in end and element located at lesser_than_pointer => divided three array=> recursive call of quicksort function for each sub array excluding pivot.
 
+#### 2. Hoare Partition Algorithm
+
+#### 3. Lomuto Partition Algorithm
+
+
 ## VI. Radix Sort
 
 radix => number of alphabet in numbering system.
