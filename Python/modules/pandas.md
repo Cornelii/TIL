@@ -450,7 +450,7 @@ example
 lambda_fn = lambda row : row["col1"] -row["col2"] if row["col3"] < 3 else 1 # row : dataframe_name
 
 
-df["new column"] = df.apply(lambda_fn) # .apply() applied to dataframe
+df["new column"] = df.apply(lambda_fn, axis=1) # .apply() applied to dataframe
 ```
 
 ### Renaming Columns
@@ -518,7 +518,7 @@ df.groupby("col1")["col2"].min().reset_index()
 example
 
 ```python
-df.groupby('col1').col2.apply(lambda x: np.percentile(x,25)).reset_index()
+df.groupby('col1').col2.min().apply(lambda x: np.percentile(x,25)).reset_index()
 ```
 ##### .groupby multiple columns
 Just use list including names of  multiple columns.
