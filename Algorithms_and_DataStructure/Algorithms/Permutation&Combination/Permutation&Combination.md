@@ -195,6 +195,34 @@ def nPn(n):
 
 nPn(5)
 ```
+
+using pristine dfs form (not using candii-selection function)
+```python
+def dfs(s, visit, depth = 0, a = [0]*10):
+    global cnt
+    visit = visit[:]
+    a[depth] = s
+    visit[s] = 0
+    if depth == max_depth-1:
+        for i in range(max_depth):
+            print(a[i], end=" ")
+        print()
+        cnt += 1
+        return
+    for i in range(len(visit)):
+        if visit[i]:
+            dfs(i, visit, depth+1)
+
+max_depth = 5
+visit_table = [1]*max_depth
+cnt = 0
+for i in range(5):
+    dfs(i, visit_table)
+
+print("global count: {}".format(cnt))
+
+```
+
 #### 2. nPr permutation
 ```python
 def backtrack(a,k=-1,input_num=3, depth=2):
@@ -235,6 +263,37 @@ def nPr(n, r):
 nPr(5,3)
 ```
 
+using pristine dfs form (not using candii-selection function)
+```python
+def dfs(s, visit, depth = 0, max_depth = 10, a = [0]*10):
+    global cnt
+    visit = visit[:]
+    a[depth] = s
+    visit[s] = 0
+    if depth == max_depth-1:
+        for i in range(max_depth):
+            print(a[i], end=" ")
+        print()
+        cnt += 1
+        return
+    for i in range(len(visit)):
+        if visit[i]:
+            dfs(i, visit, depth+1, max_depth, a)
+
+cnt = 0
+
+def nPr(n, r):
+    max_depth = r
+    visit_table = [1]*n
+    for i in range(n):
+        dfs(i, visit_table, depth=0, max_depth = max_depth ,a = [0]*n)
+
+nPr(5,3)
+print(cnt)
+```
+
+
+
 #### 3. Repetitive nPr permutation
 ```python
 def backtrack(a,k=-1,input_num=3, depth=2):
@@ -256,6 +315,36 @@ def RnPr(n, r):
     backtrack([0]*10,-1,n,r)    
 
 RnPr(5,3)
+```
+
+using pristine dfs form (not using candii-selection function)
+```python
+def dfs(s, n ,depth = 0, max_depth = 10, a = [0]*10):
+    global cnt
+    #visit = visit[:]
+    a[depth] = s
+    #visit[s] = 0
+    if depth == max_depth-1:
+        for i in range(max_depth):
+            print(a[i], end=" ")
+        print()
+        cnt += 1
+        return
+    for i in range(n):
+        dfs(i, n, depth+1, max_depth, a)
+
+cnt = 0
+
+def nPrWithReplacement(n, r):
+    max_depth = r
+    #visit_table = [1]*n
+    for i in range(n):
+        dfs(i, n, depth=0, max_depth = max_depth ,a = [0]*n)
+
+nPrWithReplacement(5,3)
+print(cnt)
+
+
 ```
 #### 4. PowerSet
 ```python
@@ -285,6 +374,34 @@ def construct_candidates(a, k, input_num, c):
 a=[0]*10
 backtrack(a,-1,3)
 ```
+
+using pristine dfs form (not using candii-selection function)
+```python
+def dfs(s, n, depth = 0, a = [0]*10):
+    global cnt
+
+    a[depth] = s
+    #visit[s] = 0
+    if depth == n-1:
+        for i in range(n):
+            print(a[i], end=" ")
+        print()
+        cnt += 1
+        return
+    for i in range(2):
+        dfs(i, n, depth+1, a)
+
+cnt = 0
+
+def powerset(n):
+    #visit_table = [1]*n
+    for i in range(2):
+        dfs(i, n, depth=0, a = [0]*n)
+
+powerset(5)
+print(cnt)
+```
+
 
 #### 5. nCr combination
 ```python
