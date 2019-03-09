@@ -560,7 +560,7 @@ g.map_offdiag(sns.kdeplot, n_levels=6)
 
 ## 1. Bar plot by seaborn
 
-seaborn is optimized to used pandas dataframe
+seaborn is optimized to use pandas dataframe
 
 example
 ```python
