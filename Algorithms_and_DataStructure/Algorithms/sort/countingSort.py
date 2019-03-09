@@ -8,18 +8,19 @@ C=[0]*(max_val+1)
 for num in L:
     C[num]+=1
 
-Accumul_C=[0]*(max_val+1)
+position=[0]*(max_val+1)
 # get accumulative_list
-dummy=C[0]
+dummy=0
 for idx,num in enumerate(C):
     if num!=0:
-        Accumul_C[idx]=num+dummy
+        position[idx]=num+dummy
         dummy+=num
 
 result=[0]*len(L)
 # get sorted result
 for num in reversed(L):
-    idx=Accumul_C[num]-1
+    idx=position[num]-1
+    position[num] -= 1
     result[idx]=num
 
 print("After counting-sorted")
