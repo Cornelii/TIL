@@ -593,7 +593,7 @@ plt.show()  ## Remarks in use of plt.show() with sns
 `sns.kdeplot()`
 
 **Arguments**
-    1.data [pd.Dataframe,list,numpy array..] 
+    1.data [pd.Dataframe,list,numpy array..] `
         **take one variable!**
     2.shade [boolean]
 
