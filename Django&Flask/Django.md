@@ -604,6 +604,11 @@ embed()
 #### 5. autofocus
 in input tag => attribute => autofocus
 
+#### 6. onclick confirm at delete
+```html
+<button type="submit" onclick="return confirm('레알 삭제?!')">[x]</button>
+```
+
 
 ##### TIP Standard CRUD
 
