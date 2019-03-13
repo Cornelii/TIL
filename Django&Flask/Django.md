@@ -545,6 +545,65 @@ generate needed directory and files.
 9. `python manage.py shell_plus`
 
 
+## XXI. Django Tips
+#### 1. app_name
+at urls.py, app_name!
+```python
+from django.urls import path
+from . import views
+
+app_name = 'board'
+
+urlpatterns = [
+    path('', views.article_list, name="list"),  # /board
+    path('<int:article_id>/', views.article_detail, name="detail"),  # /board/1
+    path('new/', views.new_article, name="new"),
+    path('create/', views.create, name="create"),
+]
+```
+
+**app_name:name_in_urls**
+```html
+<a href="{% url 'board:new' %}">
+        <button>New Article</button>
+    </a>
+```
+
+#### 2. get_object_or_404
+at views.py
+
+```python
+from django.shortcuts import render, redirect, get_object_or_404
+
+def article_detail(request, article_id):
+    article = get_object_or_404(Article, id=article_id)
+
+    return render(request, 'board/detail.html', {
+        'article': article,
+    })
+```
+
+
+#### 3. POST in delete
+at views
+```python
+def delete(request, article_id):
+    if request.method == 'POST':
+        article = get_object_or_404(Article, id=article_id)
+        article.delete()
+    return redirect('board:list')
+```
+
+#### 4. Using embed in IPython for debugging
+```python
+from IPython import embed
+
+
+embed()
+```
+#### 5. autofocus
+in input tag => attribute => autofocus
+
 
 ##### TIP Standard CRUD
 
