@@ -68,7 +68,7 @@ This is frequently used with Javascript
 #### After flex
 When flex is applied, the tags's display become inline!
 
-## II. Hyperlink within a document.
+## Iv. Hyperlink within a document.
 make a tag with id! And, another a tag with href of #the_id.
 
 ```html
@@ -80,6 +80,11 @@ make a tag with id! And, another a tag with href of #the_id.
 
 </body>
 ```
+
+## V. file upload
+at form tag, enctype="multipart/form-data"
+
+
 
 ## III. CSS & HTML
 

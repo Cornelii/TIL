@@ -609,6 +609,8 @@ in input tag => attribute => autofocus
 <button type="submit" onclick="return confirm('레알 삭제?!')">[x]</button>
 ```
 
+#### 7. Django-imagekit
+
 
 ##### TIP Standard CRUD
 
