@@ -37,6 +37,8 @@ plt.plot(x,y2,color='#82edc9',marker='s')
 plt.show()
 
 ```
+[pyplot.plot](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.plot.html?highlight=pyplot%20plot#matplotlib.pyplot.plot)
+
 
 ### 4. Axis and Labels
 #### axis

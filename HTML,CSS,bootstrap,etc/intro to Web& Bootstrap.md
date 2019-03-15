@@ -210,3 +210,22 @@ class of `.row` has initially `d-flex` property?!!!
 * Rset api
 * use of Sass with CSS
 
+
+
+## IV. Bootstrap components - minimized structures
+
+#### 1. Card
+```html
+<div class='card'>
+    <img class='card-img-top image-fluid'>
+    <div class="card-body"></div>
+</div>
+```
+
+#### 2. Input tag
+```html
+<label for="thisOne">This</label>
+<input type="text" class="form-control btn btn-primary" id="thisOne">
+```
+
+#### 3.
