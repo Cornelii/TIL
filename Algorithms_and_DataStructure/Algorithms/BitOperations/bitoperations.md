@@ -48,20 +48,6 @@ example
 |Big endian|12 34|12 34 56 78|
 |Little endian|34 12|78 56 34 12|
 
-#### 3. Endian Check
-code to check which endian a computer use.
-```python
-n = 0x00111111
-
-if n & 0x11:
-    print("little endian")   
-    # for little endian n => 11 11 11 00
-    # n & 0x11: 17
-else: 
-    print("big endian")
-    # for big endian n => 00 11 11 11
-    # n & 0x11 => 0
-```
 ## III. Number in Computer
 
 #### 1. Integer
