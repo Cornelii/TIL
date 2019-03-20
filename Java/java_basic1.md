@@ -40,8 +40,8 @@ java HelloWorld
 ## Java?!
 
 * Class unit-based language
-* main() must exists for execution
-* Virtual Machine (VM) only covers main()
+* **main() must exists for execution**
+* **Virtual Machine (VM) only covers main()**
   * process to execute : <>.java  -> <>.class -> JVM on any OS
 
 
@@ -134,7 +134,7 @@ string is immutable. (If value is changed, new object is generated)
 
 #### Wrapper Class
 
-We cannot assing `null` in basic type. but, for wrapper class, that's possible.
+We cannot assign `null` in basic type. but, for wrapper class, that's possible.
 
 | basic type | corresponding wrapper class |
 | ---------- | --------------------------- |
@@ -148,7 +148,7 @@ We cannot assing `null` in basic type. but, for wrapper class, that's possible.
 | boolean    | Boolean                     |
 | void       | Void                        |
 
-Wrapper class has members which declared by final inside
+Wrapper class has members which are declared by final inside it.
 
 
 
@@ -336,7 +336,7 @@ public class ArrayDemo{
 }
 ```
 
-#### Multi-dimension Array
+#### Multi-dimensional Array
 
 ```java
 int [][] array1=new int[5][7];
@@ -376,7 +376,7 @@ public class methodPrac{
 }
 ```
 
-* **The main method is a regulation!!!**
+* **The format of main method is a convention!!!**
 
 #### Parameter & return value
 

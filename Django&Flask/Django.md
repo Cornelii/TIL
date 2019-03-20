@@ -62,7 +62,7 @@ pyenv global 3.6.7
 > cd PRACTICE
 > pyenv virtualenv 3.6.7 practice-venv
 > pyenv local practice-venv
-> pip install django
+> pip install django    
 > django-admin startproject test .
 
 at settings.py,
@@ -519,6 +519,59 @@ or
 you must ommit () parenthesis
 
 
+## XIX. Django auth
+views.py
+
+```python
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+
+# users/login/
+def users_login(request):
+    if request.method == "GET":
+        return render(request, 'users/login.html')
+    else:
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        
+        # login\
+        if user is not None:
+            
+            login(request, user)
+            # 로그인이 되었다고 알려줌
+            messages.success(request, '성공~!')
+            return redirect('todos:todos_home')
+        else:
+            # 로그인이 안되었다 알려줌.
+            messages.success(request,'로그인 실패~!')
+            return redirect('users:users_login')
+        
+        
+        
+        # user authentication db check.
+        # session in server, data whcich tar
+        
+def users_logout(request):
+    # 세션에서 유저를 지운다.
+    logout(request)
+    messages.success(request, '로그아웃 되었습니다.')
+    return redirect('todos:todos_home')
+    
+def users_profile(request):
+    return render(request, 'users/profile.html')
+
+```
+```html
+{% if user.is_authenticated %}
+```
+
+
+
+* HTTP: stateless: 
+
+
 
 ## XX. Commands
 
@@ -543,6 +596,8 @@ generate needed directory and files.
 8. `python manage.py dbshell`
 
 9. `python manage.py shell_plus`
+
+
 
 
 ## XXI. Django Tips
@@ -629,3 +684,5 @@ in input tag => attribute => autofocus
 This is not actually fit to RESTful definitely
 
 * refer `RESTful API`
+
+

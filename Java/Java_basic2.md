@@ -2,7 +2,7 @@
 
 ## I. Effective range (Scope)
 
-Variables in method are can not be referred from outside the method.
+Variables in method can not be referred from outside of the method.
 
 ```java
 public class ScopeDemo2{
