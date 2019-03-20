@@ -566,6 +566,10 @@ def users_profile(request):
 ```html
 {% if user.is_authenticated %}
 ```
+settings.py
+```python
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+```
 
 
 
