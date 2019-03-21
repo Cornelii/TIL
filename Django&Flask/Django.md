@@ -272,8 +272,6 @@ index.html
 ```
 
 
-
-
 ## VI. models
 
 #### 1. Django ORM
@@ -572,8 +570,223 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 ```
 
 
+#### 1. Django가 생성해 준 auth의 user 모델 사용하기.
 
-* HTTP: stateless: 
+models.py
+```python
+from django.db import models
+from django.contrib.auth.models import User
+
+
+class TodoList(models.Model):
+    content = models.TextField(default='')
+    completed = models.BooleanField(default=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='todolists')
+    
+    
+    def __str__(self):
+        return f"{self.id}- {self.content[:20]} / {self.completed}"
+        
+    def __repr__(self):
+        return f"{self.id}- {self.content[:20]} / {self.completed}"
+```
+**django.contrib.auth.models의 User를 사용하면 된다.**
+
+
+views.py
+```python
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from .models import TodoList
+
+
+def todos_home(request):
+    if request.method == "POST":
+        # To do 작성
+        content = request.POST.get('content')
+        a = TodoList(content=content, user=request.user)
+        a.save()
+        return redirect('todos:todos_home')
+    else:
+        return render(request, 'todos/home.html')
+
+
+def check(request, todolist_id):
+    todo = TodoList.objects.get(pk=todolist_id)
+    todo.completed = not todo.completed
+    todo.save()
+    return redirect('todos:todos_home')
+```
+**request가 user를 담고 있다.**
+
+
+#### 2. Django model class & Modelform
+forms.py
+
+```python
+# Form Class?!
+
+from django import forms
+from .models import Shout
+
+# shoutform : Shout 모델에 기반하여 Django가 만들어주는 Form
+class ShoutForm(forms.Form):
+    title = forms.CharField()
+    content = forms.CharField()
+    
+# ModelForm Class?!
+class ShoutModelForm(forms.ModelForm):
+    
+    class Meta:
+    
+        model = Shout
+        fields = ['title', 'content']
+        widgets = {
+            
+            'title': forms.TextInput(
+                attrs = {
+            'class': 'form-control',
+            'placeholder': '제목을 입력해주세요'
+                }
+            ),
+            'content':forms.TextInput(
+                attrs = {
+                    'class': 'form-control',
+                    'placeholder':'내용을 입력해주세요',
+                }
+            )
+        }
+```
+
+views.py
+
+```python
+from django.shortcuts import render, redirect
+from .models import Shout
+from .forms import ShoutForm, ShoutModelForm
+
+def create(request):
+    # Django form
+    
+    if request.method == "POST":
+        # DB저장
+        # 1. DB유효성 검증
+        ### (1) Form class
+        # form = ShoutForm(request.POST)
+        # if form.is_valid():
+        #     title = form.cleaned_data.get('title')
+        #     content = form.cleaned_data.get('content')
+        #     Shout.objects.create(title=title, content=content)
+        #     return redirect('shouts:home')
+        
+        ### (2) Modelform
+        form = ShoutModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('shouts:home')
+    else:
+        # form을 보여주는 페이지
+        form = ShoutModelForm()
+        return render(request,'shouts/create.html', {
+            'form':form
+        })
+        
+def update(request, id):
+    shout = Shout.objects.get(pk=id)
+    if request.method == "POST":
+        # 수정사항을 DB에 실제 반영
+        form = ShoutModelForm(request.POST, instance=shout)
+        if form.is_valid():
+            form.save()
+            return redirect('shouts:home')
+        
+    else:
+        # edit 페이지
+        form = ShoutModelForm(instance=shout)
+        return render(request, 'shouts/update.html', {
+            'form':form
+        })        
+```
+
+create.html
+
+```html
+{% extends 'todos/base.html' %}
+
+
+{% block body %}
+
+    <form action="{% url 'shouts:create' %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_table }}
+        <input type="submit"/>
+    </form>
+
+{% endblock %}
+```
+
+update.html
+```html
+{% extends 'todos/base.html' %}
+
+{% block body %}
+    <form action="{% url 'shouts:update' form.instance.id %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}    
+        <input type="submit" name=""/>
+    </form>
+    
+{% endblock %}
+
+```
+
+save using modelform.
+`form = User_defined_model_form_at_forms_py(request.POST)`
+`form.is_valid()`
+`form.save()`
+
+User에 대한 ModelForm은
+Django.contrib.auth.forms 의 UserCreationForm이다.
+아래와 같이 사용 가능.
+
+```python
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+
+def register(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            login(request, form.instance)
+            messages.success(request, '성공적으로 회원가입이 되었습니다. ' + form.instance.username)
+            return redirect('todos:todos_home')
+    else:
+        form = UserCreationForm()
+        return render(request, 'users/register.html',{
+            'form':form
+        })
+```
+
+html
+```html
+{% extends 'todos/base.html' %}
+
+
+{% block body %}
+    <h2>회원가입</h2>
+    
+    <form action="{% url 'users:register' %}" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}    
+        <input type="submit" name=""/>
+    </form>
+    
+{% endblock %}
+```
+
 
 
 

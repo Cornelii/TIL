@@ -465,11 +465,11 @@ public class PolymerphismDemo1{
 
 try{
 
-<code expected to have error>
+`code expected to have error`
 
 }catch(<exception class instance>){
 
-<code when error occurs>
+`code when error occurs`
 
 }
 
