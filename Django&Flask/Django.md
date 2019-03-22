@@ -381,6 +381,32 @@ class StudentAdmin(admin.ModelAdmin):
 admin.site.register(Student, StudentAdmin)
 ```
 
+example2
+
+```python
+from django.contrib import admin
+from .models import Posting, Comment
+# Register your models here.
+
+
+class PostingModelAdmin(admin.ModelAdmin):
+    readonly_fields = ('created_at', 'updated_at')  # 레코드 개별화면 확인
+    list_display = ('id', 'content', 'created_at', 'updated_at')  # 리스트에서 표시
+    list_display_links = ('id', 'content')  # Clickable
+
+
+admin.site.register(Posting, PostingModelAdmin)
+
+
+class CommentModelAdmin(admin.ModelAdmin):
+    readonly_fields = ('created_at', 'updated_at')
+    list_display = ('id', 'posting', 'content', 'created_at', 'updated_at')
+    list_display_links = ('id', 'content')
+
+
+admin.site.register(Comment, CommentModelAdmin)
+```
+
 
 ## VIII. files, which are like css, js, and, img, importing in c9
 According to Django template Grammer!
@@ -882,6 +908,105 @@ in input tag => attribute => autofocus
 ```
 
 #### 7. Django-imagekit
+`pip install django_imagekit pillow `
+
+settings.py
+```python
+INSTALLED_APPS = [
+    'imagekit',
+    'django_extensions',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'sns',
+]
+```
+
+##### media file address
+```python
+STATIC_URL = '/static/'
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+```
+
+##### setup for file-uploading in urls.py
+```python
+from django.contrib import admin
+from django.urls import path, include
+
+#upload setting
+from django.conf.urls.static import static
+from django.conf import settings
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('sns', include('sns.urls'))  # . not /
+]
+
+# Dev Only (개발 서버에서 media/ 파일들을 서빙 미지원)
+# DEBUG = False 되면, 자동으로 static(...) => return []
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+```
+
+models.py
+```python
+from django.db import models
+
+#  ImageKit
+from imagekit.models import ImageSpecField, ProcessedImageField
+from imagekit.processors import ResizeToFit
+
+class Posting(models.Model):
+    content = models.TextField(default='')
+    icon = models.CharField(max_length=20, default='fas fa-question')
+
+    # save as origin
+    # image = models.ImageField(blank=True, upload_to='posting/origin/%Y%m%d')
+
+    # resize
+    image = ProcessedImageField(
+        blank=True,
+        upload_to='posting/resize/%Y%m%d',
+        processors=[ResizeToFit(width=580, upscale=False)],
+        format='JPEG',
+    )
+
+    # thumbnail
+    image_thumbnail = ImageSpecField(
+        blank=True
+        source='image',
+        processors=[ResizeToFit(width=320, upscale=False)],
+        format='JPEG',
+        options={'quality':60},
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.id}: {self.content[:20]}"
+
+    def __repr__(self):
+        return self.__str__()
+
+
+class Comment(models.Model):
+    posting = models.ForeignKey(Posting, on_delete=models.CASCADE)
+    content = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.posting.content[:10]}: {self.content[:20]}"
+
+    def __repr__(self):
+        return self.__str__()
+```
 
 
 ##### TIP Standard CRUD
