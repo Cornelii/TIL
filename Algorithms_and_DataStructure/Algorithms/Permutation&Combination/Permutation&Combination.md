@@ -483,3 +483,182 @@ def comb(n, r):
         comb(n-1, r-1)
         comb(n-1, r)
 ```
+
+
+
+
+## IV. others **************
+
+#### 1. Recursive Permutation algorithm
+```python
+
+def permu(a, t, n, r):
+    if (r == 0):
+        print(t)
+    else:
+        for i in range(n-1, -1, -1):
+            a[i], a[n-1] = a[n-1], a[i]
+            t[r - 1] = a[n-1]
+            permu(a, t, n-1, r-1)
+            a[i], a[n-1] = a[n-1], a[i]
+
+def nPr(n, r):
+    a = list(range(n))
+    t = [0]*r
+    
+    permu(a, t, n, r)
+
+nPr(5,3)
+```
+
+#### 2. Practical Recursive Permutation Algorithm 1
+```python
+
+def permu2(a, n, r, k):
+    if (k == r):
+        print(a[:k])
+    else:
+        for i in range(k, n):
+            a[k], a[i] = a[i], a[k]
+            permu2(a, n, r, k+1)
+            a[k], a[i] = a[i], a[k]
+            
+def nPr2(n, r, a):
+    a = a[:]
+    permu2(a, n, r, k=0)
+
+
+nPr2(5,3,[1,2,3,4,5])
+```
+
+#### 3. Practical Recursive Permutation Algorithm 2
+```python
+def permu3(k, n, r, a, t, visited):
+
+    
+    if (k == r):
+        print(t)
+    else:
+        for i in range(n):
+            if visited[i]:
+                t[k] = a[i]
+                visited[i] = 0
+                permu3(k+1, n, r, a, t, visited)
+                visited[i] = 1
+
+
+def nPr3(n, r, a):
+    visited = [1]*n
+    t= [0]*r
+    
+    permu3(0, n, r, a, t, visited)
+    
+nPr3(5,3,[1,2,3,4,5])
+
+```
+
+#### 4. Power Set
+```python
+def powerSet(k, arr, n):
+    if k == n:
+        print(arr)
+    else:
+        arr[k] = 1; powerSet(k+1, arr, n)
+        arr[k] = 0; powerSet(k+1, arr, n)
+
+powerSet(0, [0]*5, 5)
+```
+
+#### 5. Combination
+```python
+def comb(n, r, a, t):
+    if r == 0:
+        print(t)
+    elif n < r : return
+    else:
+        t[r-1] = a[n-1]
+        comb(n-1, r-1, a, t)
+        comb(n-1, r, a, t)
+        
+def nCr(n,r):
+    t = [0]*r
+    a = list(range(n))
+    comb(n, r, a, t)
+```
+
+#### 6. Permutation without replacement1
+```python
+def Per_wo_rel(n, r, a, t):
+    if r == 0:
+        print(t)
+    else:
+        for i in range(n-1, -1, -1):
+            a[i], a[n-1] = a[n-1], a[i]
+            t[r - 1] = a[n - 1]
+            Per_wo_rel(n, r-1, a, t)
+            a[i], a[n-1] = a[n-1], a[i]
+            
+def n_Pi_r(n, r):
+    t = [1]*r
+    a = list(range(n))
+    Per_wo_rel(n, r, a, t)
+
+n_Pi_r(5,3)
+```
+
+
+#### 7. Permutation without replacement2
+```python
+def Per_wo_rel2(n, r, k, a, t):
+    if k == r:
+        print(t)
+    else:
+        for i in range(n):
+            t[k] = a[i]
+            Per_wo_rel2(n, r, k+1, a, t)
+            
+def n_Pi_r2(n, r):
+    t = [1]*r
+    a = list(range(n))
+    Per_wo_rel2(n, r, 0, a, t)
+
+n_Pi_r2(5,3)
+```
+
+
+#### 8. Combination wihtout replacement1
+```python
+def comb_wo_rel(n, r, a, t):
+    if r == 0:
+        print(t)
+    elif n == 0:
+        return
+    else:
+        t[r - 1] = a[n - 1]
+        comb_wo_rel(n, r-1, a, t)
+        comb_wo_rel(n-1, r, a, t)
+        
+def nHr(n,r):
+    t = [None]*r
+    a = list(range(n))
+    comb_wo_rel(n, r, a, t)
+
+nHr(4,2)
+```
+
+#### 9. Combination without replacement2
+```python
+def comb_wo_rel2(n, r, k, s, a, t):
+    if k == r:
+        print(t)
+    else:
+        for i in range(s, n):
+            t[k] = a[i]
+            comb_wo_rel2(n, r, k+1, i, a, t)
+def nHr2(n, r):
+    t = [None]*r
+    a = list(range(n))
+    comb_wo_rel2(n, r, 0, 0, a, t)
+
+nHr2(4,2)
+```
