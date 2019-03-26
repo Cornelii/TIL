@@ -213,8 +213,58 @@ procedure of above code.
 6. After all search from start to end-1 (pivot in end), swapping the pivot in end and element located at lesser_than_pointer => divided three array=> recursive call of quicksort function for each sub array excluding pivot.
 
 #### 2. Hoare Partition Algorithm
+```python
+def quickSort(arr, l, r):
+    if l < r:
+        s = partition(arr, l, r)
+        quickSort(arr, l, s-1)
+        quickSort(arr, s+1, r)
 
+# Hoare-Partition Algorithm
+def partition(arr, l, r):
+    pivot = arr[l]
+    i, j = l, r
+    while i < j:
+        while arr[i] <= pivot:
+            if i >= r: break
+            i += 1
+        while arr[j] >= pivot:
+            if j <= l: break
+            j -= 1
+        if i < j:
+            arr[i], arr[j] = arr[j], arr[i]
+            
+    arr[l], arr[j] = arr[j], arr[l] 
+    return j
+
+A = [1235,1262,234,5,1,61,16323,16,523,647,21764,2,62,43671,34,424]
+quickSort(A, 0, len(A)-1)
+print(A)
+
+```
 #### 3. Lomuto Partition Algorithm
+```python
+def quickSort2(arr, l, r):
+    if l < r:
+        s = partition2(arr, l, r)
+        quickSort(arr, l, s-1)
+        quickSort(arr, s+1, r)
+        
+# Lomuto Partition
+def partition2(arr, p, r):
+    pivot = arr[r]
+    i = p-1
+    for j in range(p, r):
+        if arr[j] <= pivot:
+            i += 1
+            arr[i], arr[j] = arr[j], arr[i]
+    arr[i+1], arr[r] = arr[r], arr[i+1]
+    return i+1
+
+A = [1235,1262,234,5,1,61,16323,16,523,647,21764,2,62,43671,34,424]
+quickSort2(A, 0, len(A)-1)
+print(A)
+```
 
 
 ## VI. Radix Sort
