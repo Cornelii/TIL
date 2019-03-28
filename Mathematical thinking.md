@@ -48,3 +48,30 @@ Sometimes, there is a way to resolve simultaneously.
 * Think again, and focus on advantages to get from it.
 * And, modify it. Revise it into realistic idea.
 
+
+
+
+#### Tips to solve algorithm probs
+
+
+### 1. What is the wanted value in given problem?!
+- **i. Continuous or Integer Value**
+    - let me guess answer is known. If you can narrow range by up and down => Binary Search <span style="color:red">(Bisection-Method)</span>
+    - If you can express probs as equations, and should you get gradient! => <span style="color:red">Gradient Descent (Newton Method)</span>
+<br>
+- **ii. Specific (usually optimul) value through some sequence of states**
+    - Does Recursive Eqs exists? <span style="color:red">(Sub-Optimal) => Dynamic Programming</span>
+    - You can not find Recursive Eqs => State-Search: Decide Combination / permutation, Combi / Perm with replacement. + <span style="color:red">Prunning</span>
+<br>
+- **iii. Sort of result after Simulations**
+    -  It depends on almost purely coding ability
+<br>
+#### Other Tips
+
+* **Use of Graph, Tree, Stack, Queue, Heap, Hash**
+* **Time Complexity => Memory**
+
+Learn and Use C++ for high-speed application.
+
+
+
