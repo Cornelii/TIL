@@ -281,6 +281,8 @@ DFS-TS(v)
 2. Bellman-Ford Algorithm: available for negative weights but, it does not allows cycles with negative weight sum on the path.
 3. Etc
 
+#### * BFS (when there is no weights,)
+
 
 
 #### 1. Dijkstra Algorithm
