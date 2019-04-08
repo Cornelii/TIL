@@ -3,15 +3,29 @@
 ### 1. Java SE (Java Platform Standard Edition)
     It's like design sheet, called specification aka spec.
     This is no a software itself! This java spec is made in JCP_java community process
+
 ### 2. JDK (Java Development Kit)
     Software according to Java SE
     Java for Developer
   * Java SE (Standard Edition)
   * Java EE (Enterprise Edition)
   * Java Me (Micro Edition)
+
 ### 3. JVM (Java Virtual Machine)
     Actual Enviroment Java works.
     It makes java operate in no matter what operating system is
+
+##### i. JVM memory structure
+Java does not allow user to access memory management.
+It gets rid of unused object by garbage collection(GC).
+
+ - ClassLoader: Retrieve translated class file in disk.
+ - Class area: Place to memorize info of class
+ - Heap: generate and memorize object of class
+ - Java Stack: Method operation, tmporarily memorization of variables, etc.
+
+
+
 ### 4. JRE (Java Runtime Enviroment)
     JVM, Sorts of library, files to make java work in real.
     Java for users
@@ -57,7 +71,7 @@ java HelloWorld
 * Strings should be wraped in " "
 * Concatenation between string is available in Java
 
-`System.out.println("Hellio "+"World");`
+`System.out.println("Hello "+"World");`
 
 ## II. Remarks in Variables
 
@@ -150,26 +164,20 @@ We cannot assign `null` in basic type. but, for wrapper class, that's possible.
 
 Wrapper class has members which are declared by final inside it.
 
-
-
-#### Interface Type
-
 ```java
-interface MyInterface<T>{
-    void add(T value);
-}
-// T is generic ty
-```
+//Primitive ==> Object
+int a = 5;
+Integer i = new Integer(a);
+Integer j = a;
 
-
-
-#### Enum Type
-
-```java
+// Object ==> Primitive
+int b;
+b = i.intValue();
+b = j;
+// Object ==> String
+String st = i.toString();
 
 ```
-
-
 
 #### Arry
 
@@ -235,8 +243,9 @@ public class EqualString{
     }
 }
 ```
-- **logical operator &&,||,! **
+- **logical operator &&,||,!**
 - **Tip** use () for multiple logical operators
+- **bit operator &, |, ^**
 ### VI. Conditional Statements
 
 #### IF
@@ -308,15 +317,32 @@ public class SwitchDemo{
 while(condition){
     
 }
+
+// do while
+do{
+
+}while(condition)
+
 //2. for
 for(int jmi=0;jmi<10;jmi++){
     
 }
 //Regarding Control break, continue
 break;,continue;
+
+
 //3. for~each
 for(int s:su){ //su => array variable
     System.out.println(s);
+}
+```
+
+###### Array-related java statements: for-each
+
+```java
+String[] members={"Ethen","Edan","Eric"};
+for (String e:members){   // since java 5.0
+    System.out.println(e+"saw consultant");
 }
 ```
 
@@ -325,6 +351,10 @@ for(int s:su){ //su => array variable
 ```java
 public class ArrayDemo{
     public static void main(String[] args){
+        int [] a;
+        a = new int[50];
+        int [] b = new int[100];
+
 		String[] classGroup={"Charles","Chandler","Cornelii"};   
         System.out.println(classGroup[0]);
         
@@ -332,27 +362,27 @@ public class ArrayDemo{
         classMate[0]="Kevin";
         System.out.println(classMate[0]);
         System.out.println(classMate[0].length);//.length len of array
+
+
+        // array copy
+        int[] c = new int[100];
+        System.arraycopy(a, 0, c, 0, a.length);
+        // System.arraycopy({wanted to be copied}, {starting index}, {target array}, {starting index}, {length of array to get from the one to be copied})
     }
 }
+
 ```
 
 #### Multi-dimensional Array
 
 ```java
+int[][] test1;
+int test1[][];
+int[] test1[]; // all available.
+
 int [][] array1=new int[5][7];
 int [][] array1=new int[6][];
 Member [][] array2=new Member[5][3];
-```
-
-
-
-#### Array-related java statements: for-each
-
-```java
-String[] members={"Ethen","Edan","Eric"};
-for (String e:members){   // since java 5.0
-    System.out.println(e+"saw consultant");
-}
 ```
 
 ### IX. Method
@@ -464,6 +494,8 @@ public class Scanner2Demo{
 class Calculator{
     int left,right;
     
+    public Calculator(){}
+
     public void setOprands(int left, int right){
         this.left=left;
         this.right=right;
@@ -502,6 +534,81 @@ class Calculator{
     }
 }
 ```
+
+### XIV. Access Modifier
+
+|Access Modifier|Same class|Same Package|Subclass|Universe|
+|---|---|---|---|---|
+|private|yes||||
+|(defualt)|yes|yes|||
+|protected|yes|yes|yes||   
+|public|yes|yes|yes|yes|
+**protected**: this is about inheritence
+
+### XV. Usage Modifier
+* static: If user want to use it without Object generation
+* final: unchangeable
+* abstract: Not implemented yet
+
+
+
+|Usage Modifier|Used at|
+|---|---|
+|static|member variable, member method, member nested class|
+|final|class, variable, method|
+|abstract|class, method|
+
+##### static
+Variable defined with static can be used without generation of object
+Even for methods.
+
+* **!**:  Static method is used without object generation, only static variables can be used within static method since other variables are defined with object!
+* Spontaneously, `this`, `super` keywords are not allowed.
+* Overriding is not allowed.
+
+**Static Block**
+Static Block is automatically called after classes are loaded on memory.
+```java
+static{
+    //statements
+}
+
+```
+
+##### final
+final class: can not be inherited.
+final method: can not be overrided
+final variable: constant.
+
+**Remarks** At interface, variable is not used but as final variable.
+
+
+##### abstract
+abstract is used to defined a class that includes methods undefined yet.
+
+abstract class itself can not be used.
+
+class, which inherit the abstract class, must override all the methods in the abstract one.
+
+### XVI. Encapsulation
+* Use pirvate for important information.
+* methods for access are declared with public.
+* setXxx(), getXxx()
+
+
+### XVII. Annotation (javadoc)
+To generate javadoc `javadoc -d doc -private *.java`
+```java
+/**
+ * Annotate
+ * 
+ * /
+```
+
+
+@see {class_name} :"See also" with a link to the class
+@see {class_name}#{method_name} : "See also" with a link to the method
+etc.
 
  **Remarks**
 

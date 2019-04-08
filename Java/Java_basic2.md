@@ -198,7 +198,24 @@ It saves class file in designated directory
 
 import java.lang.* // this is kind of default. (It facilitates use of System.out.println())
 
+
+
 **API: Application Programming Interface**
+
+Standard API
+\jre\lib\rt.jar.
+
+java.awt: Basic graphic screen classes
+java.io: Input, Output classes and Interfaces
+**java.lang**: Java Basic classes
+**java.net**: Network-related classes
+java.sql: java-DB related classes and interfaces
+java.text: string format-related classes
+**java.util**: data management and etc.
+javax.sql: java-db extended classes
+javax.swing: java graphic extended classes
+
+java.lang package is automatically loaded even though it is not imported.
 
 **UI: User Interface**
 
@@ -259,6 +276,8 @@ abstract class A{                    // It can be used only through inheritance!
 
 class B extends A{
     public int b(){
+        // super keyword to refer super class
+        super.d()
         return 1;
     }
 }
@@ -460,6 +479,117 @@ public class PolymerphismDemo1{
 ```
 
 
+#### Use of instanceof
+
+When changing type reference from superclass to subclass, it could be possible that the calss is objects of super one.
+
+```java
+if (m instanceof SubOne){
+    SubOne mm = (SUbOne) m;
+}
+```
+
+
+#### Interface Type
+Interface is composed of constant, unimplemeneted methods.
+Eventhough variables is not declared with final, it is changed by compliler.
+
+Interface can not generate an object.
+
+For classes, which inherit interface, all the methods must be overrided.
+
+Inferface is a kind of spec of classes.
+
+* default modifier
+* 1. for variable, `public static final`
+* 2. for methods, `public abstract`
+
+
+```java
+interface Media{
+    abstract void start();  // Remarks! not {}, but ;
+    abstract void stop();
+
+}
+
+class A implements Media{ // Remarks implements, not extends
+    public void start(){}
+    public void stop(){}
+}
+
+**!Remarks!**: Subclass can implement multiple of interfaces.
+
+interface MyInterface<T>{
+    void add(T value);
+}
+// T is generic type!!!!
+```
+#### Generic
+Generic enabels determination of data type when instances are created!
+It reduces burden of type conversion and makes program more robust from type error.
+
+```java
+ArrayList<A> MyList = new ArrayList<A>();
+
+// A객체만 저장할 수 있는 ArrayList를 생성
+MyList.add(new A());
+
+MyList.add(new B());// 컴파일 에러
+```
+
+* Objects, which inherit some class, can be assigend to the class-generic object as well.
+
+* wild card: `?`
+```java
+class A{}
+class B extends A{}
+class C<A,B>{}
+
+public void method1(X<? extends A>){} // A or B 
+```
+Wild card`?` enables us to define multiple types of generic.
+
+
+**For array, use of Object?!**
+```java
+class MyList<T>{
+	private Object [] element;
+	private int index = 0;
+	
+	public MyList(int a) {
+		this.element = new Object[a]; 
+	}
+	
+	public void add(T e) {
+		this.element[this.index++] = e;
+	}
+	
+	public T get(int idx) {
+		return (T) this.element[idx];
+	}
+	
+}
+
+public class Prac{
+	public static void main(String []args) {
+		MyList<Integer> mylist = new MyList<Integer>(5);
+		
+		mylist.add(5);
+		mylist.add(3);
+		
+		System.out.println(mylist.get(0));
+		System.out.println(mylist.get(1));
+		
+	}		
+}
+```
+
+
+#### Enum Type
+
+```java
+
+```
 
 ## XV. Exception
 
@@ -556,8 +686,105 @@ public class ExceptionDemo1{
 }
 ```
 
-#### Throw exception
+#### Java Exception
+
+Exception, error are Objects
+
+* Exception: Unexpected things during programming operation
+* Error: Fatal Error
+
+* Throwable
+  * Error
+  * Exception
+    * RunTimeException
+      * ArithmeticException
+      * NullPointerException
+      * IndexOutOfBoundsException
+    * DataFormException
+    * SQLException
+    * IOException
+      * EOFException
+      * FileNotFoundException
+
+#### Exception Handling
 
 ```java
+import java.io.*;
+
+public class InputFile{
+    FileInputStream fis; //FileInputStrem~~!!!
+    InputFile(String filename){
+        fis=new FileInputStream(filename);
+    }
+    void readLine(){
+        String s;             // InputStreamReader~~!!
+        BufferedReader buf=new BufferedReader(new InputStreamReader(fis));
+        while((s=buf.readLine())!=null)
+            System.out.println(s)
+    }
+    public static void main(String[] args){
+        InputFile inputFile=new InputFile("data.txt");
+        InputFile.readLine();
+        System.out.println("Program End...");
+    }
+}
+```
+
+```java
+//Basic Form
+try{
+    
+}catch(XXXException e){
+    
+}
+
+try{
+    
+}catch(){
+    
+}xn  finally{
+    
+}
+```
+
+```java
+void readLine(){
+    String s;             // InputStreamReader~~!!
+    BufferedReader buf=new BufferedReader(new InputStreamReader(fis));
+    
+    try{
+        while((s=buf.readLine())!=null)
+            System.out.println(s)
+    }catch(IOException e){
+        System.out.println(e+" :: reading failed");
+    }finally{
+        try{
+            if(buf!=null) buf.close();
+        }catch(IOExceptoin e){
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+#### throws
+
+When exception occurs, hand over the processing to the part that call it.
+
+Functions calling the functions, whitch throws exception, are forced to be implemented that the functions be placed in try-catch except statement!
+
+
+* Customized Exception
+```java
+public class ValueException extends Exception{
+    public ValueException(){
+        super("Value Error!");
+    }
+    public void myMethod(){
+        System.out.println("No way!");
+    }
+}
+
 
 ```
+

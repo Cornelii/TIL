@@ -50,6 +50,10 @@ append(String s), insert(int offset, String s), reverse(), setChar(int index, ch
 StringBuilder str=new StringBuilder("Yeah s");
 
 ```
+#### Math
+##### Methods
+max, min, abs, sin, cos, tan, asin, acos, aton, cell, floor, round
+
 
 ## III. java.util.Collection
 
@@ -143,6 +147,7 @@ public class MapTest2{
         }
     }
 }
+
 ```
 ### Calendar
 
@@ -155,21 +160,3 @@ public class MapTest2{
 	int month=rightNow.get(Calendar.MONTH);
 	int date=rightNow.get(Calendar.DATE);
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
