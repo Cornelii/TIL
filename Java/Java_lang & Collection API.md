@@ -42,6 +42,10 @@ Only class which can be declarable without `new`
 
 ##### StringBuilder
 
+#### Index access at String
+`.charAt(0)`
+
+
 ##### Method
 
 append(String s), insert(int offset, String s), reverse(), setChar(int index, char ch), setLength(int newLength)
