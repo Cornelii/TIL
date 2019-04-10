@@ -138,6 +138,51 @@ public class Test implements Runnable{
     }
 }
 ```
+
+#### 4. Thread State and Control
+
+`TreadObj.getState()`
+
+|enum constant|Description|
+|---|---|
+|NEW|not yet start() after thread obj is generated|
+|RUNNABLE|Executable by JVM selection|
+|BLOCKED|wait until monitor lock is unlocked|
+|WAITING|standby without specified time interval|
+|TIMED_WAITING|standby with specified time interval|
+|TERMINATE|end state after run() method quit|
+
+##### Procedure of execution of thread
+
+1. Right after generating thread object, it is `NEW` state. When calling `start()`, thread state becomes `RUNNABLE`. And, There are competition between thread objects to be selected by thread scheduler.
+2. When JVM call `run()` of thread obj, it opertes. And, This obj is terminated `TERMINATE` when `run()` method quits.
+**Terminated Thread Obj means that Stack of the thread itself is terminated.**
+3. Threads on operaiont can be stopped by calling of `sleep()`, `wait()`, `join()`, and blocking by I/O being transfered to waiting pool. (`WAITING` or `TIMED_WAITING`).
+4. Threads in stanby state can be `RUNNABLE` state as follows.
+    * Time-up of `sleep()` and `join()`
+    * Calling method `notify()` about `wait()`
+    * Calling method `interrupt()`
+    * End of I/O.
+`RUNNALBE` thread can be operated again after competition procedure like the first step.
+5. When `yield()` are called on operating threads, It stops and go back to the state `RUNNABLE`.(Executable again after the competition)
+
+
+##### i. State Control by `sleep()`
+
+##### ii. State Contorl by `join()`
+
+##### iii. escape out of the waiting pool by `interrupt()`
+
+##### iv. State Control by `yield()`
+
+###### Finishing Thread
+
+##### 5. Problems of Multi-thread and Solutions
+
+
+
+
+ 
 ## II. Console & File I/O
 
 

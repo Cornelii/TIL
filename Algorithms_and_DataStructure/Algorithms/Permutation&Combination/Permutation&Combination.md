@@ -662,3 +662,124 @@ def nHr2(n, r):
 
 nHr2(4,2)
 ```
+
+
+
+##### 10. Permutation with Repetitive components
+```python
+#### 1. for small maximum vlaue
+a = [1, 1, 2, 2, 3, 3]
+
+countv = 0
+
+
+def permutation(n, k, a, t):
+    global countv
+
+    if n == k:
+        print(t)
+        countv += 1
+        return
+    for i in range(n):
+        if count[i]:
+            t[k] = i
+            count[i] -= 1
+            permutation(n, k+1, a, t)
+            count[i] += 1
+
+
+count = [0]*10
+n = 6
+for i in range(n):
+    count[a[i]] += 1
+
+t = [None]*20
+
+print(count)
+
+permutation(n, 0, a, t)
+
+print(countv)
+
+
+#### just nC2 * n-2C2 * n-4C2 * ...
+global_count = 0
+
+# nC2 * n-2C2 * n-4C2 *...
+
+
+def dfs(n, a, t, k=0):
+    global global_count
+    if n == k:
+        print(t)
+        global_count += 1
+        return
+    else:
+        for i in range(n-1):
+            if visit[i]:
+                for j in range(i+1, n):
+                    if visit[j]:
+                        t[k] = a[i]
+                        t[k+1] = a[j]
+                        visit[i], visit[j] = 0, 0
+                        dfs(n, a, t, k+2)
+                        visit[i], visit[j] = 1, 1
+
+n = 6
+visit = [1]*n
+
+dfs(n,[7,1,5,2,6,4],t=[None]*n)
+print(global_count)
+
+
+```
+
+#### 11. making Set with any 2 components (not nC2 but, $N!/(2^{N//2}*(N//2)!)$)
+```python
+global_count = 0
+
+# nC2 * n-2C2 * n-4C2 *...
+
+def count_calculator(n, k=0): # only for even number
+    result = 1
+    tmp = n
+    while k < n//2:
+        result *= tmp
+        tmp = tmp-1
+        k += 1
+
+    k = 0
+    while k < n//2:
+        result //= 2
+        k += 1
+    return result
+
+
+def dfs(n, a, t, k=0):
+    global global_count
+    if n == k:
+        print(t)
+        global_count += 1
+        return
+    else:
+        for i in range(n-1):
+            if visit[i]:
+                for j in range(i+1, n):
+                    if visit[j] and global_count < B:
+                        t[k] = a[i]
+                        t[k+1] = a[j]
+                        visit[i], visit[j] = 0, 0
+                        dfs(n, a, t, k+2)
+                        visit[i], visit[j] = 1, 1
+
+
+n=10
+B = count_calculator(n)
+print(B)
+visit = [1]*n
+
+dfs(n,[7,1,5,2,6,4,8,9,9,9],t=[None]*n)
+print(global_count)
+
+
+```
