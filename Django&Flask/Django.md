@@ -83,7 +83,10 @@ add 'address' to ALLOWED_HOSTS
 
 **Tip**: Django Project is a collection of applications.
 
+
+
 ## V. Views
+
 After `python manage.py startapp <app_name>`
 In `INSTALLED_APPS` in settings.py,
 add the `<app_name>`. (trailing comma.)
@@ -270,6 +273,156 @@ index.html
 </table>
 
 ```
+#### 7. Use of FormModel in view, POST_decorator, and, use of foreign key related to the User (views.py at myInstagram)
+views.py
+```python
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.http import require_POST
+
+from .forms import PostModelForm
+from .models import Post
+# Create your views here.
+
+
+def create(request):
+    if request.method == "POST":
+        # post를 DB에 적용.
+        form = PostModelForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('posts:list')
+        else:
+            # error handling
+            pass
+    else:
+        form = PostModelForm()
+        return render(request,'posts/create.html',{
+            "form":form
+        })
+
+def list(request):
+    # Show all the posts.
+    posts = Post.objects.all()
+    context = {
+        'posts':posts
+    }
+    return render(request,'posts/list.html',context)
+    
+@require_POST
+def delete(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    
+    if post.user != request.user:
+        return redirect('posts:list')
+    post.delete()
+    return redirect('posts:list')
+        
+def update(request, post_id):
+    post = Post.objects.get(id=post_id)
+    
+    if post.user != request.user:
+        return redirect('posts:list')
+    
+    
+    if request.method == "POST":
+        
+        form = PostModelForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('posts:list')
+        else:
+            # error handling
+            pass
+    else:
+        
+        form = PostModelForm(instance=post)
+        return render(request, 'posts/create.html', {
+            'form':form
+        })
+```
+urls.py
+```python
+    
+from django.contrib import admin
+from django.urls import path, include
+
+#upload setting
+from django.conf.urls.static import static
+from django.conf import settings
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('posts/', include('posts.urls')),
+]
+
+
+# Dev only
+# static(통과하고자 하는 url, 실제 저장 장소)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+```
+settings.py
+```python
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+```
+templates (myInstagram)
+create.html
+```html
+{% extends 'base.html' %}
+
+{% load bootstrap4 %}
+
+{% block body %}
+<form method="POST", enctype="multipart/form-data">
+  <!-- 파일을 보낼 땐, enctype = "multipart/form-data" 추가해야 함.-->
+  {% csrf_token %}
+  <!--model form-->
+  <!--{{ form }}-->
+  {%  bootstrap_form form %}
+  <button type="submit" class='btn btn-primary'>upload</button>
+</form>
+{% endblock %}
+```
+list.html
+```html
+{% extends 'base.html' %}
+
+{% block body %}
+  <div class="row justify-content-center">
+  
+    {% for post in posts %}
+          <div class="card" style="width: 15rem;">
+              <div class="card-header">
+                <span>{{ post.user.username }}</span>
+              </div>
+              
+              {% if post.image %}
+                <img src="{{post.image.url}}" class="card-img-top" alt="...">
+              {% else %}
+                <img src="https://picsum.photos/200/200/?random" class="card-img-top" alt="...">
+              {% endif %}
+
+            
+            <div class="card-body">
+              <p class="card-text">{{post.content}}</p>
+              
+              <!-- 작성자만 수정/삭제 가능  -->
+              {% if post.user == request.user  %}
+                <form method="POST" action = "{% url 'posts:delete' post.id %}" class="d-inline-block">
+                  {% csrf_token %}
+                  <button class="btn btn-danger">삭제</button>
+                </form>
+                <a href="{% url 'posts:update' post.id %}" class="btn btn-success">수정</a>
+              {% endif%}
+              
+            </div>
+          </div>
+    {% endfor %}
+  
+  </div>  
+{% endblock %}
+```
 
 
 ## VI. models
@@ -349,8 +502,51 @@ Define method of __repr__ at class, models.py
 [field_and_its_option](https://docs.djangoproject.com/en/2.1/ref/models/fields/)
 
 
-#### 3.
+#### 3. ModelForm
+ModelForm make implementation of `form` work related to DB so easy~! Awesome!
+forms.py
+```python
+from django import forms
+from .models import Post
 
+
+# PostModelForm to manipulate Post model
+
+class PostModelForm(forms.ModelForm):
+    # 1. What input fields this form have.
+    content = forms.CharField(label="content", widget=forms.Textarea(attrs={
+        "placeholder":"What's Up~!"
+    }))
+    
+    
+    # 2. To set propertiesof corresponding inputs.
+    class Meta:
+        model = Post
+        fields = ["content", 'image']
+
+```
+
+#### 4. User-Model 1:N link
+models.py
+```python
+from django.db import models
+#from django.contrib.auth.models import User 직접 접근
+from django.conf import settings
+# django.conf~~!!!!
+
+
+# Create your models here.
+class Post(models.Model):
+    content = models.CharField(max_length=220)
+    image = models.ImageField(blank=True)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    
+    
+    def __str__(self):
+        return f"{self.id}: {self.content}"
+
+```
 
 
 ## VII. admin
@@ -406,6 +602,7 @@ class CommentModelAdmin(admin.ModelAdmin):
 
 admin.site.register(Comment, CommentModelAdmin)
 ```
+
 
 
 ## VIII. files, which are like css, js, and, img, importing in c9
