@@ -168,17 +168,19 @@ public class Test implements Runnable{
 
 
 ##### i. State Control by `sleep()`
-
+Make thread wait for milli seconds,
+After specified time, it goes `RUNNABLE`
 ##### ii. State Contorl by `join()`
-
+Wait until Thread has done.
 ##### iii. escape out of the waiting pool by `interrupt()`
-
+Force thread waiting to move to `RUNNABLE`
 ##### iv. State Control by `yield()`
+It tells thread scheduler that this thread is not urgent~!
 
-###### Finishing Thread
 
 ##### 5. Problems of Multi-thread and Solutions
-
+ - Problem Example : Banking Systems
+ - Solution: `lock` concept and keyword `synchronized`
 
 
 
