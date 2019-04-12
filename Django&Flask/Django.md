@@ -548,6 +548,84 @@ class Post(models.Model):
 
 ```
 
+#### 5. M:N model (MantToManyField)
+
+
+models.py
+```python
+from django.db import models
+from faker import Faker
+import random
+# Create your models here.
+
+fake = Faker()
+
+class Student(models.Model):
+    name = models.CharField(max_length=30)
+    student_id = models.IntegerField()
+    
+    # 더미 데이터를 자동으로 넣어주는 클래스 메소드
+    @classmethod
+    def dummy(cls, n):
+        for i in range(n):
+            cls.objects.create(name=fake.name(), student_id=random.randint(2000,2015))
+        
+    def __str__(self):
+        return f"{self.student_id}: {self.name}"
+    
+    
+class Lecture(models.Model):
+    title = models.CharField(max_length=100)
+    def __str__(self):
+        
+        return f"title: {self.title}"
+    
+    
+class Enrollment(models.Model):
+    lecture = models.ForeignKey(Lecture, on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"{self.student.name}님이 {self.lecture.title} 과목을 수강중입니다."
+        
+
+### M : N
+class Client(models.Model):
+    name = models.CharField(max_length=30)
+    age = models.IntegerField()
+    # metadata: data에 대한 data: metadata.
+    class Meta:
+        # 정렬 기준
+        ordering = ('name',)
+    @classmethod
+    def dummy(cls, n):
+        for i in range(n):
+            cls.objects.create(name=fake.name())   
+            
+    def __str__(self):
+        return f"{self.name}"
+        
+
+class Resort(models.Model):
+    name = models.CharField(max_length=30)
+    ### M:N Field, 어떤 필드에 속해도 상관 없음.
+    clients = models.ManyToManyField(Client, related_name='resorts') # resort_set
+    # resort = Resort.objects.get(id=##)
+    # resort.clients.add()
+    # resort.clients.all()
+    # {clientObj}.resort_set.all()
+    
+    @classmethod
+    def dummy(cls, n):
+        for i in range(n):
+            cls.objects.create(name=fake.company())
+            
+    def __str__(self):
+        return f"{self.name}"
+
+```
+
+
 
 ## VII. admin
 at admin.py
