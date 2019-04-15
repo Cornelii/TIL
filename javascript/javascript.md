@@ -41,8 +41,8 @@ back tick ` and ${ }
 
 example
 ```javascript
-let hi = 'Hellow World!';
-console.log(`Yes ${hi }`);
+let hi = 'Hellow World!';  
+console.log(`Yes ${hi }`);  // backtick!
 ```
 
 
@@ -132,7 +132,7 @@ if (boolean) {
 #### 3. Comparison and Logical Operators
 ##### Coomparison Ops
 <, >, <=, >=, ===, !==   
-**Remarks** for the equal, three `=` and Not equal `!== `
+**Remarks** for the equal, three `=` and `!== ` for nonequal
 
 ##### Logical Ops
 `&&`, `||`, `!`
@@ -141,7 +141,7 @@ if (boolean) {
 
 list of falsy value
     1. 0
-    2. `" "` or `' '`
+    2. `""` or `''`
     3. null
     4. undefined
     5. NaN
@@ -263,7 +263,7 @@ const my_func1 = ({param1},{parma2}) => {
 ##### Concise Body of arrow function
 1. When arrow function get single parameter, parenthesis can be omitted.
 2. If body of function is singleline, brace also can be ommited. Furthermore,
-3. This assume the one-line statement following `=>` is `return` value.
+3. This assumes that the one-line statement following `=>` has a `return` value.
 Therefore, `return` keyword also can be put out.
 
 example
@@ -302,7 +302,7 @@ When variables are declared in { }, these are accessible in the { }.
 ## VI. Arrays
 The way to make `List` is very similar to the one in python.
 
-And, The elements in list is also accessible and updated by index in the same way python.
+And, The elements in list is also accessible and updated by index in the same way as python.
 
 ```javascript
 let myarray =['yeah', 'hoo', 'ha'];
@@ -320,7 +320,7 @@ To check the number of elements in some Array.
 
 #### 3. .push() method
 .push() is like append() and extends() in python.
-It can get more than one argument with out array syntax `[]`
+It can get more than one argument without array syntax `[]`
 
 example
 ```javascript
@@ -394,8 +394,8 @@ do {
 }
 ```
 
-#### 5. Break
-get out of close looping
+#### 5. break
+get out of adjacent loop
 
 
 ## VIII. Iterators
@@ -461,14 +461,17 @@ Javascript loves Object!
 #### 1. Create Object literals
 This looks like dictionary in python
 
+
 ```javascript
 let obj_literal = {};
 let obj_literal2 = {
     'key1' : 'value1',
-    'key2' :'value2'  
+    'key2' :'value2',  
     color: 'yellow'
 };
 ```
+
+
 #### 2. Accessing Properties
 Two ways to access properties of objects.
 1. dot notation `.`  for variable-like property without quotation marks.
