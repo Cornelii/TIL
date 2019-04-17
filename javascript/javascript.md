@@ -474,9 +474,9 @@ let obj_literal2 = {
 
 #### 2. Accessing Properties
 Two ways to access properties of objects.
-1. dot notation `.`  for variable-like property without quotation marks.
-2. Bracketk Notation `[]` for string-like property with quotation marks. 
-3. 
+1. dot notation `.` 
+2. Bracketk Notation `[]` 
+
 #### 3. Properties are mutable even for ones of const Objects.
 
 Changing and Adding properties can be easily done by `=` assignment.
@@ -512,9 +512,9 @@ let obj2 = {
 #### 4. Nested Objects
 Objects in an Object.
 
-#### 5. Object go into function as pass-by-reference! direct memory access!
+#### 5. Object goes into function as pass-by-reference! direct memory access!
 
-**Remarks** Variable in Object is not transfered. Only objects go as pass-by-reference! It means that inside of function, **variable is accessible only by the transfered object**. If we make an attempt to reassign object! like this `obj = {property1:'prop1'}`. It did not work for object in outside! But, this works `obj.prop1 ="prop1"`.
+**Remarks** Variable in Object is not transfered. Only objects goes as pass-by-reference! It means that inside of function, **variable is accessible only by the transfered object**. If we make an attempt to reassign object! like this `obj = {property1:'prop1'}` does not work for object in outside of function! But, this works `obj.prop1 ="prop1"`.
 
 (Changing address of obj in functions is not allowed?!)
 
@@ -625,7 +625,7 @@ const {prop1} = obj;
 ```
 
 #### 8. Built-in Object Methods
-There are useful method in `Object`
+There are useful methods in `Object`
 like 
     1. Object.keys(obj_name)
     2. Object.entries(obj_name)
@@ -674,8 +674,8 @@ Classes have very similar form with that of Object literals except comma is not 
 example
 ```javascript
 
-class <class_name> {
-    constructor(<params>) {
+class class_name {
+    constructor(params) {
         this.prop1 = prop1;
         this._prop2 = prop2;
     }
@@ -684,7 +684,7 @@ class <class_name> {
         return this._prop2;
     }
 
-    method1 (<param1>) {
+    method1 (param1) {
         statement;
     }
 
@@ -699,7 +699,7 @@ When creating instance from class, `new` keyword is used.
 example
 ```javascript
 
-const inst1 = new Class1(<params for constructor>);
+const inst1 = new Class1(params_to_constructor);
 
 let inst2 = new Class1();
 
@@ -746,7 +746,7 @@ class Myclass {
 
 ```
 
-## XII. Browser compatibility and transplation
+## XII. Browser compatibility and translation
 
 [caniuse](https://www.caniuse.com/) for browser compatibility with HTML, CSS, javascript features.
 
@@ -867,7 +867,7 @@ They can be in one of three states.
 #### 1. Constructing a Promise Object
 example to create Promise object
 ```javascript
-const func1 = (resolve, reject) => () {};
+const func1 = (resolve, reject) => {};
 
 const myPromise = new Promise(func1);
 ```
@@ -934,17 +934,17 @@ when applying `.then()` successively, `catch()` is used for the reject part.
 example
 ```javascript
 
-promise_obj.then(successhandler.then(null,failurehandler)
+promise_obj.then(successhandler).then(null,failurehandler)
 
 // is the same as the below
 
-promise_obj.then(successhandler.catch(failurehandler)
+promise_obj.then(successhandler).catch(failurehandler)
 ```
 #### 5. promise chain (promise composition)
 example
 ```javascript
 
-promise_obj.then(successhandler.then(null,failurehandler)
+promise_obj.then(successhandler).then(null,failurehandler)
 
 // is the same as the below
 
@@ -979,7 +979,6 @@ Promise.all([promis_return_func1, promis_return_func2, promis_return_func3])
 
 ## XV. async ... await
 Since ES8 javascript, it provides `async...await` syntax
-
 
 #### 1. `async` keyword
 declare function, in which has asynchronous logic, by `async`
@@ -1016,7 +1015,7 @@ async function withAsync(number){
 #### 2.  `await` operator
 await only can be used in `async` function.
 
-`await` keyword halts the execution of an `async` function until a promise is no longer pending.
+`await` keyword halts the following executions of an `async` function until a promise is no longer pending.
 
 example
 ```javascript

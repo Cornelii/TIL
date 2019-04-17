@@ -62,7 +62,6 @@ document.querySelector('p');
 example
 ```javascript
 document.getElementById('id1').innterHTML = "other description";
-
 ```
 
 #### 7. Style an element
