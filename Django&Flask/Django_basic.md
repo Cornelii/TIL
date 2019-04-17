@@ -34,6 +34,7 @@ Kinds of framework
 2. V: View (intermediate manager) (controller between M and T most important)
 3. T: Template (on user)
 
+{MVC}: Model-View-Controller
 
 ## IV. Construct Environment!
 
@@ -65,15 +66,10 @@ pyenv global 3.6.7
 > pip install django    
 > django-admin startproject test .
 
-at settings.py,
-add 'address' to ALLOWED_HOSTS
-**remarks** 
-1. ommit `https://`
-2. ommit `/` at the tail.
 
 **Tip** When use `source .bashrc` in the py virtualenv, `source deactivate`
 
-`python manage.py runserver $IP:$PORT`
+`python manage.py runserver $IP:$PORT`  (at c9)
 
 **Tip** Sementic Versioning.
 * v3.6.7 
@@ -96,6 +92,7 @@ add the `<app_name>`. (trailing comma.)
 #### 1. Making basic web from views.py
 
 ##### views.py in application directory
+
 ```python
 from django.shortcuts import render
 # function-based
@@ -103,6 +100,7 @@ def index(request):
     context = {"msg":"hello","name":"JM"}
     return render(request, 'index.html', context)
 ```
+
 making directory name of "templates" in the app directory.
 And, put html documents in it.
 **Router?! url route is in urls.py**
@@ -331,7 +329,7 @@ admin.site.register(Comment, CommentModelAdmin)
 
 
 
-## VII. files, which are like css, js, and, img, importing in c9
+## VII. Static files, which are like css, js, and, img.
 According to Django template Grammer!
 
 
@@ -353,6 +351,23 @@ example
 <!-- laod static cannot be included by inheritance?! -->
 ```
 
+**Points**
+If you want to add additional file with different name in Django `static` directory search.
+
+at `settings.py`
+
+add `STATICFILES_DIRS`
+
+```python
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    "/home/special.polls.com/polls/static",
+    "/projcet_name/static/",
+    "/projcet_name/assets/",
+    "/assets/c",
+]
+```
 
 ## VIII. with ipython & django_extensions
 
@@ -369,13 +384,14 @@ urls.py in project
 from django.contrib import admin
 from django.urls import path, include
 from articles import views
-
+    
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('articles/', include('articles.urls')),
     path('', views.index),
 ]
 ```
+
 urls.py in app
 ```python
 from django.urls import path
