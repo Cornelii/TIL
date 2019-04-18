@@ -457,6 +457,42 @@ generate needed directory and files.
 
 9. `python manage.py shell_plus`
 
+10. `python manage.py shell_plus --notebook`
+`pip install "ipython[notebook]"`
+
+11.  `python manage.py test app_name`
+
+12.  `python manage.py collectstatic`
+
+## X. Serving files uploaded by a user during development & Serving static files during development
+
+#### Serving files uploaded by a user during development
+**This is not suitable for production use!!!!**
+urls.py
+```python
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns = [
+    # ... the rest of your URLconf goes here ...
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+```
+settings.py
+```python
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+```
+
+#### Serving static files during development
+urls.py
+```python
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns = [
+    # ... the rest of your URLconf goes here ...
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+```
 
 
 

@@ -4,8 +4,8 @@ model among MTV(Model Template View) <=> MVC(Model View Controller)
 model in Django is a class that inherit Models to be designed for ORM.
 DB-Work.
 
-## I. Django Model basics
 
+## I. Django Model
 
 ##### Database relationship & Foreign Key
 
@@ -31,8 +31,6 @@ class Article(models.Model):
     def __str__(self):
         return self.__repr__()
         
-    
-        
 
 class Comment(models.Model):
     content = models.TextField()
@@ -53,8 +51,6 @@ or
 
 **Remarks**: If you want to use .comments.all() in the html document by django template syntax,
 you must ommit () parenthesis
-
-
 
 
 #### 1. Django ORM
@@ -131,7 +127,7 @@ Define method of __repr__ at class, models.py
 [field_and_its_option](https://docs.djangoproject.com/en/2.1/ref/models/fields/)
 
 
-#### 3. ModelForm
+## II. ModelForm
 ModelForm make implementation of `form` work related to DB so easy~! Awesome!
 forms.py
 ```python
@@ -253,7 +249,6 @@ class Resort(models.Model):
         return f"{self.name}"
 
 ```
-
 
 
 ## II. Form and ModelForm
@@ -575,8 +570,6 @@ list.html
   </div>  
 {% endblock %}
 ```
-
-
 
 ## III. User model Django generates.
 
