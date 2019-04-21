@@ -89,7 +89,7 @@ ADD COLUMN {col_name} {data_type};
 
 -- UPDATE : edit records
 UPDATE {table_name}
-SET {col_name} = {new_value}
+SET {col_name} = {new_value}, {col_name2} = {new_value2}...
 WHERE id = {PRIMARY_KEY_value};
 
 -- DELETE : delete records
@@ -98,7 +98,7 @@ WHERE {condition} ex) twitter_handle IS NULL;
 
 -- CONSTRAINTS
 CREATE TABLE {table_name}(
-    id INEGER PRIMARY KEY,
+    id INTEGER PRIMARY KEY,
     name TEXT UNIQUE,
     data_of_birth TEXT NOT NULL,
     date_of_death TEXT DEFAULT 'Not Applicable'
@@ -142,7 +142,7 @@ SELECT {col_name} FROM {table_name} WHERE {col_name} IS NOT NULL;
 SELECT * FROM {table_name} WHERE {col_name} BETWEEN 'A' AND 'J';
 -- query to get records in {col_name} that begin with 'A' to very one before 'J', 'I' not including 'J'!! tricky point
 
-SELECT * FROM {table_name} WHERE {col_name} BETWEEM 1990 AND 1999;
+SELECT * FROM {table_name} WHERE {col_name} BETWEEN 1990 AND 1999;
 -- In this case. from 1990 to 1999 including second one!!!
 -- remember this tricky behavior. for the letters, neglect second one.
 -- but not to neglect the one in case of numbers
