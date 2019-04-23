@@ -276,6 +276,32 @@ const my_func1 = ({param1}) => {
 const my_func1 = {param1} => {param1} === "desired" ? true : false;
 ```
 
+##### min function, `arguments` and exception for arrow function
+```javascript
+var _ = require('lodash');
+
+let min = function(){
+    let min_val = Infinity;
+    for(let i=0;i<arguments.length;i++){
+        if(arguments[i]<min_val){
+            min_val = arguments[i];
+        }
+    }
+    return min_val
+}
+
+console.log(min(5,7,1,6,7))// arbitrarily parameters can be handled with arguments
+```
+In this example, function should be declared with function() not arrow ()=>!! It affects arguments!
+
+##### this keyword in arrow function
+
+`this` in arrrow function indicate the object when decalared.
+
+##### Anonymous function assigned to variable is the better because of hoisting!
+undefined vs error  
+
+
 #### 5. First-class function.
 
 In Javascript, functions are handled as an object!
@@ -340,6 +366,11 @@ It return last element of the array altering pristine array.
 5. .unshift()  : adding new element in the beginning of array returning new length.
 6. .concat()
 7. .indexOf()   : finding index by value.
+8. filter()
+9. find()
+10. reject()
+11. every()
+12. some()
 
 #### 6. Arrays and Functions
 Pass-by-reference!

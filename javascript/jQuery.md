@@ -39,7 +39,7 @@ id : '#id'
 
 #### 4. jQuery Objects
 * Naming Convention
-When assigning `$()` to the variable, add `$` right in front of the variable name as well! It emphasize the variable is a jQuery object
+When assigning `$()` to the variable, add `$` in front of the variable name as well! It emphasize the variable is a jQuery object
 
 example
 ```javascript
@@ -113,18 +113,103 @@ $('.up-button').on('click', () => {
 
 ## III. Mouse Events
 
+#### 1. Representative several mouse events
+
+1. click
+2. mouseenter (hover, mouseover)
+3. mouseleave
+4. dblclick
+5. mousemove
+
+```javascript
+$('a').on('click', callback_fcn)
+$('a').on('mouseenter', callback_fcn)
+$('a').on('mouseleave', callback_fcn)
+```
+
+#### 2. Event Chaining
+example
+```javascript
+$('.example-class').on('mouseenter', () => {
+  $('.example-class-one').show();
+}).on('mouseleave', () => {
+  $('.example-class-one').hide();
+});
+```
+**Tips**
+1. .addClass
+2. removeClass
+
+#### 3. event.currentTarget
+`$(event.currentTarget)` 
+It gives not total class, but element that is just selected.
+
+#### 4. etc event handler
+1. keydown
+2. keypress
+3. keyup
 
 
-## IV.
+## IV. CSS & jQuery
 
-## V.
+#### 1. css()
+{jquery object}.css({css property}, {value})
 
-## VI.
+example
+```javascript
+$('.nav-menu').on('mouseleave', () => {
+    $('.nav-menu').hide();
+    $('.menu-button').css('color','#EFEFEF');
+  })
+```
 
-## VII.
+**Many properties also can be set using object**
+```javascript
+$('.a').on('event',()=>{
+  $('.nav-menu').hide();
+  $('.menu-button').css({
+    color:'#EFEFEF',
+    backgroundColor:'#303030',
+  });
+})
+```
 
-## VIII.
+#### 2. animate()
+`.animate()` is almost identical to `.css()`.
+It can also get obejct. Furthermore, acting time can be set as a second parameter. 
+`number, 'fast', 'slow'`
 
-## IX.
+#### 3. addClass() & removeClass()
+`$('.menu-button').addClass('class_name')`
+**Notice!** : without `.` in front of class_name
 
-## X. 
+#### 4. toggleClass()
+The .toggleClass() method adds a class if an element does not already have it, and removes it if an element does already have it. Its syntax looks like:
+
+`$('.menu-button').toggleClass('button-active');`
+
+## V. Traversing DOM
+
+#### 1. children(), parent(), and siblings()
+method to get child, parent, and sibling elements correspondingly.
+
+
+#### 2. closest()
+`${jQuery object}.closest({class_name})`
+It travel up from the {jQuery object} to find {class_name} and returns the closest {class_name} element.
+
+
+#### 3. next() & .prev()
+to get next or prevoius element of a selected element in sibling level.
+
+
+#### 4. find()
+find() looks for all the descendent elements coinciding filter parameter(id,tag, class, etc)
+
+example)
+```javascript
+$('.more-details-button').on('click', event => {
+    $(event.currentTarget).closest('.product-details').next().toggle()
+    $(event.currentTarget).find('img').toggleClass('rotate')
+  });  
+```

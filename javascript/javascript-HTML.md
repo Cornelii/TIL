@@ -159,7 +159,7 @@ example
 let A = document.getElementById("a");
 let B = document.getElementById("b");
 
-A.onclicke = function() {
+A.onclick = function() {
   B.style.color = 'red';
 }
 ```
