@@ -284,7 +284,7 @@ let min = function(){
     let min_val = Infinity;
     for(let i=0;i<arguments.length;i++){
         if(arguments[i]<min_val){
-            min_val = arguments[i];
+            min_val = arguments[i];0
         }
     }
     return min_val
@@ -1598,12 +1598,147 @@ const renderJsonResponse = (res) => {
 ```
 
 
+## XVIII. POST, GET, etc in javascript
+```javascript
+// axios (javascript version of python requests module)
 
-## XVIII.
+const url = 'https://jsonplaceholder.typicode.com/';
 
 
-## XIX.
+const XHR = new XMLHttpRequest();
 
+// GET ----------------------------------------------
+// XHR.open(httpmethod, url)
+XHR.open('GET', url+'posts');
+// 요청을 보내는 문서양식을 작성하겠다는 open
+
+XHR.send();
+// XHR은 응답이 오기까지 기다림.
+
+XHR.addEventListener('load',(e)=>{
+  const result = e.target.response
+   const jsObject = JSON.parse(result);
+  console.log(jsObject);
+  const jsonString = JSON.stringify(jsObject);
+  console.log(jsonString);
+
+  console.log(jsObject[0].title);
+})
+// 'load', 'progress', 'abort', etc.
+
+//JSON.parse => json => javascript object
+//JSON.stringify => javascript obj => string
+
+
+//POST --------------------------------------------------
+
+XHR.open('POST', url+'posts/1');
+
+XHR.setRequestHeader(
+  'Content-Type',
+  'applications/json;charset=UTF-8'
+)
+
+const data = {
+    title:'요거요거 타이틀',
+    body: '이것은 내용',
+    userId: 1,
+}
+
+XHR.send(JSON.stringify(data))
+
+XHR.addEventListener('load', (e)=>{
+    const result = e.target.response;
+    console.log(result);
+})
+```
+
+##### Using fetch since ES6
+```javascript
+const url = 'https://jsonplaceholder.typicode.com/';
+
+// fetch return Promise
+fetch(url+'posts').then((response)=>{
+    return response.json()
+}).then((resolved)=>{
+    console.log(resolved)
+});
+
+```
+
+
+## XIX. javascript GIPHY-SEARCH ENGINE Example
+```javascript
+// 1. tag input 안의 값 잡기.
+const input = document.querySelector('#js-userinput'); // input => reference type.
+const button = document.querySelector('#js-go');
+const resultArea = document.querySelector('#result-area');
+
+const api_key = 'BkTtHdnJse0figfz3XFxcVHyFI1ZZ3QW';
+const tv = document.querySelector('#js-tv')
+
+const base_url = 'http://api.giphy.com/v1/gifs/'
+
+input.addEventListener('keypress', (e)=>{
+    if(e.keyCode === 13){
+        resultArea.innerHTML = ""
+        const value = input.value;
+        const url = `search?q=${value}&api_key=${api_key}&limit=${10}`
+        searchAndPush(url);
+    }
+})
+
+button.addEventListener('click',(e)=>{
+    resultArea.innerHTML = ""
+    const value = input.value;    
+    const url = `search?q=${value}&api_key=${api_key}&limit=${10}`
+    searchAndPush(url);
+})
+
+
+// 2. giphy api 사용하여 data를 받아서 가공한다.
+const searchAndPush = (url) =>{
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', base_url+url);
+    xhr.send()
+    xhr.addEventListener('load', (e)=>{
+        const rawData = e.target.response;
+        parsedData = JSON.parse(rawData)
+        console.log(parsedData);
+        for (let target of parsedData.data){
+            console.log(target);
+            pushToDom(target.images.fixed_height.url)
+        }
+        showTv(parsedData.data)
+    })
+}
+
+
+// 3. GIF 파일들을 HTML(DOM)에 밀어 넣는다.
+const pushToDom = (data) => {
+    const gif = document.createElement('img');  // <img />
+    gif.src = data; // <img src="${data}"></img />
+    // resultArea.appendChild(gifs);
+    resultArea.insertBefore(gif, resultArea.firstChild);
+
+    // resultArea.innerHTML += `<img src="${data}" />`;
+}   
+
+const showTv = (data_list)=>{
+    let s = 0;
+    let data_len = data_list.length;
+    let flag = true;
+    let data = data_list[s];
+    
+    tv.innerHTML = `<img src="${data.images.fixed_height.url}" />`;
+    setInterval(()=>{
+        s = (s+1)%data_len;
+        data = data_list[s]
+        tv.innerHTML = `<img src="${data.images.fixed_height.url}" />`;
+    },5000)
+}
+
+```
 
 
 ## XX.
