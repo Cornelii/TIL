@@ -62,3 +62,20 @@ var _ = require('lodash');
 ```
 
 
+
+
+
+## V. File IO in node
+
+```javascript
+// FILE IO by callback function
+const fs = require('fs')
+
+fs.readFile(__dirname + '/text.md', 'utf8', (err, data)=>{
+    if(err === null){
+        console.log(data);
+    }else{
+        console.log(err);
+    }
+})
+```

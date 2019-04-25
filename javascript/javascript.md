@@ -1674,7 +1674,7 @@ const input = document.querySelector('#js-userinput'); // input => reference typ
 const button = document.querySelector('#js-go');
 const resultArea = document.querySelector('#result-area');
 
-const api_key = 'BkTtHdnJse0figfz3XFxcVHyFI1ZZ3QW';
+const api_key = '#';
 const tv = document.querySelector('#js-tv')
 
 const base_url = 'http://api.giphy.com/v1/gifs/'
@@ -1741,4 +1741,12 @@ const showTv = (data_list)=>{
 ```
 
 
-## XX.
+## XXIX. Single Thread
+Back-end is not single thread.
+jsut the code we write works as a single thread.
+
+#### i. non-blocking function cause asynchrounous
+Even if function contains non-blocking functions and returns something.
+It returns first rather than non-blocking functions.
+
+
