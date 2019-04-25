@@ -675,3 +675,513 @@ settings.py
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 ```
 
+## X. Model Fields
+
+#### 1. FieldFile
+FieldFile is an instance when you access a FileField!
+
+methods
+1. .name
+2. .size
+3. url
+4. open(mode) 'rb', etc
+5. close()
+6. save(name, content)
+
+
+#### 2. ImageField
+ImageField basically inherits FiledField. In addition to this, it has height and width!
+
+For the additional optional arguments, There are height_field, width_field that is auto-populated in size when image is saved.
+
+#### 3. IntegerField
+value from -2147483648 to 2147483647.
+
+This uses MinValueValidator and MaxValueValidator.
+
+
+#### 4. TextField
+It is often used.
+
+
+#### 5. URLField
+CharFiled for a URL, validated by URLValidator.
+
+
+#### 6. ForeignKey  !!
+1:N relationship.
+This requires two arguments: `class to be related`, `on_delete`
+
+##### i. Arguments
+`ForeignKey.on_delete`<br>
+from django.db import models
+
+models.CASCADE : delete together
+models.PROTECT : ProtectedError when deleting referenced object
+models.SET_NULL: if null is True, Set ull to ForeignKey
+models.SET_DEFAULT: default value
+models.SET(): CALLBACK fcn
+
+SET example
+```python
+from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.db import models
+
+def get_sentinel_user():
+    return get_user_model().objects.get_or_create(username='deleted')[0]
+
+class MyModel(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET(get_sentinel_user),
+    )
+```
+
+models.DO_NOTHING: Be carefull the integrityError.
+
+`ForeignKey.limit_choices_to`<br>
+make limitation on making reference!
+example
+```python
+staff_member = models.ForeignKey(
+    User,
+    on_delete=models.CASCADE,
+    limit_choices_to={'is_staff': True},
+)
+
+## Callback fcn
+def limit_pub_date_choices():
+    return {'pub_date__lte': datetime.date.utcnow()}
+
+limit_choices_to = limit_pub_date_choices
+```
+
+**Remarks** Callable is prefered to be avoided. Because, it may be invoked multiple times. (instanitation, validation, ec)
+
+
+`ForeignKey.related_name`<br>
+Relational name(backward relation),
+default => "{class_name.lower_case()}_set"
+"+" makes no backward relation
+
+
+`ForeignKey.related_query_name`<br>
+This is used for the reverse filter name from target model.
+**It defaults to the value of `related_name` of `default_related_name`**
+
+reverse filter example
+example
+```python
+# Declare the ForeignKey with related_query_name
+class Tag(models.Model):
+    article = models.ForeignKey(
+        Article,
+        on_delete=models.CASCADE,
+        related_name="tags",
+        related_query_name="tag",
+    )
+    name = models.CharField(max_length=255)
+
+# That's now the name of the reverse filter
+Article.objects.filter(tag__name="important")
+```
+
+`ForeignKey.to_field`<br>
+The field on the related object!
+!default=> django use primary key (id)!
+You can only set .to_field in which `unique = True`
+
+
+`ForeignKey.swappable`<br>
+First, study about swappable model!
+
+
+#### 7. ManyToManyField   !!
+`ManyToManyField.related_name`<br>
+`ManyToManyField.related_query_name`<br>
+
+<br>
+`ManyToManyField.symmetrical`<br>
+ONly used in the definition of ManyToManyFields on self. `"self"`
+symmetrical: If i'm your friend, then you are my friend.
+
+
+`ManyToManyField.through`<br>
+Django will automatically generate a table to manage MtoN.
+If you want to specify the intermediary table. `through=YourClassModel`
+YourClassModel should contains `id, <containing_model>_id, and <other_model>_id` at least.
+
+If you make MtoN between the same model, 
+django automatically prefixes the ids like `from_<model>_id, to_<model>_id`.
+
+
+`ManyToManyField.through_fields`<br>
+Only used when user use a custom intermediary model
+
+example
+```python
+class Group(models.Model):
+    name = models.CharField(max_length=128)
+    members = models.ManyToManyField(
+        Person,
+        through='Membership',
+        through_fields=('group', 'person'),
+    )
+
+class Membership(models.Model):
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+    inviter = models.ForeignKey(
+        Person,
+        on_delete=models.CASCADE,
+        related_name="membership_invites",
+    )
+    invite_reason = models.CharField(max_length=64)
+```
+
+`ManyToManyField.db_table`<br>
+set name of the relational table
+
+#### 8. OneToOneField    !!
+Similar to ForeignKey with `unique=True`. but, it enables `reverse` relation.
+
+If `related_name` is not specified, lowercase name of the current model becomes default.
+
+
+`OneToOneField.parent_link`<br>
+If this is set as `True` and used in model, which inherits other concrete model, indicates this field should be used as the link back to the parent class.
+**Extra OneToOneField would be implicilty created by subclassing!!**
+
+
+#### 9. Field APIs
+`Field` is an abstract class that represents a database table column!!!
+
+**Remarks** Django uses fields to create the database table `db_type()`, to map python to database `get_prep_value()`, and `from_db_value()` vice versa.
+
+
+##### i. Field is a subclass of RegisterLookupMixin.
+Transform and Lookup can be registered on it to be used in QuerySets.
+(check built-in lookups)
+
+##### ii. methods that Django use to implement ORM
+1. get_internal_type()
+2. db_type()
+3. rel_db_type()
+4. get_prep_value()  : convert python objects to query values
+5. get_db_prep_value()  : convert python objects to database values
+6. from_db_value() : convert values to Python object
+7. get_db_prep_save()
+8. pre_save()
+9. to_python()
+10. value_from_object()
+11. value_to_string()
+12. formfield() => it returns default django.forms.Field for ModelForm
+13. deconstruct()
+
+#### 10. Field attributes
+1. Field.auto_created (boolean)
+2. Field.concrete (boolean) Does this field has a database column associated with it.
+3. Field.hidden (boolean)
+4. Field.is_relation (boolean) Does this contain at least one of ForeinKey, ManyToManyField, OneToOneField.
+5. Field.model (returns the model the field is specified.)
+
+6. Field.mant_to_many (boolean)  ManyToMany
+7. Field.many_to_one   (boolean)  ForeignKey
+8. Field.one_to_many   (boolean)  reverse of ForeignKey
+8. Field.one_to_one    (boolean)  
+9. Field.related_model  points to the model the field realtes to
+
+
+#### 10. etc.
+* FloatField
+* FilePathField
+* GenericIPAddressField
+* PositiveIntegerField (0 to 2147483647)
+* SmallIntegerField
+* PositiveSmallIntegerField (0 to 32767)
+* 
+
+
+
+
+## XI. Model Meta options
+example
+
+```python
+class Model(models.Model):
+    # fields...
+
+    class Meta:
+        abstract = True
+```
+
+#### 1. abstract
+`abstarct = True`
+
+#### 2. app_label
+When a model is defined outside of the app.
+
+#### 3. base_manager_name
+skip
+
+#### 4. db_table
+the name of the database table to use for the model.
+
+skip.
+
+#### 5. default_related_name
+relational name!
+
+**Remakrs**
+When subclassing, name collision can happens.
+In this case, use `%(app_label)s`, `%(model_name)s`
+
+#### 6. get_latest_by
+
+
+#### 7. order_with_respect_to
+This is usually used for ForeignKey
+
+A related object gets two methods
+    1. get_{lower_cased_current_model_name}_order()
+    2. set_{lower_cased_current_model_name}_order()
+
+An object of the current model also gets two methods as well.
+    1. get_next_in_order()
+    2. get_previous_in_order()
+
+#### 8. ordering
+example
+```python
+    #
+    ordering = ['order_date']
+    #
+    ordering = ['-order_date'] ## descending order
+    #
+    ordering = ['-order_date', 'rank']
+```
+
+**Remarks** ordering in not a free!!!
+Furthermore, if target field is not a unique, order is not guaranteed.
+
+#### 9. permissions
+check permissions first
+(default_permissions): ('add','change','delete','view')
+
+
+#### 10. proxy
+for proxy model
+
+#### 11. required_db_vendor
+Name of a supported database vendor
+(sqlite, postgresql, mysql, oracle)
+
+
+## XII. Making queries
+
+#### 1. Create
+```python
+from .models import Blog
+# i
+b = Blog(name='My blog', tagline='First blog')
+b.save()
+
+## ii
+Blog.objects.create(name='My blog', tagline='First blog')
+
+
+```
+#### 2. Retrieve
+```python
+blogs = Blog.objects.all() # return all
+blog = Blog.objects.get(name="My blog") # return only one (please use primary key. otherwise, MultipleObjectsReturned Error)
+blogs = Blog.objects.filter(name="My blog") # return Query Set
+# .exclude() opposite to .filter()
+## .filter() and .exclude() can be chained even one another or itself.
+## multiple query condition is also available in .filter() by separated comma
+## However, exclude() works differently
+
+#exclude() to be applied with multiple query condition example
+Blog.objects.exclude(
+    entry__in=Entry.objects.filter(
+        headline__contains='Lennon',
+        pub_date__year=2008,
+    ),
+)
+
+# Limiting by Slicing
+blogs = Blog.objects.all()[:4]
+
+
+# ordering   .order_by('columns name')
+blogs = Blog.objects.order_by('created_at')[0]
+```
+
+##### i. Field Lookups
+Basic lookups keyword: `field__lookuptype=value`
+double underscore
+example
+```python
+Entry.objects.filter(pub_date__lte='2006-01-01')
+```
+
+##### ii. lookup types
+* exact : exact match
+* iexact : case-insensitive match (no matter what case, lower or upper)
+* contains : case_sensitive containment test
+* icontains : case-insensitive contains
+* startswith, endwith, istartwith, iendwith,
+* lte: larger than or equal >=
+* in
+
+##### iii. Lookups that span relationships
+example
+```python
+Comment.objects.filter(blog__name="My blog")
+
+Comment.objects.filter(blog__name__contains="My")
+
+# multiple relationships can be refered by using `__` double underscore sequentially.
+```
+
+##### iv. F expressions
+`F` is used to compare a value of a model field with a value of another model field, not with a constant.
+example
+```python
+Blog.objects.filter(num_comments__gt=F('fieldname1')*2)
+
+Blog.objects.filter(comments=F('fieldname2'))
+
+# Bitwise operations are also provided.
+```
+
+##### v. LIKE statements
+example
+
+(iexact, i/contains, i/startwidth, i/endwidth) can be used with
+two wildcard
+one is a multi-character wild card: `%`
+the other is a one-character wild card: `_`
+```python
+Blog.objects.filter(name__contains='_%')
+
+```
+
+#### 3. Update 
+```python
+b = Blog.objects.get(id=2)
+b.name = 'new name'
+b.save()
+```
+
+* update non-relational fields and ForeignKey for **all the objects!(be carefull)**
+```python
+Blog.objects.filter(~~).update(name="Renamed")
+### !! .update() is a method of queryset!
+```
+
+
+#### 4. Delete
+```python
+b.delete()
+
+```
+#### 5. QuerySets & Cache
+* bad case#1
+```python
+print([e.headline for e in Entry.objects.all()])
+print([e.pub_date for e in Entry.objects.all()])
+```
+=> modified
+```python
+queryset = Entry.objects.all()
+print([p.headline for p in queryset]) # Evaluate the query set.
+print([p.pub_date for p in queryset]) # Re-use the cache from the evaluation.
+```
+
+* bad case#2
+```python
+queryset = Entry.objects.all()
+print(queryset[5]) # Queries the database
+print(queryset[5]) # Queries the database again
+```
+=> modified
+```python
+queryset = Entry.objects.all()
+[entry for entry in queryset] # Queries the database
+print(queryset[5]) # Uses cache
+print(queryset[5]) # Uses cache
+```
+
+#### 6. ForeignKey and ManyToManyField Assigning
+```python
+# ForeignKey
+b = Blog.objects.get(id=6)
+comment = Comment.objects.get(id=4)
+comment.blog = b
+
+
+# ManyToManyField
+.add(obj1, obj2,..), .create(**kwargs), .remove(obj1, obj2),
+.clear(), .set(objs) # set is for replacement
+```
+
+#### 7. Complex Lookups with Q objects!!!!
+For more complex queries! use Q (django.db.models.Q)
+
+Q(conditional query)
+Qs can be combined with `&`,`|`, and `~` (not query)
+
+example
+```python
+~Q(question__startswith='Who') | Q(question__startswith='What')
+```
+Furthermore,
+similar to use of filter case,
+Q can be mixed with keyword arguements like as follows
+
+```python
+Poll.objects.get(
+    Q(pub_date=date(2005, 5, 2)) | Q(pub_date=date(2005, 5, 6)),
+    question__startswith='Who',
+)
+```
+In this case, Q() statements must come first
+
+
+#### 8. Copying model instances
+overlap pk, then save() again!
+```python
+blog = Blog(name='My blog', tagline='Blogging is easy')
+blog.save() # blog.pk == 1
+
+blog.pk = None
+blog.save() # blog.pk == 2
+```
+
+For inheritence case! overlap both id and pk
+```python
+django_blog.pk = None
+django_blog.id = None
+django_blog.save() # django_blog.pk == 4
+```
+
+For ManyToMany case, to copy relation as well.
+```python
+entry = Entry.objects.all()[0] # some previous entry
+old_authors = entry.authors.all()
+entry.pk = None
+entry.save()
+entry.authors.set(old_authors)
+```
+
+For OneToONe, not to violate unique constraint.
+```python
+detail = EntryDetail.objects.all()[0]
+detail.pk = None
+detail.entry = entry
+detail.save()
+```
+
+#### XIII. QuerySet API reference

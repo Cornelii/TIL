@@ -35,12 +35,20 @@ If you’re using SQLite, you don’t need to create anything beforehand - the d
 
 #### 1. admin
 
-##### make model represent at admin site
+##### i. site.register() 
+To make model represent at admin site
 ```python
 admin.site.register(models.Article)
 ```
 
+#### 2. auth.decorators
 
+##### i. login_required
+```python
+@login_required
+def index(request):
+    return render(request, 'posts/index.html')
+```
 
 
 
@@ -53,6 +61,20 @@ admin.site.register(models.Article)
 
 ## III. django.conf
 
+#### 1. settings
+
+
+
+#### 2. urls.static
+
+##### i. static
+This is neeeded in urls.py to upload files
+```python
+from django.conf.urls.static import static
+from django.conf import settings
+
+urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+```
 
 
 <hr>
