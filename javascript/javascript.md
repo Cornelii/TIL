@@ -1011,6 +1011,9 @@ Promise.all([promis_return_func1, promis_return_func2, promis_return_func3])
 ## XV. async ... await
 Since ES8 javascript, it provides `async...await` syntax
 
+async forces function to return Promise!
+await in front of function that returns Promise.
+
 #### 1. `async` keyword
 declare function, in which has asynchronous logic, by `async`
 
@@ -1665,6 +1668,11 @@ fetch(url+'posts').then((response)=>{
 });
 
 ```
+
+## XIX. 
+
+
+
 
 
 ## XIX. javascript GIPHY-SEARCH ENGINE Example
