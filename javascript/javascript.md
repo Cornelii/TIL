@@ -635,7 +635,7 @@ we usually repeat variable name like example above!
 At the situation, we can reduce these expression as follows.
 
 ```javascript
-function factoryfcn (name,age) {
+function factoryfcn (name,age) => {
     name,
     age,
     func1 () {
