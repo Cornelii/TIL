@@ -4,7 +4,8 @@ Javascript starts to take web and local.
 
 You can make local app using javascript by node with appripriate packages.
 
-
+[Node documentation](https://nodejs.org/api/)
+[Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 **Remarks** npm:
 Package manager that Node offers.
 
@@ -69,8 +70,12 @@ ex)
 (archetypal stack)
 
 
-## II.
+## II. Node REPL
 
+REPL is an abbreviation for read-eval-print-loop.
+
+`.editor` => for multiple lines, executed by `ctrl+D`
+`global` is an useful object in node.
 
 
 
