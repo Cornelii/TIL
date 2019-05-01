@@ -132,6 +132,118 @@ HTTP <=> SSL <=> TCP 통신.
 
 ## II. OS
 
+**프로세스와 스레드의 차이**
+
+#### 1. 프로세스
+
+프로세스 => 운영체제로 부터 메모리 등을 할당 받아 실행중인 프로그램.
+
+**Process Control Block (PCB)**: PCB는 운영체제의 자료구조_ 프로세스에 대한 정보를 저장
+
+프로세스 전환이 발생했을 때, PCB에 저장되어 있는 내용을 기준으로, 종료지점에 이어서 작업 수행.
+
+포함 정보:
+
+​	i. process id
+
+​	ii. process state: new, ready, running, waiting, and terminated.
+
+​	iii. process counter: 프로세스가 다음에 실행할 명령어의 주소.
+
+​	iv. etc.
+
+
+
+#### 2. 스레드
+
+스레드는 프로세스의 실행단위.
+
+프로세스 내의 메모리, 자원을 공유할 수 있다.
+
+**멀티스레딩이란?!** => 하나의 프로세스를 다수의 실행 단위로 구분하여 자원을 공유, 또 자원의 생성과 관리의 중복성을 최소화하여 수행 능력을 향상시키는 것. 각각의 스레드는 독립적인 작업을 위해 각자의 스택과 pc registry값을 갖고 있다.
+
+
+
+**멀티 스레딩의 pros/cons**
+
+**pros:**
+
+1. 메모리 공간과 시스템 자원 소모를 줄일 수있다.
+2. context switch?! 가 더 빠름. (프로세스의 context switch보다)
+
+**cons:**
+
+동일한 자원에 동시에 접근하는 일이 발생하기 때문에, 원치 않는 값을 읽어오거나 수정할 수 있다.
+
+동기화 작업 필요하다.(동기화 작업: 작업 처리 순서를 제어, 공유 자원에 대한 접근을 제어.)
+
+**병목현상**이 발생하게 되면 성능지 저하될 수 있어, 병목현상을 줄이는 것이 관건이다.
+
+
+
+**멀티 스레드 vs 멀티 프로세스**
+
+멀티 스레드 => 적은 메모리 공간 차지, 문맥 전환?! 이 빠름. but, 하나의 스레드가 멈추면 전체 스레드가 종료되는 문제와 동기화 문제
+
+멀티 프로세스 => 하나의 프로세스가 멈추더라도 다른 프로세스에는 영향 X. but, 많은 메모리 공간과 CPU시간을 차지함.
+
+#### 3. 스케쥴러
+
+프로세스 스케쥴링을 위해 3종류의 Queue가 존재
+
+1. Job Queue: 현재 시스템 내에 있는 모든 프로세스의 집합
+2. Ready Queue: 현재 메모리 내에 있어서 cpu를 잡아서 실행되기를 기다리는 프로세스의 집합
+3. Device Queue: Device I/O 작업을 대기하고 있는 프로세스의 집합
+
+
+
+여기에 더해, 각각의 Queue에 프로세스들을 넣고 빼주는 스케쥴러도 3가지 존재!
+
+	1. 장기스케쥴러(Long-term scheduler or job scheduler)
+
+프로세스들이 한번에 메모리에 올라오려고 하는 경우, 대용량 메모리(디스크)에 임시로 저장, 이 중 어떤 프로세스를 먼저 메모리에 할당하여 Ready Queue로 보낼지 결정하는 역할. (Process state: new -> ready)
+
+
+
+ 	2. 단기스케쥴러(Short-term scheduler or CPU scheduler)
+
+ReadyQueue중 어떤 프로세스를 Running 시킬지 결정. 프로세스에 CPU를 할당한다.
+
+(Process state: ready -> running -> waiting -> ready)
+
+
+
+
+ 	3. 중기스케쥴러(Medium-term scheduler or Swapper)
+
+여유 공간을 위해 프로세스를 메모리에서 대용량 메모리(디스크)로 쫓아낸다.
+
+프로세스의 메모리를 빼앗는 스케쥴러
+
+(Process state: ready -> suspended)
+
+
+
+#### 4. CPU 스케쥴러 (단기스케쥴러)
+
+Ready Queue에 있는 프로세스를 제어
+
+**여러 종류의 단기스케쥴러 방식**
+
+#### i. FCFS (First Come First Served)
+
+* 먼저 온 프로세스가 먼저 처리
+
+* 비선점형 스케쥴링
+
+**cons**: convoy effect _ 소요시간이 긴 프로세스가 먼저 도달하여 효율성을 낮추는 현상이 발생한다.
+
+
+
+#### ii. SJF (Shortest - Job - First)
+
+
+
 
 
 ## III. Database
