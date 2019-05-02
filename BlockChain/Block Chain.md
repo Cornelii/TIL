@@ -287,3 +287,22 @@ local_blockchain.chain[2].transactions = fake_transactions
 print(local_blockchain.validate_chain())
 ```
 
+## VI. Alternatives of Proof-of-works
+
+#### 1. Proof-of-Burn
+The functioning of this method is easy. Here, instead of bringing the money together into computer equipment, the owner burns the coins. Here the coins to the address where they are irretrievable. By doing this, the owner gets a privilege to mine on the system. It works on random selection.
+
+#### 2. Proof-of-Stake
+The more coin you have, The better chance to be chosen?!
+* To lead in the race of mining, the validator has to invest the coins of the system in case of Proof-Of-Stake.
+* There is no coin creation when it comes to Proof-Of-Stake. Instead, the coins exist from the start, and the validators get a reward in the form of transaction fees.
+
+#### 3. Proof-of-Capacity
+The more is the hard drive space, the more is the probability of mining the next block and earning a reward.
+
+In case of Proof-Of-Capacity, the algorithm generates plots. Plots are large data sets. These data set are stored on the hard drive. The more are the number of plots on the hard drive; better are the chances of finding the next block in the chain. Here one needs to invest in buying the hard drive space to enhance the chances of selection.
+
+Proof-Of-Capacity is used only for Burstcoin as of now.
+
+#### 4. Proof-of-Elapsed Time
+This method has a drawback that here you need to rely on Intel which is again similar to entrusting a third party. But, this is the main point of concern, in case of cryptocurrency transaction we are avoiding the use of third party and Intel’s mechanism makes use of the third party.
