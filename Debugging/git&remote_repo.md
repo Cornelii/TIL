@@ -38,3 +38,10 @@ doc/**/*.pdf     ignore all the .pdf files in the doc/ directory
 `The page build failed for the 'master' branch with the following error`
 
 Add empty file named `.nojekyll` into the repository.
+
+#### 4. When git push, Git keep asking for username & password
+
+1. in the specific repository
+2. `git config credential.helper store`
+
+then push once more with username & passwordss
