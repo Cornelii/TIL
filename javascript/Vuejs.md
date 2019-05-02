@@ -189,3 +189,91 @@ const app = new Vue({
 
 
 ## X. Local Storage
+웹 브라우저에 저장되는 영구 Storage
+> localStroage.setItem(key,val  or object),  getItem(key),  clear()
+
+**브라우저 종료시 내용이 지워지는 sessionStorage도 존재한다.**
+
+## XI. watch의 활용.
+
+#### 1. watch에 정의된 함수들은 기본적으로 2가지 값을 인자로 받을 수 있게 된다.
+
+(현재값, 이전값)
+
+2. Ajax나 비동기 처리시 반환되는 Promise 객체는 Vue-directive에 바로 넘길 수 없으므로, vue data내에 값을 변경시키는 형태로 서비스를 구현하고 있다.
+
+example code
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="main">
+        <input type="radio" id="one" v-model="picked" value="Meow">
+        <label for="one">고양이</label>
+        <br>
+        <input type="radio" id="two" v-model="picked" value="Bow!">
+        <label for="two">댕댕이</label>
+        <br>
+        <span>{{picked}}</span>
+        <img v-bind:src="image" alt="">
+        <input type="text" v-model="test">
+    </div>
+
+    <!-- Vuejs -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- Axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        // 고양이
+        const catUrl = "https://api.thecatapi.com/v1/images/search"
+        // 강아지
+        const dogUrl = "https://dog.ceo/api/breeds/image/random"
+
+        const dogAndCat = new Vue({
+            el: '#main',
+            data: {
+                picked: '',
+                image: '',
+                test: '',
+            },
+            watch:{
+                picked: function(val){
+                    alert(val)
+                    if(val ==="Meow"){
+                        this.getCatImage();
+                    }else{
+                        this.getDogImage();
+                    }
+                },
+                test: function(newValue, prevValue){
+                    console.log('new', newValue);
+                    console.log('previous', prevValue);
+                }
+            },
+            methods:{
+                getCatImage: async function(){
+                    const response = await axios.get(catUrl);
+                    const catImage = response.data[0].url
+                    this.image = catImage
+                },
+                getDogImage: async function(){
+                    const response = await axios.get(dogUrl);
+                    const dogImage = response.data.message
+                    this.image = dogImage
+                }
+            },
+        })
+    </script>
+</body>
+</html>
+
+```
+
+
+## XII. watch의 활용.
