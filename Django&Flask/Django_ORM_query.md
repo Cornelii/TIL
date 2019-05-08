@@ -245,7 +245,26 @@ detail.save()
 * filter()
 * exclude()
 * order_by()
-#### 1. annotate()
+* reverse()
+
+#### 1. annotate() and aggregation function
+
+
+
+
+
+#### 2. distinct()
+
+
+
+
+
+#### 3. values()
+This returns QuerySet eliminating duplicated row.
+
+example
+`Entry.objects.order_by('blog').distinct('blog')`
+
 
 
 
