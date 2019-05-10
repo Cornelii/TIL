@@ -554,7 +554,25 @@ def nPr3(n, r, a):
     permu3(0, n, r, a, t, visited)
     
 nPr3(5,3,[1,2,3,4,5])
+```
 
+```python
+def dfs(n, r, t, visited):
+    global cnt
+    if r==0:
+        print(t)
+    else:
+        for k in range(n):
+            if visited[k]:
+                t[r-1] = a[k]
+                visited[k] = 0
+                dfs(n,r-1,t,visited)
+                visited[k] = 1
+
+
+def permutation3(a, n, r):
+    visited = [1]*n
+    dfs(n, r, [None]*r, visited)
 ```
 
 #### 4. Power Set
@@ -586,47 +604,47 @@ def nCr(n,r):
     comb(n, r, a, t)
 ```
 
-#### 6. Permutation without replacement1
+#### 6. Permutation with replacement1
 ```python
-def Per_wo_rel(n, r, a, t):
+def per_w_rep(n, r, a, t):# t need to be used.
     if r == 0:
         print(t)
     else:
         for i in range(n-1, -1, -1):
             a[i], a[n-1] = a[n-1], a[i]
             t[r - 1] = a[n - 1]
-            Per_wo_rel(n, r-1, a, t)
+            per_w_rep(n, r-1, a, t) # not n - 1  (n-1) => nPr without replacement
             a[i], a[n-1] = a[n-1], a[i]
-            
+
 def n_Pi_r(n, r):
     t = [1]*r
     a = list(range(n))
-    Per_wo_rel(n, r, a, t)
+    per_w_rep(n, r, a, t)
 
 n_Pi_r(5,3)
 ```
 
 
-#### 7. Permutation without replacement2
+#### 7. Permutation with replacement2
 ```python
-def Per_wo_rel2(n, r, k, a, t):
-    if k == r:
+def per_w_rep2(n, r, a, t):# t need to be used.
+    if r == 0:
         print(t)
     else:
         for i in range(n):
-            t[k] = a[i]
-            Per_wo_rel2(n, r, k+1, a, t)
+            t[r-1] = a[i]
+            per_w_rep2(n, r-1, a, t)
             
 def n_Pi_r2(n, r):
     t = [1]*r
     a = list(range(n))
-    Per_wo_rel2(n, r, 0, a, t)
+    per_w_rep2(n, r, a, t)
 
 n_Pi_r2(5,3)
 ```
 
 
-#### 8. Combination wihtout replacement1
+#### 8. Combination with replacement1
 ```python
 def comb_wo_rel(n, r, a, t):
     if r == 0:
@@ -646,7 +664,7 @@ def nHr(n,r):
 nHr(4,2)
 ```
 
-#### 9. Combination without replacement2
+#### 9. Combination with replacement2
 ```python
 def comb_wo_rel2(n, r, k, s, a, t):
     if k == r:
