@@ -252,7 +252,6 @@ detail.save()
 
 
 
-
 #### 2. distinct()
 
 
