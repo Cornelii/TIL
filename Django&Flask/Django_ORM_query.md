@@ -191,6 +191,8 @@ Qs can be combined with `&`,`|`, and `~` (not query)
 
 example
 ```python
+from django.db.models import Q
+
 ~Q(question__startswith='Who') | Q(question__startswith='What')
 ```
 Furthermore,
