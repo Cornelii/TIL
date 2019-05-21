@@ -189,7 +189,7 @@ const app = new Vue({
 
 
 ## X. Local Storage
-웹 브라우저에 저장되는 영구 Storage
+웹 브라우저에 저장되는 Storage
 > localStroage.setItem(key,val  or object),  getItem(key),  clear()
 
 **브라우저 종료시 내용이 지워지는 sessionStorage도 존재한다.**
@@ -276,4 +276,34 @@ example code
 ```
 
 
-## XII. watch의 활용.
+## XI. etc
+beforeMount
+created
+.
+.
+.
+
+
+## XII. Vue Form
+
+#### 1. v-on and modifiers
+
+There are many modifieres to modify the triggered events.
+like `prevent`, `stop`, and so on.
+
+[vue-modifiers](https://vuejs.org/v2/api/#v-on)
+
+ex)
+`v-on:reset.prevent`
+
+#### 2. Input Modifiers
+modifieres for `v-model`
+
+1. `.number` automatically converts the value into the number
+
+2. `.trim` removes whitespaces
+
+3. `.lazy` only updated when `change` events are triggered
+
+[more-info](https://vuejs.org/v2/api/#v-model)
+
