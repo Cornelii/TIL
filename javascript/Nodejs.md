@@ -112,7 +112,203 @@ let myModule2 = require('./exmample1');
 
 #### 3. npm (node package manager)
 
+[npm-website](https://www.npmjs.com/)
+express, react, axios, others.
 
+#### 4. Event-Driven Architecture
+
+Node is designed to react event which is not known when it is triggered.
+
+```javascript
+let events = require('events');
+
+let myEmitter = new events.EventEmitter();
+// Each event emitter instance has an .on() and .emit() methods.
+// .on()  1st arg => string: name of event, 2nd arg => callback fcn
+```
+
+example
+```javascript
+let events = require('events');
+
+let listenerCallback = (data) => {
+    console.log('Celebrate ' + data);
+}
+
+let myEmitter = new events.EventEmitter();
+
+myEmitter.on('celebration',listenerCallback);
+
+myEmitter.emit('celebration','firstEmit')
+// .emit() also takes two arguments, for the first, event name set by .on(), and second one is the data needed for the callback fcn.
+```
+
+#### 5. Asynchronous Javascript with Node.js
+Some tasks are time-consuming: reading files, querying a database, requests.
+
+Node handles this by event loop that enables user to deal with blocking things in non-blocking way.
+
+`Promise` and `async - await`
+
+
+#### 6. User Input/Output
+example to get input 
+```javascript
+process.stdout.write("blabla something something \n... ");
+
+let play = (userInput) => {
+  let input = userInput.toString().trim();
+};
+
+process.stdin.on('data', play)
+```
+
+[node buffer class](https://nodejs.org/api/buffer.html#buffer_buffer)
+
+
+
+#### 7. Errors
+The Node environment has all the standard javascript errors such as EvalError, SyntaxError, RangeError, ReferenceError, TypeError, and URIError, and Error class.
+`throw`, and `try ... catch`
+
+General Node APIs use error-first callback functions as follows
+```javascript
+const errorFirstCallBack = (err, data) => {
+    if(err)}{
+        console.log('error!');
+    }else{
+        console.log(`no error with data: ${data}`);
+    }
+}
+
+AsyncAPI('problematic input', errorFirstCallback) // AsyncAPI is virtual thing.
+// This syntax does not require try ... catch statement.
+```
+
+#### 8. FileSystem
+All of the data on a computer is organized and accessed through a filesystem. 
+
+Sandboxing: Method to isolate some applications from others.
+`fs` is one of core modules in node w.r.t POSIX (Portable Operating System Interface)
+
+`fs` module has synchronous and asynchronous versions.
+
+one of core method is `.readFile()`
+
+example
+```javascript
+const fs = require('fs');
+
+let readDataCB = (err, data) => {
+    if(err){
+        console.log(`error occurs ${err}`);
+    }else {
+        console.log(`${data}`)
+    }
+};
+
+fs.readFile('./file.txt', 'utf-8', readDataCB);
+//first argument => file path, second => character encoding, third => error-first callback function
+```
+
+##### i. Readable Streams
+For the line by line reading stream.
+1. `readline` core module
+2. `.createInterface()` method (This returns EventEmitter)
+3. `fs.createReadStream()`
+4. `'line'` event
+
+example
+```javascript
+const fs = require('fs');
+const readline = require('readline');
+
+const myInterface = readline.createInterface({
+    input: fs.createReadStream('text.txt')
+});
+
+myInterface.on('line', (fileLine)=>{
+    console.log(`Line read: ${fileLine}`);
+});
+```
+```javascript
+const readline = require('readline');
+const fs = require('fs');
+
+const myInterface = readline.createInterface({
+  input: fs.createReadStream('./shoppingList.txt')
+});
+
+const printData = data=>{
+  console.log(`Item: ${data}`)
+};
+
+myInterface.on('line',printData);
+```
+
+##### ii. Writable Streams
+1. fs.createWriteStream()
+
+example
+```javascript
+const fs = require('fs');
+
+const fileStream = fs.createWriteStream('output.txt');
+
+fileStream.write('This is the first line');
+fileStream.write('This line is the second.');
+fileStream.end();
+```
+
+```javascript
+const readline = require('readline');
+const fs = require('fs');
+
+const myInterface = readline.createInterface({
+  input: fs.createReadStream('shoppingList.txt')
+});
+
+const fileStream = fs.createWriteStream('shoppingResults.txt');
+
+
+const transformData = (data)=>{
+  fileStream.write(`They were out of: ${data}\n`);
+}
+
+myInterface.on('line',transformData);
+```
+
+
+#### 9. Create an HTTP Server
+
+`http` : node core module to listen and return responses.
+
+* `http.createServer()`  This method returns an instance of http.server
+(requestListener call back function is passed in)
+
+http.server has
+* `.listen()` 
+
+**Remarks in requestListener**
+1. two arguments: a request object, and a response object
+2. Each time of a request, node will invoke the provided requestListener.
+3. `response.end()` must to be called to express completion of the interaction.
+
+example
+```javascript
+const http = require('http');
+
+let requestListener = (request, reponse) => {
+    response.writeHead(200, {'Content-Type':'text/plain'});
+    response.write('Hello World!\n');
+    response.end()
+}
+
+const server = http.createServer(requestListener);
+server.listen(3000); // port number http://localhost:3000
+```
+
+[node-http in detail](https://nodejs.org/api/http.html)
 
 ## I. Node with lodash
 
