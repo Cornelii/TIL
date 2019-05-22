@@ -285,7 +285,7 @@ created
 
 
 ## XII. Vue Form
-
+vue for the select, checkbox, radio, etc.
 #### 1. v-on and modifiers
 
 There are many modifieres to modify the triggered events.
@@ -307,3 +307,131 @@ modifieres for `v-model`
 
 [more-info](https://vuejs.org/v2/api/#v-model)
 
+ex)
+
+`v-model.number="var1"`
+
+#### 3. Validation using disabled in button
+```html
+<button type="submit" v-bind:disabled="!formIsValid">Submit</button>
+```
+```javascript
+const app = new Vue({ 
+  el: '#app', 
+  computed: { 
+    formIsValid: function() { ... } 
+  }
+});
+```
+
+## VIII. Manipulating CSS with Vue
+
+#### 1. Inline Style
+example
+```html
+<h2 v-bind:style="{ color: breakingNewsColor, 'font-size': breakingNewsFontSize }">Breaking News</h2>
+```
+**Remarks** To set hyphenated CSS property like `font-size`. quote is necessary!
+
+```javascript
+const app = new Vue({ 
+  data: { 
+    breakingNewsColor: 'red',
+    breakingNewsFontSize: '32px'
+  }
+});
+```
+
+#### 2. Computed Style object
+```html
+<h2 v-bind:style="breakingNewsStyles">Breaking News</h2>
+```
+
+```javascript
+const app = new Vue({ 
+  data: { 
+    breakingNewsStyles: { 
+      color: 'red',
+      'font-size': '32px'
+    }
+  }
+});
+```
+
+#### 3. Multiple Style objects
+example
+```html
+<h2 v-bind:style="[newsHeaderStyles, breakingNewsStyles]">Breaking News</h2>
+```
+
+```javascript
+const app = new Vue({ 
+  data: {
+    newsHeaderStyles: { 
+      'font-weight': 'bold', 
+      color: 'grey'
+    },
+    breakingNewsStyles: { 
+      color: 'red'
+    }
+  }
+});
+```
+
+#### 4. Classes
+example
+
+```html
+<span v-bind:class="{ unread: hasNotifications }">Notifications</span>
+```
+```css
+.unread {
+  background-color: blue;
+}
+```
+
+```javascript
+const app = new Vue({
+  data: { notifications: [ ... ] },
+  computed: {
+    hasNotifications: function() {
+      return notifications.length > 0;
+    }
+  }
+}
+```
+
+v-bind:class takes an object as its value — the keys of this object are class names and the values are Vue app properties that return a truthy or falsy value. If the value is truthy, the class will be added to the element — otherwise it will not be added.
+
+#### 5. Class Arrays
+
+example
+```html
+<span v-bind:class="[{ unread: hasNotifications }, menuItemClass]">Notifications</span>
+```
+
+```javascript
+const app = new Vue({
+  data: { 
+    notifications: [ ... ],
+    menuItemClass: 'menu-item'
+  },
+  computed: {
+    hasNotifications: function() {
+      return notifications.length > 0;
+    }
+  }
+}
+```
+
+```css
+.menu-item {
+  font-size: 12px;
+}
+
+.unread {
+  background-color: blue;
+}
+```
+
+In this example, 'menuItemClass' is applied regardless of condition.
