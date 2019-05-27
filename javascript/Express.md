@@ -3,7 +3,7 @@ Starting a Server
 
 Express is a Node module.
 
-## Express Basics
+## I. Express Basics
 ```javascript
 const express = require('express');
 const app = express();
@@ -139,4 +139,144 @@ app.delete('/people/:id', (req, res, next)=>{
 })
 ```
 
-#### 4. File?!
+#### 4. Express.Router
+
+To use a router, we mount it at a certain path using `app.use()` and pass in the router as the second argument.
+
+```javascript
+const express = require('express');
+const app = express();
+
+app.use(express.static('public'));
+
+const peopleRouter = express.Router();
+app.use('/people', peopleRouter);
+
+// `/people` is assumed to be prepended
+peopleRouter.get('/:id',(req, res, next)=>{
+  //...
+})
+```
+
+##### i. Using multiple router files
+To make code clean with separating each router in its own file.
+
+people.js
+```javascript
+//people.js
+const express = require('express');
+const peopleRouter = express.Router();
+
+peopleRouter.get('/:id', (req, res, next)=>{
+  //...
+})
+
+module.exports = peopleRouter
+```
+
+main.js
+```javascript
+const express = require('express');
+const app = express();
+
+const peopleRouter = require('./people.js');
+
+app.use('/people', peopleRouter);
+```
+
+
+## II. Middleware
+To reduce replication and complexity.
+
+DRY (Don't Repeat Yourself)
+
+MiddleWare: Code that executes between a server receiving a request and sending a response.
+
+`app.use()` takes a callback function that it will call for every received request.
+
+[express-middleware](http://expressjs.com/en/guide/using-middleware.html)
+
+
+#### i. `next()`
+
+example
+```javascript
+app.use((req, res, next)=>{
+  console.log('step1');
+  next()
+})
+
+app.get('/people', (req, res, next)=>{
+  console.log('get2');
+  next()
+})
+
+app.get('/people', (req, res, next)=>{
+  console.log('get3');
+})
+
+app.get('/people', (req, res, next)=>{
+  console.log('get4');
+})
+
+// localhost:4001/people
+// console
+// step1
+// get2
+// get3
+```
+No output is comming regarding get4 because above callback fcn does not explicitly call `next()`.
+
+All the Express routes are middleware!
+
+#### ii. Route-level app.use() - Single Path
+```javascript
+app.use('/url', (req, res, next)=>{
+  // executed regardless of HTTP method!!
+
+  next()
+})
+```
+
+#### iii. Route-level app.use() - Multiple Paths
+`app.use()` also can take an array of paths or regular expression pattern to match patchs as well.
+
+
+#### iv. Middleware Stacks - multiple callback fcn
+for `app.use()`, `app.get()`, `app.post()`, etc.
+exampel
+
+```javascript
+const auth = (res, req, next)=>{
+  //...
+}
+
+const valid = (res, req, next)=>{
+  //...
+}
+
+app.get('/people', auth, valid);
+```
+
+Callback functions will be executed in order.
+
+
+#### v. Open-source Pacakage
+
+ex)
+
+[morgan](https://github.com/expressjs/morgan)
+
+`morgan()` is a function that will return a middleware function.
+
+example
+```javascript
+const express = require('express');
+const app = express();
+const morgan = require('morgan');
+app.use(express.static('public'));
+
+// Logging Middleware (console.log)
+app.use(morgan('tiny'));
+```
+
