@@ -280,3 +280,92 @@ app.use(express.static('public'));
 app.use(morgan('tiny'));
 ```
 
+#### vi. body-parser
+
+```javascript
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
+
+```
+
+### III. Error-Hnadling MiddleWare
+
+Error handling middleware needs to be the last `app.use()` in your file.
+
+we want to make sure it gets passed to our error handler. The middleware stack progresses through routes as they are presented in a file, therefore the error handler should sit at the bottom of the file.
+
+example
+
+```javascript
+//...
+app.use((err, req, res, next)=>{
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
+
+```
+
+As you noticed, error handler is an another middleware with callbackfcn that has one more parameter of `err` than others.
+
+**We can call this error handler in anywhere by using `next()` with argument like `next(someError)`. It will call any applicable error-handling middleware**
+
+example
+```javascript
+app.use((req, res, next)=>{
+  
+  if(error_occured){
+    let someError = new Error('error comments');
+    someError.status = '400';
+    return next(someError);
+  }
+  next();
+})
+
+app.use((err, req, res, next)=>{
+  const status = err.status || 500;
+  res.status(status).send(err.message);
+})
+```
+
+[Several Express Middleware](https://expressjs.com/en/resources/middleware.html)
+
+There is even errorhandler. `errorhandler`
+
+
+## IV. Router Parameters
+middleWare to handle especially routeparameters.
+
+#### i. Router Parameters
+`app.param('paramName', (req, res, next, name)=>{})`
+
+Any routes, which contains `:paramName` in it, goes into `app.param` first rather than its origin routes. 
+
+**Remarks**
+1. No `:` in front of parameter.
+2. There are forth argument in callback function!
+
+example
+```javascript
+app.param('name', (req, res, next, name)=>{
+  people.find(name, (err, val)=>{
+    if (err){
+      next(err);
+    }else if(val){
+      req.name = val;
+      next();
+    }else{
+      next(new Error('No matching name found!'));
+    }
+  })
+})
+```
+
+#### ii. Merge Parameters
+
+
+example
+```javascript
+
+
+```
