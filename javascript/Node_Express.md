@@ -362,10 +362,11 @@ app.param('name', (req, res, next, name)=>{
 ```
 
 #### ii. Merge Parameters
-
-
 example
 ```javascript
+const router1 = express.Router();
+const router2 = express.Router({mergeParams:true});
 
-
+router1.use('/some_url/:param1',  router2);
+// it means. router2 automatically has route of leaindg `/some_url`. And, it enables router2 access to params of router1
 ```
