@@ -5,6 +5,21 @@ djangorestframework & django-rest-swagger
 `pip install django-rest-swagger`
 
 ## djangorestframework
+settings.py
+```python
+#...
+INSTALLED_APPS = [
+     'rest_framework',
+     
+]
+
+
+#...
+
+```
+
+
+
 
 #### 1. User of Serializer
 
