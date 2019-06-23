@@ -110,7 +110,12 @@ FUNCTION bruteforce(String p, String t)
 ```
 time complexity: O(MN)
 
-## 2. KMP algorithm (Knuth-Morris-Pratt algorithm)
+## 2. Karp-Rabin algorithm
+Using Hash
+1. use of previous calculated hash values.
+
+
+## 3. KMP algorithm (Knuth-Morris-Pratt algorithm)
 Remeber where to go. not one step forward => This concept is widely applied in pattern matching algorithm.
 
 **Key: Constructing positioning table!!**
@@ -122,7 +127,7 @@ It seems like repetitive char force index of next word to match with the prior n
 
 time complexity  O(M+N)
 
-## 3. Boyer-Moore Algorithm
+## 4. Boyer-Moore Algorithm
 1. Make skip table
 2. compare last word.
 3. If last word coincides, compare them one by one from right to left
@@ -193,5 +198,42 @@ def boyer_moore(p,t):
 
 
 
-## 4. Kalp-Rabin Algorithm
-Using Hash?!    
+## 5. Suffix Tree
+
+
+
+## 6. Suffix Array
+alphabetical order
+binary search
+
+(LCP, Longest Commen Prefix) - for supporting suffix array
+
+## 7. Coding (Zipping )
+
+D -> {Encoder} -> C(D) -> {Decoder} -> D'
+
+Zipping rate: # of bits C(D) / # of bits  D
+
+
+- Run-Length Encoding
+Run: Repeatitive letters
+Length: Repeatitive counts
+
+ex)
+ABBBBBBBCC => A1B7C2
+
+It is often used for BMP format zipping.
+
+
+- Huffman Coding
+Frequency of characters, Huffman Tree
+
+Huffman Tree: leaf node: characters & frequency, parent node: only frequency. (Binary Tree left node:0, right node:1)
+
+decoding: if bit==0: left node, elif bit==1: elif leaf node: print character.
+
+- Lampel-Ziv-Welch Encoding
+- Arithmetic Coding
+
+
+
