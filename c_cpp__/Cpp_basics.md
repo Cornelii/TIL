@@ -460,15 +460,55 @@ typedef existingTypeName newTypeName;
 ```cpp
 namespace namespaceName
 {
-    members
+    //members
+    int count = 0;
+    const double RATE = 7.50;
+
+    void printResult();
 }
 
-
+namespaceName:printResult();
+// :: is called the scope resolution operator.
 ```
 
+simplification of namespace
+```cpp
 
+// To simplify the accessing of all namespace members 
+using namespace namespace_name;
 
-#### 6. Array
+// To simplify the accessing of a specific namespace member.
+using namespace_name::identifier;
+```
+###### xi. string operators
+
+|Expression|Description|
+|---|---|
+|strVar.at(index) or strVar[index]|Return the element |
+|append(n, ch)|appends n copies of ch|
+|append(str)|*|
+|clear(str)|*|
+|compare(str)|*|
+|empty()|*|
+|erase()|*|
+|erase(pos, n)|*|
+|find(str)|*|
+|find(str, pos)|*|
+|insert(pos, n, ch)|*|
+|insert(pos, str)|*|
+|length()|*|
+|replace(pos, n, str)|*|
+|size()|*|
+|swap(str1)|*|
+
+#### 6. Array and Strings
+
+##### i. Array
+`dataType arrayName[intExp];`
+
+```cpp
+dataType array
+```
 
 
 #### 7. `new`
