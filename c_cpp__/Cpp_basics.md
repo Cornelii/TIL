@@ -506,9 +506,63 @@ using namespace_name::identifier;
 ##### i. Array
 `dataType arrayName[intExp];`
 
+
+##### ii. Array Initializing during declaration.
 ```cpp
-dataType array
+double axis[5] = {0.2, 0.4, 0.6, 0.8, 1.0};
+
+double axis[12] = {0.2, 0.4, 0.6, 0.8, 1.0}; 
+// others are initialized as zeros.
 ```
+
+
+##### iii. Array and Function
+
+**In C++, arrays are passed by reference only.**
+
+No need of `&` for array.
+```cpp
+void initialize(int list[], int listSize){
+    for(int count =0; count < listSize; count++)
+        list[count] = 0;
+}
+```
+
+##### iv. Constant Arrays
+`const dataType identifier[]` => changing is not allowed.
+```cpp
+void example(int x[], const int y[], int sizeX, int sizeY){
+    //changing y is not allowed.
+}
+```
+
+##### v. array and enum types
+
+```cpp
+enum colorType {RED, GREEN, BLUE};
+int channel[3];
+channel[RED] = 255;
+channel[GREEN] = 17;
+channel[BLUE] = 231;
+```
+
+##### vi. Auto declaration and range-based `for` loops
+`for (dataType identifier : arrayName)`
+
+```cpp
+double arr[20];
+
+for (double number : arr){
+
+}
+
+for (auto number : arr){
+
+}
+```
+
+
+
 
 
 #### 7. `new`
