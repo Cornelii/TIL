@@ -561,22 +561,173 @@ for (auto number : arr){
 }
 ```
 
+##### vii. c-string functions
+```cpp
+#include <cstring>
+```
+
+- strcpy(s1,s2)
+- strcmp(s1, s2)
+- strlen(s)
+- etc
+
+
+**Remarks**
+When it comes to `cin & cout` of string, aggregate operation is allowed exceptionally.
+
+```cpp
+cin >> name;
+```
+
+##### viii. multi-dimensional array
+
+```cpp
+//2D array
+double example_array[6][8];
+
+int example2[2][3] = {{4,  7,  1},
+                                    {1, 7, 2},
+                                    }
+
+// when 2d array is saved in memory, c++ use row-order form 1st row -> 2nd row -> 3rd row -> and so on.
+
+// You can not ommit second dimension size in parameterizaing because end of row must be specified for c++.
+void print2D(int array[][num_of_col]){
+
+}
+
+double example_array3[][15][4];
+```
+
+#### 7. structs (records)
+
+
+##### i. struct basic
+```cpp
+struct structName
+{
+    int identifier1;
+    double identifier2;
+    //...
+};
+//Semicolon is essential for struct.
+
+structName myStruct;
+myStruct.identifier1 = 5;
+// .: member access operator.
+
+structName myStruct2;
+myStruct2 = myStruct; // this assignment is available..
+
+```
+
+##### ii. struct & function
+
+- A struct variable can be passed by value or by reference.
+- A struct variable can be returned in a function.
+
+**Remarks**
+struct in struct, array in struct are also possible.
+
+
+#### 8. Classes and Data abstraction
+
+##### i. basic form of class
+```cpp
+class ClassIdentifier
+{
+    public:
+        classMemberList1;
+        void func1();
+        void func2(int) const;
+    private:
+        classMemberList2;
+};
+// semicolon after right brace is a part of syntax!
+
+void ClassIdentifier:func1(){
+    //...
+}
+void ClassIdentifier:func2(int a){
+    //...
+}
+
+
+ClassIdentifier myClass1;
+ClassIdentifier myClass2;
+```
+
+##### ii. member access specifiers
+|member access specifiers|range|
+|---|---|
+|public|outside of class|
+|protected|also accessible in the inheritance class|
+|private|accessible within the class|
+
+*By default, all members of a class are private*
+
+
+**Remarks**
+- Assignment operator works between the same class in member-wise way.
+
+- class object can be passed by value and reference.
+
+- passed by const referecne of class object also works in the same way.
+
+##### iii. Constructors
+Properties of constructor of c++ class
+
+- 1. The name of a constructor is the same as the name of the class
+- 2. A constructor is a function and it has no type. That is, it is neither a value-returning function nor a `void` function.
+- 3. A class cna have more than one constructor(different formal parameter lists)
+- 4. Constructors execute automatically when a class instance is declaresd.
+
+##### iv. constructor & default parameter
+
+```cpp
+class ClassName{
+    ClassName(int = 0, int = 0, int = 0);
+};
+
+ClassName my_class_array[100];
+// class array
+```
+
+##### iv. Destructors
+```cpp
+class ClassName{
+
+    ClassName(){}; // Constructor
+    ~Classname(){}; // Destructor
+};
+```
+
+##### v. static members of a class
+
+A `public static` member, function, or variable of a class can be accessed using the class name and the scope resution operator (`::`)
+
+For each static member variable of a class, C++ allocates only one memory space. `static` member variables of a `class` exist even when no instances of that `class` type exist.
+
+
+#### 9. Inheritance and Composition
+
+- Inheritance ("is-a" relationship)
+- Composition (aggregation) ("has-a" relationship)
+
+
+##### i. Inheritance
+base classes => derived classes
+(superclass) => (subclass)
 
 
 
-
-#### 7. `new`
-
-
-#### 8. Class and Instance
+##### ii. 
 
 
-
-#### 9. Inheritence
+#### 9. `new`
 
 
 
-#### 10. Polymorphism (Overload and Override)
 
 
 #### 11. Virtual Functions
