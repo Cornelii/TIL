@@ -719,9 +719,58 @@ For each static member variable of a class, C++ allocates only one memory space.
 base classes => derived classes
 (superclass) => (subclass)
 
+```cpp
+class className: memberAccessSpecifier baseClassName{
+
+};
+//memberAccessSpecifier: public, private, protected.
+//if memberAccessSpecifier is not assigned, private assumed
+```
 
 
-##### ii. 
+##### ii. Constructors of Derived and Base Classes
+Then, to trigger the exec ution of the base class
+constructor with parameters, we add a colon ( :) to the headjng fo llowed by the name
+of the constructor of the base class with its parameters in the heading of the definition
+of the constructor of the derived class.
+
+```cpp
+class Sub: public Base{
+    Sub(double, double, double);
+};
+
+Sub::Sub(double l, double w, double h) : Base(w, h);
+
+```
+
+##### iii. Destructors in a Derived Class
+Destructors of all class in inheritance tree are invoked automatically in the reverse order.
+sub -> base
+
+
+##### iv. Header file of a derived class
+```cpp
+
+#include "baseClass.h"
+
+class subClass: public baseClass{
+    //...
+};
+```
+
+##### v. Multiple inclusions of a header file
+at header file (example.h)
+```cpp
+#ifndef H_EXAMPLE
+#define H_EXAMPLE
+const int ONE = 1;
+const int TWO = 2;
+#endif
+```
+
+
+##### vi.
+
 
 
 #### 9. `new`
