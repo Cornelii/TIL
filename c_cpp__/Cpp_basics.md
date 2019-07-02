@@ -769,11 +769,33 @@ const int TWO = 2;
 ```
 
 
-##### vi.
+##### vi. Composition
+
+Instance from a class in the other class
+
+##### vii. Features of OOD (object-oriented design)
+
+1. Encapsulation: The ability to combine data and operations on that data in a single unit
+2. Inheritance: The ability to create new objects (classes) from existing objects (classes)
+3. Polymorphism: The ability to use the same expresssion to denote different operations
+
+
+##### viii. Identifying Classes, Objects, and Operations
+
+Choose classes from the list of nouns, and operations from the list of verbs.
 
 
 
-#### 9. `new`
+
+
+#### 9. Pointer, Classes, Virtual methods, Abstrcat classes
+
+##### i. Pointer variable
+A variable whose content is an address(memory address)
+
+`dataType *identifier;`
+
+
 
 
 
