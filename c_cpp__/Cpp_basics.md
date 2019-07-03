@@ -795,7 +795,41 @@ A variable whose content is an address(memory address)
 
 `dataType *identifier;`
 
+`&` get address, `*` dereferencing
 
+
+##### ii. Classes, Structs, and Pointer Variables
+```cpp
+
+struct people{
+    char name[20];
+    int age;
+    int ID;
+    char occupation[50];
+};
+
+people person1;
+people *person1Ptr; // pointer variable of people type.
+
+person1Ptr = &person1;
+
+(*person1Ptr).age = 30; 
+```
+**Remarks `.(dot) has higher precedence than *!!!`**
+`*person1Ptr.age does not work in this case.`
+
+
+**member access operator arrow**
+`pointerVarName -> classMemberName`
+```cpp
+(*person1Ptr).age = 30;
+person1Ptr -> age = 30;
+```
+
+##### iii. Initializing Pointer Variables
+Pointer variables are initialized using the constant `0` or `nullptr`, null pointer.
+
+##### iv. Dynamic Variables
 
 
 
