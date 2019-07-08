@@ -830,13 +830,195 @@ person1Ptr -> age = 30;
 Pointer variables are initialized using the constant `0` or `nullptr`, null pointer.
 
 ##### iv. Dynamic Variables
+```cpp
+new dataType;
+new dataType[intExp];
 
+delete identifier;
+delete [] array_identifier;
+```
 
+```cpp
+int *p = new int;
+int *q = new int[500];
 
+// Deallocation is necessary for dynamic variables
+delete p;
+delete []q;
+```
 
+#### 10. Dynamic Arrays
+
+**Remarks**
+1. Range-based for loop `for(int x: array-identifier){}` is unavailable with dynamic array
+
+##### i. functoins and pointers
+```cpp
+void example_function(int * &p, char *q){}
+// for the p, example_function can change values of p and *p
+//for the q, example_fuinction only can change the value of *q.
+```
+
+```cpp
+int * example2 {};
+// pointer can be returned.
+```
+
+##### ii. Dynamic Two-Dimensional Arrays
+```cpp
+int ** matrix;
+int row = 100;
+int col = 50;
+
+matrix = new int*[row]; // row
+for (int i=0; i < row; i++){
+    matrix[i] = new int*[col];
+}
+// For the `int ** matrix`, matrix is for access array, which comes first, *matrix is for second one.
+```
+
+##### iii. Shallow Copy versus Deep Copy
+Shallow Copy actually pointing same array memory address.
+
+##### iv. When using dynamic variable in class.
+Use destructor to deallocate the memory of it.
+
+**Remarks**
+Assignment operator `=` copies member array in the shallow way.
+
+##### v. copy constructor
+```cpp
+
+class ClassName{
+    ClassName();
+    ~ClassName();    
+    ClassName(const ClassName& identifier);
+};
+
+ClassName::ClassName(const ClassName& identifier){
+
+}
+
+```
 
 #### 11. Virtual Functions
+C++ allows the user to pass an object of a derived class to a formal parameter of the base class type.
 
 
-#### 12. Etc
+In this case, **at compile time,** the compiler associates the same-named method of the declarative class type.
+```cpp
+void example_fcn(BaseClass object1){}
+
+BaseClass base_object;
+DerivedClass derived_object;
+
+example_fcn(base_object); // it is.
+example_fcn(derived_object); // allowed
+//However, when calling the overrided method in the fuction, it is binded with the BaseClass at compile time by method definition.
+```
+
+**To resolve this=> Virtual Functions**
+run-time binding, late binding, or dynamic binding
+
+
+```cpp
+virtual void the_method();
+```
+
+`virtual` function enables that a base class object can use the derived class's method definition in running-time.
+
+**Remarks**
+We need to declare a `virtual` function only in the base class.
+
+
+##### i. assignment, pointer assignment
+```cpp
+BaseClass base_object;
+DerivedClass derived_object;
+
+base_object = derived_object; //This is allowed.
+//But, only members of BaseClase survive (Slicing Problems)
+
+BaseClass * base_object = new BaseClass()
+DerivedClass * derived_object = new DerivedClass()
+
+base_object = derived_object // no slicing probs
+```
+
+**Remarks**
+If a base class contains virtual functions, make the destructor of the basse class virtual.
+
+##### ii. Abstract class and pure virtual functions
+Abstract class: class contain at least one pure virtual function.
+
+pure virtual function:
+`virtual void draw() = 0;'`, `=0` before semicolon.
+
+
+##### iii. reference as alias
+```cpp
+int x;
+int &y = x;
+
+int & example_fcn(){
+    return x;
+}
+// const before returnType of function definition prevent unwanted change in private number by returning reference!!
+const int & example_fcn(){
+    return y;
+}
+
+```
+
+
+#### 12. Operator Overloading & Template
+In order to overload an operator, you must write function using keyword `operator`
+
+`returnType operator operatorSymbol(formal parameter list){}`
+
+##### i. Restrictions in overloading an operator
+- The associativity can not be changed (left to right)
+- Default parameters are not allowed
+- Can not change the number of parameters an operator takes
+- Can not create new operator.
+- `.`, `.*`, `::`, `?:`, `sizeof` can not be overloaded
+- Can not redefine how operators work with built-in data types such as `int`, `double`.
+
+
+##### ii. Pointer `this`
+`this`: address of instance
+`*this`: content of instance
+
+##### iii. Friend Functions of Classes
+A friend function of a class is a nonmember function of the class. But, it has access to all of the members even `private`.
+
+`friend` (in the class definition)
+
+- A friend function is not a member of any class. So, it can be defined out of `private`, `protected`, and `public`. (They are typically placed before any method definition)
+  
+
+**Function Definition after prototype at a class**
+without `::`, and `friend`
+
+**Remarks**
+Insertion & extraction operators can be overloaded only as `friend` functions.
+
+
+##### iv. Operator Function as member functions and nonmember functions
+
+
+
+
+
+
+
+#### 13. Error Handling
+
+
+
+
+
+
+
+
 
