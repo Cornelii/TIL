@@ -1006,18 +1006,118 @@ Insertion & extraction operators can be overloaded only as `friend` functions.
 
 ##### iv. Operator Function as member functions and nonmember functions
 
+- `()`, `[]`, `->`, or `=` for a class must be declared as a member of the class
+- Let some operator `op` is overloaded for `opClass`.
+  - 1. If the far left operand of `op` is an object of a different type(not `opClass`), the function must be a nonmember that is a friend of the class `opClass`.
+  - 2. If the operator function for `op` is a member of  `opClass`, then when applying `op` on objects of `opClass`, the far left operand of `op` must be of type `opClass`
 
 
+
+##### v. Overloading Binary Operators
+let `#` represent a binary operator.
+
+###### 1. As member functions
+`instance1 # instance2`, The compiler translates this into the `instance1.operator#(instance2)`
+
+`instacne1` invokes `operator#` function. And, `instance2` passes as a parameter.
+
+
+
+**[function prototype]**
+`returnType operator#(const className$) const;` in class
+
+**[function definition]**
+```cpp
+returnType className::operator#(const className& otherObject) const {
+
+    return some_value;
+}
+```
+
+###### 2. As nonmember functions
+`instance1 # instance2`, => `operator#(instance1, instance2)`
+
+**[function prototype]**
+`friend returnType operator#(const className&, const className&)`
+
+**[function definition]**
+```cpp
+returnType operator#(const className& firstObject, const className& secondObject){
+    return some_value;
+}
+```
+
+
+##### vi. Overloading the stream insertion operator(<<)
+
+If an operator function is a member function of a class, then thye leftmost operand of that operation must be an object of that class. Therefore, the operator function `<<`, `>>` must be a nonmember function of that class.
+
+example
+`cout << instance1`
+`cout`: opstream object, not the instance of the class (instance1)
+
+**[function prototype]**
+`friend ostream& operator<<(ostream&, const className&)`
+
+**[function definition]**
+```cpp
+ostream& operator<<(ostream& osObject, const className& cObject){
+    //...
+    return osObject;
+}
+```
+
+- Both are reference parameters.
+- osObject is a reference to an ostream
+- The function returnType is a reference to an ostream
+`cout << instance1` <=> `operator<< (cout, instance1)`
+
+
+##### vii. Overloading the stream extraction operator(>>)
+
+**[function prototype]**
+`friend istream & operator>>(istream&, className&)`
+
+**[function definition]**
+```cpp
+istream& operator>>(istream& isObject, className& cObject){
+    //...
+    return isObject;
+}
+
+```
+
+##### viii. Overloading the assignment operator (=)
+In the pristine state, the assignment operator causes a member-wise copy of the member variables of the class.
+*work well for nonpointer member variables*
+
+**Remarks**
+`operator=` must be a member of that class.
+
+**[function prototype]**
+`const className& operator=(const className&);`
+
+**[function definition]**
+```cpp
+const className& className::operator=(const className& rightObject){
+    //...
+    if(this != &rightObject){ // To avoid self-assignment
+
+    }
+    return *this;
+}
+```
+- There is only one formal parameter
+- parameter, and returnType => `const`
+- It must return reference type.
+
+
+##### ix. Overloading Unary Operators
 
 
 
 
 #### 13. Error Handling
-
-
-
-
-
 
 
 
