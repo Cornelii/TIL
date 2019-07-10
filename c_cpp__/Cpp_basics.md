@@ -1113,12 +1113,165 @@ const className& className::operator=(const className& rightObject){
 
 
 ##### ix. Overloading Unary Operators
+- 1. If the operator function is a member of the class, it has no parameters
+- 2. If the operator function is a nonmember, which is a friend function of the class, it has one parameter.
 
+
+##### x. Overloading the increment (++) and decrement (--) operators
+It has two forms: pre- `++u`, post- `u++`
+For the pre- `++u`, in the case that `u` is `int`, `u` is incremented by 1 before `u` is used. Contrarily
+
+
+###### 1. overloading the pre-increment(decrement) operators
+we will use pointer `this` to return the object's value.
+
+**[function prototype]**
+`className operator++();`
+
+**[function definition]**
+```cpp
+className className::operator++()
+{
+
+    return *this;
+}
+```
+
+**Remarks**
+pre-incremet(decrement) operators can also be nonmembers of the class
+
+**[function prototype]**
+`friend className operator++(className&);`
+
+**[function definition]**
+```cpp
+className operator++(className& incObj)
+{
+
+    return incObj;
+}
+```
+
+###### 2. overloading the post-increment(decrement) operators
+
+As a member of a class
+**dummy parameter** is used to distinguish the post- and pre-increment(decrement) operators in only function prototype.
+
+
+**[function prototype]**
+`className operator++(int);`
+
+**[function definition]**
+```cpp
+className className::operator++(int u)
+{
+    className temp = *this;
+    // increment the object
+    return temp;  // return old value!!
+}
+```
+
+`instance1++` <=> `instacne1.operator++(0)`
+
+
+As a nonmember of the class
+
+
+**[function prototype]**
+`friend className operator++(className&, int);`
+
+**[function definition]**
+```cpp
+className operator++(className& incObj, int u)
+{
+    className temp = incObj;
+        // increment incObj;
+    return temp; // return old value
+}
+
+```
+
+
+##### xi. Classes and Pointer Member Variables
+Classes with pointer member variables must:
+1. Explicitly overload the assignment operator
+2. Include the copy constructor
+3. Include the destructor
+
+
+##### xii. Overloading the Array Index(Subscript)
+
+`operator[]` must be a member of the class.
+
+`Type& operator[](int index);`
+
+for constant array
+`const Type& operator[](int index) const;`
+`Type` is the data type of the array elements in class
+
+
+#### 13. Templates
+Templates in C++ allow you to write a single code segment for a set of related functions, called a function template, and for a set of related classes, called a class template.
+
+```cpp
+template <class Type>
+declaration;
+//Type : the name of a data type
+// declaration : function of class declaration.
+// class in <> can be replaced with the keyword typename
+// Type is refered to as a formal parameter to the template
+```
+
+#### i. Function Templates
+```cpp
+template <class Type>
+Type larger(Type x, Type y){
+
+    //...
+}
+```
+
+#### ii. Class Templates
+```cpp
+template<class elemType>
+class className{
+    public:
+        int a=4;
+    protected:
+        elemType class_array[100];
+        int length;
+};
+
+className<int> instance;
+
+```
+*template instantiations*
+A template instantiation can be done with either a built-in or user-defined type.
+
+**Remarks**
+functions in class template are considered function template!!!!
+
+For the function definition in class template
+```cpp
+template <class elemType>
+void className<elemType>::method1(elemType newElement){
+
+}
+```
+
+#### iii. Header file and implementation file of a class template
+
+definition of the class(in the header file)
+definitions of the member functions(in the implementation file). This separation does not work on class template!
+
+solution
+1. all in the client code
+2. all in the same header file
+3. seprated but include a directive to the implementation file at the end of the header file.
 
 
 
 #### 13. Error Handling
-
 
 
 
