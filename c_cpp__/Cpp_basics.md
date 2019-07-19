@@ -1272,6 +1272,233 @@ solution
 
 
 #### 13. Error Handling
+```cpp
+try{
+    //statements that should not be executed if an exception occurs
+}catch(dataType1 identifier1){
+    //exception-handling code
+}catch(dataType2 identifier2){
+    //exception-handling code
+}catch(...){
+    // ellipses (three dots) is meant to catch any type of exception.
+}
+```
+**Remarks**
+In the following code block
+```cpp
+catch (int x){
+    //...
+}
+```
+- `x` is catch block parameter
+- This `catch` block can catch an exception of type `int`
+- A catch block can have at most one catch block parameter.
+
+(placeholder)
+
+##### i. Throwing an exception
+`throw expression;`
+expression is a value, variable, or object.
+
+```cpp
+int x = 5;
+string str = "Somthing is wrong!";
+
+throw str;
+throw x;
+throw string("Exception found!");
+
+```
+
+**Remarks**
+When it comes to the order of `catch` blocks,
+when exception occurs, it looks for proper `catch` block in order!!.
+You have to be careful to arrange them.
+
+ex) `catch` block with (ellipses)`...` must be positioned last.
 
 
+```cpp
+    int dividend, divisor;
+    double quotient;
+    try{
+        cin >> dividend >> divisor;
+
+        if(divisor == 0)
+            throw 0;
+    }catch(int x){
+        cout << "Division by 0." << endl;
+    }
+
+    return  0;
+```
+
+
+##### ii. Using C++ Exception Classes
+
+All derived class of the `class exception` override the method `what` to issue their own error message.
+
+in the header file `stdexcept`
+1. `logic_error`
+    - invalid_argument
+    - out_of_range
+    - length_error
+    - bad_alloc
+    - etc
+
+2. `runtime_error`
+    - overflow_error
+    - underflow_error
+    - etc
+
+example
+```cpp
+try{
+
+}catch(out_of_range re){
+    re.what();
+}catch(length_error le){
+    le.what();
+}
+```
+
+##### iii. Creating Your own Exception Classes
+A simple class
+```cpp
+class MyOwnException{};
+
+throw MyOwnException();
+```
+
+Own Exception with members
+```cpp
+class MyOwnException{
+    public:
+        MyOwnException(){
+            message = "Division by zero";
+        }
+        MyOwnException(string str){
+            message = str;
+        }
+        string what(){
+            return message;
+        }
+    private:
+        string message;
+};
+
+
+try{
+
+    throw MyOwnException()
+}catch(MyOwnException moe){
+    moe.what();
+}
+```
+
+
+##### iv. Rethrowing and Throwing Exception
+To put together regarding exception-handling exception codes, (in function)
+
+`throw`
+or
+`throw expression`
+
+example
+```cpp
+#include <iostream>
+#include "divisionByZero.h"
+
+using namespace std;
+
+void throwExcep() throw (int, string, divisionByZero);
+
+int main(){
+    try{
+        throwExcep();
+    }catch (divisionByZero divByZeroObj){
+        cout << divByZeroObj.what() << endl;
+    }
+
+    return 0;
+}
+
+
+void throwExcep() throw (int, string, divisionByZero){
+
+    try{
+        //statements
+
+        if(divisor == 0)
+            throw divisionByZero("0-division");
+    }catch(divisionByZero){
+        throw;
+    }
+}
+
+```
+
+
+#### 14. Vector Type
+
+`#include<vector>`
+
+##### i. basic declaration & methods
+```cpp
+#include <vector>
+
+vector<elemType> vecList;
+//vector<elemType> vecList(othervecList);
+//vector<elemType> vecList(size);
+//vector<elemType> vecList(n , initialValue);
+
+
+//vecList.at(index);
+//vecList[index];
+//vecList.front()
+//vecList.back()
+//vecList.clear()
+//vecList.push_back(input_value)   : like append
+//vecList.pop_back()
+//vecList.empty()
+//vecList.size()
+//vecList.max_size()
+```
+
+##### ii. use with `for`
+```cpp
+vecter<int> intList(5);
+
+for (int j = 0; j < 5; j++)
+    intList[j] = j;
+```
+
+```cpp
+vector<int> intList;
+unsigned int i;
+intList.push_back(15);
+intList.push_back(7);
+
+for (i = 0; i < intList.size(); i++)
+    cout << intList[i] << endl;
+
+
+for (auto j : intList)
+    cout << j << endl;
+    
+``` 
+
+##### iii. Into the function
+
+```cpp
+void doubleList(vector<int> &list){
+    for (auto &p : list)
+        p = p*2;
+}
+
+// Is & in front of p really needed?!
+```
+
+
+#### 15. Linked List
 

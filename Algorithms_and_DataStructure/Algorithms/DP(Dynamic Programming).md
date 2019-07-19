@@ -23,6 +23,13 @@ $$
 
 
 
+#### 1. Overlapping subproblems
+Recurrence relation. Repetitive use of subsolution.
+
+#### 2. Optimal substructure
+Principle of Optimality: If a solution is a optimal solution, the solution of the sub problems, which constructs the problem, are also optimal
+
+
 
 ## II. Path in Matrix Problem
 
