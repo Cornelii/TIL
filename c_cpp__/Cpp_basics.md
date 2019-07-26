@@ -91,6 +91,10 @@ int main(){
     cin.clear(); 
     cin.ignore(200, '\n'); // To remove garbage from the input stream.
 
+    // To make fixed decimal part fixed & setprecision
+    cout << fixed << setprecision(3);
+
+
     return 0;
 }
 
@@ -397,7 +401,7 @@ If a function needs to return more than one value, change it to a void function 
 
 **Remarks**
 1. C++ does not allow nested functions in a function.
-2. The initialized variable in `for` loop is onyl accesible in the `for` block.
+2. The initialized variable in `for` loop is only accesible in the `for` block.
 
 ##### vi. Static and Automatic Variables
 
@@ -467,7 +471,7 @@ namespace namespaceName
     void printResult();
 }
 
-namespaceName:printResult();
+namespaceName::printResult();
 // :: is called the scope resolution operator.
 ```
 
@@ -645,10 +649,10 @@ class ClassIdentifier
 };
 // semicolon after right brace is a part of syntax!
 
-void ClassIdentifier:func1(){
+void ClassIdentifier::func1(){
     //...
 }
-void ClassIdentifier:func2(int a){
+void ClassIdentifier::func2(int a){
     //...
 }
 
@@ -872,7 +876,7 @@ int col = 50;
 
 matrix = new int*[row]; // row
 for (int i=0; i < row; i++){
-    matrix[i] = new int*[col];
+    matrix[i] = new int[col];
 }
 // For the `int ** matrix`, matrix is for access array, which comes first, *matrix is for second one.
 ```
@@ -914,7 +918,7 @@ DerivedClass derived_object;
 
 example_fcn(base_object); // it is.
 example_fcn(derived_object); // allowed
-//However, when calling the overrided method in the fuction, it is binded with the BaseClass at compile time by method definition.
+//However, when calling the overrided method in the function, it is binded with the BaseClass at compile time by method definition.
 ```
 
 **To resolve this=> Virtual Functions**
@@ -952,7 +956,7 @@ If a base class contains virtual functions, make the destructor of the basse cla
 Abstract class: class contain at least one pure virtual function.
 
 pure virtual function:
-`virtual void draw() = 0;'`, `=0` before semicolon.
+`virtual void draw() = 0;`, `=0` before semicolon.
 
 
 ##### iii. reference as alias
@@ -1249,9 +1253,9 @@ className<int> instance;
 A template instantiation can be done with either a built-in or user-defined type.
 
 **Remarks**
-functions in class template are considered function template!!!!
+Methods in class template are considered function template!!!!
 
-For the function definition in class template
+For the method definition in class template
 ```cpp
 template <class elemType>
 void className<elemType>::method1(elemType newElement){
@@ -1496,9 +1500,5 @@ void doubleList(vector<int> &list){
         p = p*2;
 }
 
-// Is & in front of p really needed?!
+// vector is a class! without & => copy constructor
 ```
-
-
-#### 15. Linked List
-
