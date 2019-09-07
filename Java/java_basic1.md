@@ -218,7 +218,7 @@ Member[] array2={new Member(), new Member()}
 byte -> (short, char) -> int -> long -> float -> double
 **2. Explicit conversion **
 ```java
-float a= 100.0;
+float a= 100;
 int b=100.0F;  // These do not work
 
 float a=(float)100.0;

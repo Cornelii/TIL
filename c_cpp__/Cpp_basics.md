@@ -1263,6 +1263,20 @@ void className<elemType>::method1(elemType newElement){
 }
 ```
 
+For the constructor or destructor
+```cpp
+template<class elemType>
+class Constructor{
+    Constructor();
+};
+
+template <class elemType>
+Constructor<elemType>::Constructor(){
+
+}
+//<elemType> is needed! because it is also used when declaring its instances.
+```
+
 #### iii. Header file and implementation file of a class template
 
 definition of the class(in the header file)
