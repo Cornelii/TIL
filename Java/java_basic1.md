@@ -179,7 +179,7 @@ String st = i.toString();
 
 ```
 
-#### Arry
+#### Array
 
 ```java
 int [] array1=new int[10];
