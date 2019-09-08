@@ -30,7 +30,17 @@ public class Verification {
 		System.out.println(queue.dequeue());
 		System.out.println(queue.isEmpty());
 		
+		System.out.println("LinkedList Test");
 		
+		LinkedList myList = new LinkedList();
+		myList.append(5);
+		myList.append(7.7);
+		System.out.println(myList.elementAt(0));
+		System.out.println(myList.elementAt(1));
 		
+		myList.insert("Hello World", 0);
+		System.out.println(myList.elementAt(0));
+		
+		System.out.println(myList.elementAt(-1));
 	}
 }
