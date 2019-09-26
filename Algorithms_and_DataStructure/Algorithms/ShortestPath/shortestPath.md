@@ -116,5 +116,90 @@ However, Negative Cycle is not allowed.
 
 BellmanFord can detect Negative Cycle at the Nth iteration.
 
+java example
+```java
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
+
+class P4 {
+	int from, to, weight;
+	public P4(int from, int to, int weight){
+		this.from = from;
+		this.to = to;
+		this.weight = weight;
+	}
+}
+
+public class BellmanFord {
+	
+	static BufferedReader BR = new BufferedReader(new InputStreamReader(System.in));
+	static BufferedWriter BW = new BufferedWriter(new OutputStreamWriter(System.out));
+	static StringTokenizer ST;
+	static StringBuilder ANSWER;
+	static int N, M;
+	static ArrayList<P4> Edges;
+	static int[] D = new int[1000];
+	static final int INF = 89765432;
+	static boolean NC = false;
+	
+	public static void main(String[] args) throws Exception {
+		ST = new StringTokenizer(BR.readLine().trim());
+		N = Integer.parseInt(ST.nextToken());
+		M = Integer.parseInt(ST.nextToken());
+		Edges = new ArrayList<P4>();
+		int a, b, c;
+		for(int i = 0; i < M; i++){
+			ST = new StringTokenizer(BR.readLine().trim());
+			a = Integer.parseInt(ST.nextToken());
+			b = Integer.parseInt(ST.nextToken());
+			c = Integer.parseInt(ST.nextToken());
+			Edges.add(new P4(a, b, c));
+		}
+		ANSWER = new StringBuilder();
+		BellmanFord(1);
+		
+		if(!NC){
+			for(int i = 2; i < N+1; i++){
+				if(D[i] == INF) ANSWER.append(-1);
+				else ANSWER.append(D[i]);
+				ANSWER.append('\n');
+			}
+		}else
+			ANSWER.append(-1).append('\n');
+		BW.write(ANSWER.toString());
+		
+		BW.close();
+		BR.close();
+	}
+	
+	public static void BellmanFord(int s){
+		int iter = 0;
+		for(int i = 1; i < N+1; i++) D[i] = INF;
+		D[s] = 0;
+
+		while(iter < N - 1){
+			for(P4 curNode: Edges){
+				if(D[curNode.from]!=INF && D[curNode.to] > D[curNode.from]+curNode.weight){
+					D[curNode.to] = D[curNode.from] + curNode.weight;
+				}
+			}
+			iter++;
+		}
+		// Nth iteration to detect Negative Cycle
+		for(P4 curNode: Edges){
+			if(D[curNode.from]!=INF && D[curNode.to] > D[curNode.from]+curNode.weight){
+				NC = true;
+				break;
+			}
+		}
+	}
+}
+
+```
+
 
 ## III. Floyd-Warshall
