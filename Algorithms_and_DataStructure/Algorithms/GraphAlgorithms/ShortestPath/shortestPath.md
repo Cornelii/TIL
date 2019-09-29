@@ -116,6 +116,9 @@ However, Negative Cycle is not allowed.
 
 BellmanFord can detect Negative Cycle at the Nth iteration.
 
+**Remarks**
+ - To check out exactly negative cycle, when comparing,  `D[curNode.from]!=INF ` is necessary!
+
 java example
 ```java
 import java.io.BufferedReader;
@@ -203,3 +206,57 @@ public class BellmanFord {
 
 
 ## III. Floyd-Warshall
+
+Shortest Path between all pair!
+
+**Remarks** Bypass node should be most up side on for loops!
+
+```cpp
+#include <iostream>
+using namespace std;
+
+#define MAX_N 101
+
+int N, M, d[MAX_N][MAX_N];
+const int INF = 89765432;
+
+int main() {
+	ios_base::sync_with_stdio(0); cin.tie(0);
+	cin >> N; cin >> M;
+	int a, b, w;
+
+	for (int i = 1; i < N + 1; i++) {
+		for (int j = 1; j < N + 1; j++) {
+			d[i][j] = INF;
+		}
+	}
+
+	for (int i = 0; i < M; i++) {
+		cin >> a >> b >> w;
+		if (w < d[a][b])
+			d[a][b] = w;
+	}
+
+	//Floyd-Warshall
+	for (int k = 1; k < N + 1; k++) {
+		for (int i = 1; i < N + 1; i++) {
+			if (k == i) continue;
+			for (int j = 1; j < N + 1; j++) {
+				if (i == j || k == j) continue;
+				if (d[i][j] > d[i][k] + d[k][j]) d[i][j] = d[i][k] + d[k][j];
+			}
+		}
+	}
+
+	for (int i = 1; i < N + 1; i++) {
+		for (int j = 1; j < N + 1; j++) {
+			if (d[i][j] != INF) printf("%d ", d[i][j]);
+			else printf("0 ");
+		}
+		printf("\n");
+	}
+
+	return 0;
+}
+```
+
