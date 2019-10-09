@@ -8,6 +8,8 @@ Directed Positive-weight Graph
  - Dijkstra only need V-1 selection with several update regarding adjacent edges.
  - When using the priority queue, `continue` for already selected node by higher weight is necessary for speed!
 
+ - Dijkstra is for 1: N shortest Path, It easily can be N: 1 by reversing simply edges.
+
 example
 ```java
 package javas;
