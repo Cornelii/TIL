@@ -376,7 +376,7 @@ functionType functionName(formal parameter list)
 ```
 
 ##### iii. Function prototype
-funtion heading without its body, terminated with semicolon ;
+funtion heading without its body, but with semicolon ;
 
 ##### iv. return
 Return can only return one value.(last value.)
@@ -595,7 +595,7 @@ int example2[2][3] = {{4,  7,  1},
 
 // when 2d array is saved in memory, c++ use row-order form 1st row -> 2nd row -> 3rd row -> and so on.
 
-// You can not ommit second dimension size in parameterizaing because end of row must be specified for c++.
+// You can not ommit second dimension size in parameters because end of row must be specified for c++.
 void print2D(int array[][num_of_col]){
 
 }
