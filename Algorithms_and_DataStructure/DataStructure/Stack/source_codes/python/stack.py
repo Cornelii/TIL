@@ -12,24 +12,23 @@ class Stack(Node):
     def push(self, val):
         tmp = self.top
         self.top = Node(val)
-        if self.count:
-            self.top.prior = tmp
-        self.count += 1 
+        self.top.prior = tmp
+        self.count += 1
 
     def pop(self):
-        if self.top == None:
+        if not self.top:
             raise IndexError("Stack is Empty")
-        
-        tmp = self.top.val
+
+        tmp = self.top
         self.top = self.top.prior
         self.count -= 1
-        return tmp
+        return tmp.val
 
     def isEmpty(self):
         return self.count == 0
 
     def peek(self):
-        if self.top == None:
+        if not self.top:
             raise IndexError("Stack is Empty")
-            return 0
+        
         return self.top.val
