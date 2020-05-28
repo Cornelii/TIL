@@ -32,3 +32,12 @@ class Stack(Node):
             raise IndexError("Stack is Empty")
         
         return self.top.val
+
+
+
+# 2. Just use List
+stack = []
+stack.append(6) # push
+stack[-1] # peek
+stack.pop() # pop
+len(stack) == 0 # isEmpty

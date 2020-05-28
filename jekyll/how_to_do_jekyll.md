@@ -1,5 +1,16 @@
 # How to jekyll
 
+## install gem, bundle, jekyll on Linux Ubuntu
+```
+sudo apt-get install ruby-full build-essential zlib1g-dev
+
+echo '# Install Ruby Gems to ~/gems' >> ~/.bashrc
+echo 'export GEM_HOME="$HOME/gems"' >> ~/.bashrc
+echo 'export PATH="$HOME/gems/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+
+gem install jekyll bundler
+```
 
 ## I. Start Jekyll
 ```
@@ -11,6 +22,8 @@ cd myblog
 
 bundle exec jekyll serve
 # ruby v2.4 > required, gem -v, gcc -v, make -v
+# if this doesn't operate server. user below command
+# bundle install --no-deployment
 ```
 
 ```
